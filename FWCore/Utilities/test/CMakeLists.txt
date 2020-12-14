@@ -1,0 +1,17 @@
+#target.symbol Exception_t
+#target.symbol EDMException_t
+#target.symbol TestHelper_t
+#target.symbol value_ptr_t
+#target.symbol atomic_value_ptr_t
+#target.symbol Digest_t
+#target.symbol CRC32Calculator_t
+#target.symbol Guid_t
+#target.symbol typedefs_t
+#target.symbol HRTime_t
+#target.symbol isFinite_t
+#target.symbol clone_ptr_t
+#target.symbol MallocOpts_t
+#target.symbol testFWCoreUtilities
+#target.symbol testFWCoreUtilitiesCatch2
+#target.symbol InputTag_t
+#target.symbol RunningAverage_t

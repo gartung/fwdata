@@ -1,0 +1,4 @@
+#target.symbol testParameterSet
+#target.symbol TestFWCoreParameterSetDescription
+#target.symbol TestFWCoreParameterSetDriver
+#target.symbol testDefaultModuleLabel

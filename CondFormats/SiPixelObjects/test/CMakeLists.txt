@@ -1,0 +1,2 @@
+#target.symbol SiPixelObjectsTest
+#target.symbol testSerializationSiPixelObjects

@@ -1,0 +1,2 @@
+#target.symbol CondFormatsMFObjectsTest
+#target.symbol testSerializationMFObjects

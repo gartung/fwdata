@@ -1,0 +1,4 @@
+#target.symbol GeometryCommonTopologiesTestPlugins
+#target.symbol GeometryCommonTopologiesTestDriver
+#target.symbol testDetSort
+#target.symbol testGeomDetEnumerators

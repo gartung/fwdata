@@ -1,0 +1,3 @@
+#target.symbol testSerializationPPSTimingCalibration
+#target.symbol testSerializationBeamParameters
+#target.symbol testSerializationLHCOpticalFunctionsSet

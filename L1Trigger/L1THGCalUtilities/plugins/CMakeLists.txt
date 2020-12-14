@@ -1,0 +1,3 @@
+#target.symbol L1TriggerL1THGCalUtilitiesPlugins_ntuples
+#target.symbol L1TriggerL1THGCalUtilitiesPlugins_selectors
+#target.symbol L1TriggerL1THGCalUtilitiesPlugins_calotruth

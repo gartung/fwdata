@@ -1,0 +1,11 @@
+#target.symbol cmscond_key_mgr
+#target.symbol cmscond_to_lumiid
+#target.symbol cmscond_from_lumiid
+#target.symbol cmscond_authentication_manager
+#target.symbol conddb_test_gt_load
+#target.symbol conddb_test_gt_perf
+#target.symbol conddb_import
+#target.symbol conddb_copy_iov
+#target.symbol conddb_test
+#target.symbol conddb_test_read
+#target.symbol conddb_edit_tag

@@ -1,0 +1,2 @@
+#target.symbol testSerializationLuminosity
+#target.symbol testSerializationLumiCorrections

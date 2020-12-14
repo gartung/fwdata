@@ -1,0 +1,1 @@
+#target.symbol test_TFileAdaptor_TFile

@@ -1,0 +1,6 @@
+#target.symbol TestFWCorePluginManagerPluginFactoryManager
+#target.symbol TestFWCorePluginManagerPluginManager
+#target.symbol TestFWCorePluginManagerCacheParser
+#target.symbol TestFWCorePluginManagerPluginFactory
+#target.symbol TestFWCorePluginManagerDummyFactory
+#target.symbol TestFWCorePluginManagerDummyPlugins

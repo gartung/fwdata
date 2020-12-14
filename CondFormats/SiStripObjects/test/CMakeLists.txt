@@ -1,0 +1,3 @@
+#target.symbol TestSiStripLatency
+#target.symbol TestCondFormatsSiStripObjects
+#target.symbol testSerializationSiStripObjects
