@@ -14,6 +14,6 @@ add_dependencies( ALL_LIBS CondFormatsSerialization)
 install( TARGETS CondFormatsSerialization DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR} EXPORT stitched::)
 
 target_link_libraries(CondFormatsSerialization PUBLIC
-Boost::serialization
+${Boost_SERIALIZATION_LIBRARY_RELEASE}
 )
 

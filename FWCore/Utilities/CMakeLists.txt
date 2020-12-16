@@ -61,7 +61,7 @@ target_link_libraries(FWCoreUtilities PUBLIC
 ${MD5_LIBRARY}
 ${TBB_LIBRARIES}
 ${UUID_LIBRARIES}
-Boost::regex
+${Boost_REGEX_LIBRARY_RELEASE}
 crypt
 dl
 fmt::fmt
