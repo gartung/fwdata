@@ -37,6 +37,7 @@ add_library(DataFormatsTrackerRecHit2D SHARED ${DataFormatsTrackerRecHit2D_EXTRA
   src/SiTrackerMultiRecHit.cc
   src/TrackerSingleRecHit.cc
   src/TrackingRecHitLessFromGlobalPosition.cc
+  src/VectorHit.cc
 )
 
 set_target_properties(DataFormatsTrackerRecHit2D PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
