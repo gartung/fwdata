@@ -57,8 +57,8 @@ install( TARGETS FWCoreParameterSet DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMAKE_
 
 target_link_libraries(FWCoreParameterSet PUBLIC
 ${TBB_LIBRARIES}
-Boost::filesystem
-Boost::system
+${Boost_FILESYSTEM_LIBRARY_RELEASE}
+${Boost_SYSTEM_LIBRARY_RELEASE}
 DataFormatsProvenance
 FWCoreMessageLogger
 FWCorePluginManager
