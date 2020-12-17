@@ -1,0 +1,4 @@
+#target.symbol CondDBV2PyInterface
+#target.symbol CondDBPyBind11Interface
+#target.symbol CondCoreCondDBXMLAuthenticationService
+#target.symbol CondCoreCondDBRelationalAuthenticationService

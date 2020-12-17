@@ -1,0 +1,1 @@
+#target.symbol SimMuonDTDigitizer

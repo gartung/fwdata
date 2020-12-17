@@ -50,8 +50,6 @@ DataFormatsCSCDigi
 DataFormatsCandidate
 DataFormatsCommon
 DataFormatsGEMDigi
-DataFormatsL1CSCTrackFinder
-DataFormatsL1DTTrackFinder
 DataFormatsMuonDetId
 ROOT::Core
 )

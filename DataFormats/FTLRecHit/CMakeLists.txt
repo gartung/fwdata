@@ -37,6 +37,7 @@ target_link_libraries(DataFormatsFTLRecHit PUBLIC
 ROOT::Core
 DataFormatsCaloRecHit
 DataFormatsCommon
+DataFormatsDetId
 DataFormatsForwardDetId
 DataFormatsTrackingRecHit
 )

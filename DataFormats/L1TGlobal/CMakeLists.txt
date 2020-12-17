@@ -35,7 +35,6 @@ install( TARGETS DataFormatsL1TGlobal DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMAK
 
 target_link_libraries(DataFormatsL1TGlobal PUBLIC
 ROOT::Core
-DataFormatsCandidate
 DataFormatsCommon
 DataFormatsL1Trigger
 )

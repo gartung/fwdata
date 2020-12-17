@@ -47,15 +47,8 @@ ROOT::Core
 DataFormatsCommon
 DataFormatsL1GlobalMuonTrigger
 DataFormatsProvenance
-DataFormatsStdDictionaries
 FWCoreMessageLogger
 FWCoreUtilities
-ROOT::Core
-ROOT::MathCore
-ROOT::Net
-ROOT::RIO
-ROOT::Thread
-ROOT::Tree
 crypt
 dl
 nsl

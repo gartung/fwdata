@@ -1,1 +1,13 @@
 <use name="IOPool/TFileAdaptor"/>
+
+<library   file="module.cc" name="IOPoolTFileAdaptorAuto">
+  <flags   EDM_PLUGIN="1"/>
+</library>
+
+<library   file="module.cc" name="IOPoolTFileAdaptorAuto">
+  <flags   EDM_PLUGIN="1"/>
+</library>
+
+<library   file="module.cc" name="IOPoolTFileAdaptorAuto">
+  <flags   EDM_PLUGIN="1"/>
+</library>
