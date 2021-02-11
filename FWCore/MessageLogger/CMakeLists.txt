@@ -45,7 +45,7 @@ FWCoreUtilities
 crypt
 dl
 fmt::fmt
-nsl
+nsl-2.26
 rt
 )
 
