@@ -35,7 +35,7 @@ DataFormatsGeometryVector
 SimDataFormatsEncodedEventId
 crypt
 dl
-nsl
+nsl-2.26
 rt
 )
 

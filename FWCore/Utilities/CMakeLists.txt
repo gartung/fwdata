@@ -64,8 +64,8 @@ ${UUID_LIBRARIES}
 ${Boost_REGEX_LIBRARY_RELEASE}
 crypt
 dl
+nsl-2.26
 fmt::fmt
-nsl
 rt
 stdc++fs
 )

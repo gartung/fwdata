@@ -57,8 +57,8 @@ ROOT::RIO
 ROOT::Thread
 ROOT::Tree
 crypt
+nsl-2.26
 dl
-nsl
 rt
 )
 

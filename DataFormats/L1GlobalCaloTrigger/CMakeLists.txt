@@ -48,7 +48,7 @@ DataFormatsCommon
 DataFormatsL1CaloTrigger
 crypt
 dl
-nsl
+nsl-2.26
 rt
 )
 
