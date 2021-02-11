@@ -42,10 +42,10 @@ ${TBB_LIBRARIES}
 ${TINYXML2_LIBRARY}
 DataFormatsProvenance
 FWCoreUtilities
-crypt
-dl
 fmt::fmt
-nsl-2.26
-rt
+${CRYPT}
+${DL}
+${NSL}
+${RT}
 )
 

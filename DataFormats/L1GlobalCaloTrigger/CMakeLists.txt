@@ -46,9 +46,9 @@ target_link_libraries(DataFormatsL1GlobalCaloTrigger PUBLIC
 ROOT::Core
 DataFormatsCommon
 DataFormatsL1CaloTrigger
-crypt
-dl
-nsl-2.26
-rt
+${CRYPT}
+${DL}
+${NSL}
+${RT}
 )
 

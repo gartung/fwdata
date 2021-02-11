@@ -31,9 +31,9 @@ ROOT::Core
 DataFormatsCommon
 DataFormatsMuonDetId
 SimDataFormatsEncodedEventId
-crypt
-dl
-nsl-2.26
-rt
+${CRYPT}
+${DL}
+${NSL}
+${RT}
 )
 

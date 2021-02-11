@@ -33,9 +33,9 @@ ROOT::Core
 DataFormatsCommon
 DataFormatsGeometryVector
 SimDataFormatsEncodedEventId
-crypt
-dl
-nsl-2.26
-rt
+${CRYPT}
+${DL}
+${NSL}
+${RT}
 )
 

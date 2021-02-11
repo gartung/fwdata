@@ -29,9 +29,9 @@ ROOT::Net
 ROOT::RIO
 ROOT::Thread
 ROOT::Tree
-crypt
-dl
-nsl-2.26
-rt
+${CRYPT}
+${DL}
+${NSL}
+${RT}
 )
 

@@ -49,9 +49,9 @@ DataFormatsL1GlobalMuonTrigger
 DataFormatsProvenance
 FWCoreMessageLogger
 FWCoreUtilities
-crypt
-dl
-nsl-2.26
-rt
+${CRYPT}
+${DL}
+${NSL}
+${RT}
 )
 
