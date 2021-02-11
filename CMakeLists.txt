@@ -17,6 +17,7 @@ cmake_policy( SET CMP0082 NEW)
 set(CMAKE_CXX_STANDARD 17)
 find_package(ROOT)
 include(GNUInstallDirs)
+set(CMAKE_INSTALL_LIBDIR "lib")
 include(${ROOT_USE_FILE})
 set(Boost_NO_BOOST_CMAKE ON)
 set(Boost_NO_SYSTEM_PATHS ON)
@@ -130,15 +131,15 @@ macro(add_rootdict_rules name)
                     COMMAND ${ROOT_genreflex_CMD} ${CMAKE_CURRENT_SOURCE_DIR}/${classes_h}
                     -s ${CMAKE_CURRENT_SOURCE_DIR}/${classes_xml}
                     -o ${classes_cc}
-                    --rootmap=${CMAKE_BINARY_DIR}/lib/${dict}.rootmap
-                    --rootmap-lib=${CMAKE_BINARY_DIR}/lib/lib${name}.so
-                    --library ${CMAKE_BINARY_DIR}/lib/lib${name}.so --multiDict
+		    --rootmap=${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}/${dict}.rootmap
+		    --rootmap-lib=${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}/lib${name}.so
+		    --library ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}/lib${name}.so --multiDict
                     -DCMS_DICT_IMPL -D_REENTRANT -DGNUSOURCE -D__STRICT_ANSI__ ${FLAGS} -DCMSSW_REFLEX_DICT 
                     -I${CMAKE_SOURCE_DIR} ${flags}
                     DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/${classes_h} ${CMAKE_CURRENT_SOURCE_DIR}/${classes_xml}
                     )
-    list(APPEND rootmapfiles ${CMAKE_BINARY_DIR}/lib/${dict}.rootmap)
-    list(APPEND pcmfiles ${CMAKE_BINARY_DIR}/lib/lib${dict}_${dict}_x_rdict.pcm)
+    list(APPEND rootmapfiles ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}/${dict}.rootmap)
+    list(APPEND pcmfiles ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}/lib${dict}_${dict}_x_rdict.pcm)
   endforeach()
   unset(clases_h)
   unset(classes_xml)
@@ -220,7 +221,7 @@ set_tests_properties(${target} PROPERTIES TIMEOUT 600 )
 set_tests_properties(${target} PROPERTIES WORKING_DICRECTORY ${CMAKE_BINARY_DIR}/test/${target})
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/test/${target})
 set_tests_properties(${target}
-PROPERTIES ENVIRONMENT "LOCALRT=${CMAKE_BINARY_DIR};ROOT_INCLUDE_PATH=${CMAKE_CURRENT_SOURCE_DIR}:${CMAKE_SOURCE_DIR}:$ENV{ROOTSYS}/include:$ENV{SPACK_INCLUDE_DIRS}:$ENV{ROOT_INCLUDE_PATH};CMSSW_BASE=${CMAKE_BINARY_DIR};CMSSW_RELEASE_BASE=${CMAKE_BINARY_DIR};CMSSW_SEARCH_PATH=${CMAKE_BINARY_DIR}/lib:${CMAKE_BINARY_DIR}/test:${CMAKE_BINARY_DIR}/src;PYTHONPATH=${CMAKE_BINARY_DIR}/python:${CMAKE_BINARY_DIR}/cfipython:${CMAKE_BINARY_DIR}/lib:${CMAKE_BINARY_DIR}/test:$ENV{PYTHONPATH};PATH=${CMAKE_BINARY_DIR}/test:${CMAKE_BINARY_DIR}/bin:$ENV{PATH};LD_LIBRARY_PATH=${CMAKE_CURRENT_BINARY_DIR}:${CMAKE_BINARY_DIR}/lib:${CMAKE_BINARY_DIR}/test:$ENV{SPACK_LINK_DIRS}:$ENV{LD_LIBRARY_PATH};LOCAL_TMP_DIR=${CMAKE_BINARY_DIR}/test/${target};LOCAL_TEST_DIR=${CMAKE_CURRENT_SOURCE_DIR}")
+	PROPERTIES ENVIRONMENT "LOCALRT=${CMAKE_BINARY_DIR};ROOT_INCLUDE_PATH=${CMAKE_CURRENT_SOURCE_DIR}:${CMAKE_SOURCE_DIR}:$ENV{ROOTSYS}/include:$ENV{SPACK_INCLUDE_DIRS}:$ENV{ROOT_INCLUDE_PATH};CMSSW_BASE=${CMAKE_BINARY_DIR};CMSSW_RELEASE_BASE=${CMAKE_BINARY_DIR};CMSSW_SEARCH_PATH=${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}:${CMAKE_BINARY_DIR}/test:${CMAKE_BINARY_DIR}/src;PYTHONPATH=${CMAKE_BINARY_DIR}/python:${CMAKE_BINARY_DIR}/cfipython:${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}:${CMAKE_BINARY_DIR}/test:$ENV{PYTHONPATH};PATH=${CMAKE_BINARY_DIR}/test:${CMAKE_BINARY_DIR}/bin:$ENV{PATH};LD_LIBRARY_PATH=${CMAKE_CURRENT_BINARY_DIR}:${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}:${CMAKE_BINARY_DIR}/test:$ENV{SPACK_LINK_DIRS}:$ENV{LD_LIBRARY_PATH};LOCAL_TMP_DIR=${CMAKE_BINARY_DIR}/test/${target};LOCAL_TEST_DIR=${CMAKE_CURRENT_SOURCE_DIR}")
 endmacro()
 
 add_subdirectory(Alignment)
@@ -264,4 +265,4 @@ add_subdirectory(Validation)
 
 install(DIRECTORY ${CMAKE_BINARY_DIR}/src DESTINATION ${CMAKE_INSTALL_PREFIX})
 install(DIRECTORY ${CMAKE_BINARY_DIR}/python DESTINATION ${CMAKE_INSTALL_PREFIX})
-install(FILES ${pcmfiles} ${rootmapfiles} DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR})
+install(DIRECTORY ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR} DESTINATION ${CMAKE_INSTALL_PREFIX})
