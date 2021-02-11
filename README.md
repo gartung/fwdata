@@ -12,8 +12,8 @@ spack compiler add
 cd spack/var/spack/repos
 git clone -b fwdata https://github.com/gartung/cmssw-spack.git
 spack repo add $PWD/cmssw-spack
-mkdir -p ~/.spack/cori
-cp cmssw-spack/cori/packages.yaml ~/.spack/cori
+mkdir -p ~/.spack/cray
+cp cmssw-spack/cori/packages.yaml ~/.spack/cray
 cd -
 spack install fwdata
 ```
