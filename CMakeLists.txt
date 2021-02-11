@@ -74,7 +74,7 @@ find_package(VDT)
 
 find_package(fmt)
 
-find_library(NSL nsl)
+find_library(NSL nsl NAMES nsl-2.28 nsl-2.26 nsl-2.17 nsl)
 find_library(RT rt)
 find_library(CRYPT crypt)
 find_library(DL dl)
