@@ -7,10 +7,12 @@ FWData is all CMSSW data product dictionary and suppoting sources. The libraries
 - Clone spack and cmssw-spack and run build
 ```
 git clone https://github.com/spack/spack.git
-git clone -b fwdata https://github.com/gartung/cmssw-spack.git
 source spack/share/setup-env.sh
 spack compiler add --scope site
+cd spack/var/repos
+git clone -b fwdata https://github.com/gartung/cmssw-spack.git
 spack repo add --scope site $PWD/cmssw-spack
+cd -
 spack install fwdata
 ```
 
