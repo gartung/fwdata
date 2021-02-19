@@ -279,6 +279,7 @@ add_dependencies(DataFormats_all
   DataFormatsL1TGlobal
   DataFormatsL1TMuon
   DataFormatsL1Trigger
+  DataFormatsLuminosity
   DataFormatsMETReco
   DataFormatsMath
   DataFormatsMuonDetId
@@ -289,12 +290,15 @@ add_dependencies(DataFormats_all
   DataFormatsPatCandidates
   DataFormatsProtonReco
   DataFormatsProvenance
+  DataFormatsRPCDigi
   DataFormatsRPCRecHit
   DataFormatsRecoCandidate
   DataFormatsScalers
   DataFormatsSiPixelCluster
   DataFormatsSiPixelDetId
+  DataFormatsSiPixelDigi
   DataFormatsSiStripCluster
+  DataFormatsSiStripCommon
   DataFormatsSiStripDetId
   DataFormatsSiStripDigi
   DataFormatsTCDS
