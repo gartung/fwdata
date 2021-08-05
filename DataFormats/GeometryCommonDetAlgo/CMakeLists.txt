@@ -33,8 +33,7 @@ install( TARGETS DataFormatsGeometryCommonDetAlgo DESTINATION ${CMAKE_INSTALL_PR
 
 target_link_libraries(DataFormatsGeometryCommonDetAlgo PUBLIC
 ROOT::Core
-${CLHEP_LIBRARIES}
-${CLHEP_MAIN_LIBRARY}
+CLHEP::CLHEP
 DataFormatsCLHEP
 DataFormatsCommon
 DataFormatsGeometrySurface

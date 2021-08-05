@@ -78,8 +78,7 @@ install( TARGETS DataFormatsPatCandidates DESTINATION ${CMAKE_INSTALL_PREFIX}/${
 
 target_link_libraries(DataFormatsPatCandidates PUBLIC
 ROOT::Core
-${CLHEP_LIBRARIES}
-${CLHEP_MAIN_LIBRARY}
+CLHEP::CLHEP
 DataFormatsBTauReco
 DataFormatsCLHEP
 DataFormatsCaloTowers

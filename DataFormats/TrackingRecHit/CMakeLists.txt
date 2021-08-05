@@ -36,8 +36,7 @@ install( TARGETS DataFormatsTrackingRecHit DESTINATION ${CMAKE_INSTALL_PREFIX}/$
 
 target_link_libraries(DataFormatsTrackingRecHit PUBLIC
 ROOT::Core
-${CLHEP_LIBRARIES}
-${CLHEP_MAIN_LIBRARY}
+CLHEP::CLHEP
 DataFormatsCLHEP
 DataFormatsCommon
 DataFormatsGeometryCommonDetAlgo

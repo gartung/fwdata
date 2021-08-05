@@ -30,8 +30,7 @@ install( TARGETS DataFormatsTrajectorySeed DESTINATION ${CMAKE_INSTALL_PREFIX}/$
 
 target_link_libraries(DataFormatsTrajectorySeed PUBLIC
 ROOT::Core
-${CLHEP_LIBRARIES}
-${CLHEP_MAIN_LIBRARY}
+CLHEP::CLHEP
 DataFormatsCLHEP
 DataFormatsCommon
 DataFormatsGeometryVector

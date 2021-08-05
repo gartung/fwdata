@@ -31,8 +31,7 @@ install( TARGETS DataFormatsBeamSpot DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMAKE
 
 target_link_libraries(DataFormatsBeamSpot PUBLIC
 ROOT::Core
-${CLHEP_LIBRARIES}
-${CLHEP_MAIN_LIBRARY}
+CLHEP::CLHEP
 DataFormatsCLHEP
 DataFormatsCommon
 DataFormatsMath

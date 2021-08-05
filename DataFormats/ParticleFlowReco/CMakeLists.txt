@@ -59,8 +59,7 @@ install( TARGETS DataFormatsParticleFlowReco DESTINATION ${CMAKE_INSTALL_PREFIX}
 
 target_link_libraries(DataFormatsParticleFlowReco PUBLIC
 ROOT::Core
-${CLHEP_LIBRARIES}
-${CLHEP_MAIN_LIBRARY}
+CLHEP::CLHEP
 DataFormatsCLHEP
 DataFormatsCaloRecHit
 DataFormatsCandidate

@@ -32,8 +32,7 @@ install( TARGETS DataFormatsTrackCandidate DESTINATION ${CMAKE_INSTALL_PREFIX}/$
 
 target_link_libraries(DataFormatsTrackCandidate PUBLIC
 ROOT::Core
-${CLHEP_LIBRARIES}
-${CLHEP_MAIN_LIBRARY}
+CLHEP::CLHEP
 DataFormatsCLHEP
 DataFormatsCommon
 DataFormatsGeometryVector

@@ -36,8 +36,7 @@ install( TARGETS CondFormatsAlignment DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMAK
 
 target_link_libraries(CondFormatsAlignment PUBLIC
 ROOT::Core
-${CLHEP_LIBRARIES}
-${CLHEP_MAIN_LIBRARY}
+CLHEP::CLHEP
 ${Boost_SERIALIZATION_LIBRARY_RELEASE}
 CondFormatsSerialization
 DataFormatsCLHEP

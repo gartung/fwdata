@@ -48,8 +48,7 @@ install( TARGETS DataFormatsTrackerRecHit2D DESTINATION ${CMAKE_INSTALL_PREFIX}/
 
 target_link_libraries(DataFormatsTrackerRecHit2D PUBLIC
 ROOT::Core
-${CLHEP_LIBRARIES}
-${CLHEP_MAIN_LIBRARY}
+CLHEP::CLHEP
 DataFormatsCLHEP
 DataFormatsCommon
 DataFormatsFTLRecHit

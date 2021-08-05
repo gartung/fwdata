@@ -29,8 +29,7 @@ install( TARGETS DataFormatsCLHEP DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMAKE_IN
 
 target_link_libraries(DataFormatsCLHEP PUBLIC
 ROOT::Core
-${CLHEP_LIBRARIES}
-${CLHEP_MAIN_LIBRARY}
+CLHEP::CLHEP
 DataFormatsMath
 ROOT::Core
 ROOT::GenVector

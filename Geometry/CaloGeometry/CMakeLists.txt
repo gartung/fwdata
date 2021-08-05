@@ -40,8 +40,7 @@ add_dependencies( ALL_LIBS GeometryCaloGeometry)
 install( TARGETS GeometryCaloGeometry DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR} EXPORT stitched::)
 
 target_link_libraries(GeometryCaloGeometry PUBLIC
-${CLHEP_LIBRARIES}
-${CLHEP_MAIN_LIBRARY}
+CLHEP::CLHEP
 DataFormatsCaloTowers
 DataFormatsDetId
 DataFormatsEcalDetId

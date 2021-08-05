@@ -39,8 +39,7 @@ install( TARGETS DataFormatsBTauReco DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMAKE
 
 target_link_libraries(DataFormatsBTauReco PUBLIC
 ROOT::Core
-${CLHEP_LIBRARIES}
-${CLHEP_MAIN_LIBRARY}
+CLHEP::CLHEP
 DataFormatsCommon
 DataFormatsJetReco
 DataFormatsMath

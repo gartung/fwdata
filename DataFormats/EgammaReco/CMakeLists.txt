@@ -39,8 +39,7 @@ install( TARGETS DataFormatsEgammaReco DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMA
 
 target_link_libraries(DataFormatsEgammaReco PUBLIC
 ROOT::Core
-${CLHEP_LIBRARIES}
-${CLHEP_MAIN_LIBRARY}
+CLHEP::CLHEP
 DataFormatsCLHEP
 DataFormatsCaloRecHit
 DataFormatsCommon
