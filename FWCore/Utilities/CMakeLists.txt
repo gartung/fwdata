@@ -3,7 +3,7 @@ include_directories(${CMAKE_SOURCE_DIR}
 ${Boost_INCLUDE_DIR}
 ${Boost_INCLUDE_DIR}/python
 ${FMT_INCLUDE_DIR}
-${MD5_INCLUDE_DIR}
+${CMSMD5_INCLUDE_DIR}
 ${Python_INCLUDE_DIR}
 ${TBB_INCLUDE_DIRS}
 ${UUID_INCLUDE_DIR}
@@ -58,7 +58,7 @@ add_dependencies( ALL_LIBS FWCoreUtilities)
 install( TARGETS FWCoreUtilities DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR} EXPORT stitched::)
 
 target_link_libraries(FWCoreUtilities PUBLIC
-${MD5_LIBRARY}
+${CMSMD5_LIBRARY}
 ${TBB_LIBRARIES}
 ${UUID_LIBRARIES}
 ${Boost_REGEX_LIBRARY_RELEASE}
