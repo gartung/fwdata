@@ -34,8 +34,6 @@ install( TARGETS DataFormatsL1TCalorimeter DESTINATION ${CMAKE_INSTALL_PREFIX}/$
 
 target_link_libraries(DataFormatsL1TCalorimeter PUBLIC
 ROOT::Core
-DataFormatsCandidate
-DataFormatsCommon
 DataFormatsL1Trigger
 )
 

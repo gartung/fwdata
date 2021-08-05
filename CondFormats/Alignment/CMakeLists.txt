@@ -56,9 +56,9 @@ ROOT::Net
 ROOT::RIO
 ROOT::Thread
 ROOT::Tree
-crypt
-dl
-nsl
-rt
+${CRYPT}
+${DL}
+${NSL}
+${RT}
 )
 

@@ -1,10 +1,20 @@
 add_subdirectory(Alignment)
 
-add_subdirectory(BTauReco)
-
 add_subdirectory(BeamSpot)
 
+add_subdirectory(BTauReco)
+
+add_subdirectory(CaloRecHit)
+
+add_subdirectory(CaloTowers)
+
+add_subdirectory(Candidate)
+
+add_subdirectory(CastorReco)
+
 add_subdirectory(CLHEP)
+
+add_subdirectory(Common)
 
 add_subdirectory(CSCDigi)
 
@@ -16,21 +26,11 @@ add_subdirectory(CTPPSDigi)
 
 add_subdirectory(CTPPSReco)
 
-add_subdirectory(CaloRecHit)
-
-add_subdirectory(CaloTowers)
-
-add_subdirectory(Candidate)
-
-add_subdirectory(CastorReco)
-
-add_subdirectory(Common)
+add_subdirectory(DetId)
 
 add_subdirectory(DTDigi)
 
 add_subdirectory(DTRecHit)
-
-add_subdirectory(DetId)
 
 add_subdirectory(EcalDetId)
 
@@ -48,6 +48,8 @@ add_subdirectory(EgammaTrackReco)
 
 add_subdirectory(FEDRawData)
 
+add_subdirectory(ForwardDetId)
+
 add_subdirectory(FP420Cluster)
 
 add_subdirectory(FP420Digi)
@@ -57,8 +59,6 @@ add_subdirectory(FTLDigi)
 add_subdirectory(FTLRecHit)
 
 add_subdirectory(FWLite)
-
-add_subdirectory(ForwardDetId)
 
 add_subdirectory(GEMDigi)
 
@@ -71,14 +71,6 @@ add_subdirectory(GeometrySurface)
 add_subdirectory(GeometryVector)
 
 add_subdirectory(GsfTrackReco)
-
-add_subdirectory(HGCDigi)
-
-add_subdirectory(HGCRecHit)
-
-add_subdirectory(HGCalReco)
-
-add_subdirectory(HLTReco)
 
 add_subdirectory(HcalCalibObjects)
 
@@ -94,13 +86,21 @@ add_subdirectory(HeavyIonEvent)
 
 add_subdirectory(HepMCCandidate)
 
+add_subdirectory(HGCalReco)
+
+add_subdirectory(HGCDigi)
+
+add_subdirectory(HGCRecHit)
+
 add_subdirectory(Histograms)
+
+add_subdirectory(HLTReco)
 
 add_subdirectory(JetReco)
 
-add_subdirectory(L1CSCTrackFinder)
-
 add_subdirectory(L1CaloTrigger)
+
+add_subdirectory(L1CSCTrackFinder)
 
 add_subdirectory(L1DTTrackFinder)
 
@@ -132,11 +132,9 @@ add_subdirectory(LTCDigi)
 
 add_subdirectory(Luminosity)
 
-add_subdirectory(METReco)
-
 add_subdirectory(Math)
 
-add_subdirectory(MuonData)
+add_subdirectory(METReco)
 
 add_subdirectory(MuonDetId)
 
@@ -162,11 +160,11 @@ add_subdirectory(ProtonReco)
 
 add_subdirectory(Provenance)
 
+add_subdirectory(RecoCandidate)
+
 add_subdirectory(RPCDigi)
 
 add_subdirectory(RPCRecHit)
-
-add_subdirectory(RecoCandidate)
 
 add_subdirectory(Scalers)
 
@@ -192,21 +190,21 @@ add_subdirectory(StdDictionaries)
 
 add_subdirectory(Streamer)
 
-add_subdirectory(TCDS)
-
 add_subdirectory(TauReco)
+
+add_subdirectory(TCDS)
 
 add_subdirectory(TestObjects)
 
 add_subdirectory(TrackCandidate)
-
-add_subdirectory(TrackReco)
 
 add_subdirectory(TrackerCommon)
 
 add_subdirectory(TrackerRecHit2D)
 
 add_subdirectory(TrackingRecHit)
+
+add_subdirectory(TrackReco)
 
 add_subdirectory(TrajectorySeed)
 
@@ -217,6 +215,8 @@ add_subdirectory(V0Candidate)
 add_subdirectory(VertexReco)
 
 add_subdirectory(WrappedStdDictionaries)
+
+add_subdirectory(MuonData)
 
 
 
@@ -261,6 +261,7 @@ add_dependencies(DataFormats_all
   DataFormatsGeometrySurface
   DataFormatsGeometryVector
   DataFormatsGsfTrackReco
+  DataFormatsHGCRecHit
   DataFormatsHLTReco
   DataFormatsHcalDetId
   DataFormatsHcalDigi
@@ -278,6 +279,7 @@ add_dependencies(DataFormats_all
   DataFormatsL1TGlobal
   DataFormatsL1TMuon
   DataFormatsL1Trigger
+  DataFormatsLuminosity
   DataFormatsMETReco
   DataFormatsMath
   DataFormatsMuonDetId
@@ -288,12 +290,15 @@ add_dependencies(DataFormats_all
   DataFormatsPatCandidates
   DataFormatsProtonReco
   DataFormatsProvenance
+  DataFormatsRPCDigi
   DataFormatsRPCRecHit
   DataFormatsRecoCandidate
   DataFormatsScalers
   DataFormatsSiPixelCluster
   DataFormatsSiPixelDetId
+  DataFormatsSiPixelDigi
   DataFormatsSiStripCluster
+  DataFormatsSiStripCommon
   DataFormatsSiStripDetId
   DataFormatsSiStripDigi
   DataFormatsTCDS

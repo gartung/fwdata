@@ -62,11 +62,11 @@ ${MD5_LIBRARY}
 ${TBB_LIBRARIES}
 ${UUID_LIBRARIES}
 ${Boost_REGEX_LIBRARY_RELEASE}
-crypt
-dl
+${CRYPT}
+${DL}
+${NSL}
+${RT}
 fmt::fmt
-nsl
-rt
 stdc++fs
 )
 

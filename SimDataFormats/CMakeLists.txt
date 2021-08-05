@@ -20,19 +20,19 @@ add_subdirectory(GEMDigiSimLink)
 
 add_subdirectory(GeneratorProducts)
 
-add_subdirectory(HTXS)
-
 add_subdirectory(HcalTestBeam)
 
 add_subdirectory(HiGenData)
+
+add_subdirectory(HTXS)
 
 add_subdirectory(JetMatching)
 
 add_subdirectory(PileupSummaryInfo)
 
-add_subdirectory(RPCDigiSimLink)
-
 add_subdirectory(RandomEngine)
+
+add_subdirectory(RPCDigiSimLink)
 
 add_subdirectory(Track)
 
@@ -64,6 +64,7 @@ add_dependencies(SimDataFormats_all
   SimDataFormatsGEMDigiSimLink
   SimDataFormatsGeneratorProducts
   SimDataFormatsPileupSummaryInfo
+  SimDataFormatsRPCDigiSimLink
   SimDataFormatsTrack
   SimDataFormatsTrackerDigiSimLink
   SimDataFormatsTrackingAnalysis

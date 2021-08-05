@@ -63,9 +63,9 @@ DataFormatsProvenance
 FWCoreMessageLogger
 FWCorePluginManager
 FWCoreUtilities
-crypt
-dl
-nsl
-rt
+${CRYPT}
+${DL}
+${NSL}
+${RT}
 )
 

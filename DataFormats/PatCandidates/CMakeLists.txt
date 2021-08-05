@@ -119,9 +119,9 @@ ROOT::RIO
 ROOT::Thread
 ROOT::Tree
 SimDataFormatsJetMatching
-crypt
-dl
-nsl
-rt
+${CRYPT}
+${DL}
+${NSL}
+${RT}
 )
 

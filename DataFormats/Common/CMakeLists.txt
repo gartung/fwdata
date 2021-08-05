@@ -52,9 +52,9 @@ ROOT::Core
 DataFormatsProvenance
 FWCoreMessageLogger
 FWCoreUtilities
-crypt
-dl
-nsl
-rt
+${CRYPT}
+${DL}
+${NSL}
+${RT}
 )
 

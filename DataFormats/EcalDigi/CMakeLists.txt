@@ -27,6 +27,7 @@ add_library(DataFormatsEcalDigi SHARED ${DataFormatsEcalDigi_EXTRA_SOURCES}
   src/EcalEBTriggerPrimitiveDigi.cc
   src/EcalEBTriggerPrimitiveSample.cc
   src/EcalFEMSample.cc
+  src/EcalLiteDTUSample.cc
   src/EcalMGPASample.cc
   src/EcalMatacqDigi.cc
   src/EcalPnDiodeDigi.cc

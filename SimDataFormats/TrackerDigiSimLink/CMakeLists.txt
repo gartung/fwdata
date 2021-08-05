@@ -32,9 +32,9 @@ target_link_libraries(SimDataFormatsTrackerDigiSimLink PUBLIC
 ROOT::Core
 DataFormatsCommon
 SimDataFormatsEncodedEventId
-crypt
-dl
-nsl
-rt
+${CRYPT}
+${DL}
+${NSL}
+${RT}
 )
 

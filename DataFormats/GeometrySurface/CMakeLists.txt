@@ -28,6 +28,7 @@ add_library(DataFormatsGeometrySurface SHARED ${DataFormatsGeometrySurface_EXTRA
   src/Bounds.cc
   src/Cone.cc
   src/Cylinder.cc
+  src/DiskSectorBounds.cc
   src/GeneralNSurfaceDelimitedBounds.cc
   src/LocalError.cc
   src/Plane.cc
@@ -47,9 +48,9 @@ install( TARGETS DataFormatsGeometrySurface DESTINATION ${CMAKE_INSTALL_PREFIX}/
 target_link_libraries(DataFormatsGeometrySurface PUBLIC
 ROOT::Core
 DataFormatsGeometryVector
-crypt
-dl
-nsl
-rt
+${CRYPT}
+${DL}
+${NSL}
+${RT}
 )
 
