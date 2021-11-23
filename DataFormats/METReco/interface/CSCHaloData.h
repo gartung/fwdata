@@ -122,41 +122,41 @@ namespace reco {
 
     // The GlobalPoints from constituent rechits nearest to the calorimeter of CSC tracks
     std::vector<GlobalPoint> TheGlobalPositions;
-    int nTriggers_PlusZ;
-    int nTriggers_MinusZ;
-    int nTriggers_PlusZ_TrkMuUnVeto;
-    int nTriggers_MinusZ_TrkMuUnVeto;
+    int nTriggers_PlusZ = 0;
+    int nTriggers_MinusZ = 0;
+    int nTriggers_PlusZ_TrkMuUnVeto = 0;
+    int nTriggers_MinusZ_TrkMuUnVeto = 0;
     // CSC halo trigger reported by the HLT
-    bool HLTAccept;
+    bool HLTAccept = 0;
 
-    int nTracks_PlusZ;
-    int nTracks_MinusZ;
+    int nTracks_PlusZ = 0;
+    int nTracks_MinusZ = 0;
 
     // number of  out-of-time chamber-level triggers (assumes the event triggered at the bx of the beam crossing)
-    short int nOutOfTimeTriggers_PlusZ;
-    short int nOutOfTimeTriggers_MinusZ;
+    short int nOutOfTimeTriggers_PlusZ = 0;
+    short int nOutOfTimeTriggers_MinusZ = 0;
     // number of out-of-time CSCRecHit2Ds (assumes the event triggered at the bx of the beam crossing)
-    short int nOutOfTimeHits;
+    short int nOutOfTimeHits = 0;
     // number of cosmic muon outer (CSC) tracks with (T_segment_outer - T_segment_inner) < max_dt_muon_segment
-    short int nTracks_Small_dT;
+    short int nTracks_Small_dT = 0;
     // number of cosmic muon outer (CSC) tracks with free inverse beta < max_free_inverse_beta
-    short int nTracks_Small_beta;
+    short int nTracks_Small_beta = 0;
     // number of cosmic muon outer (CSC) tracks with both
     // (T_segment_outer - T_segment_inner) <  max_dt_muon_segment and free inverse beta < max_free_inverse_beta
-    short int nTracks_Small_dT_Small_beta;
+    short int nTracks_Small_dT_Small_beta = 0;
 
     // MLR
     // number of CSCSegments that are flat and have the same (r,phi)
-    short int nFlatHaloSegments;
-    bool segments_in_both_endcaps;
+    short int nFlatHaloSegments = 0;
+    bool segments_in_both_endcaps = false;
     // end MLR
-    short int nFlatHaloSegments_TrkMuUnVeto;
-    bool segments_in_both_endcaps_loose_TrkMuUnVeto;
-    bool segments_in_both_endcaps_loose_dtcut_TrkMuUnVeto;
-    bool segmentiscalomatched;
-    bool segmentisHcalomatched;
-    bool segmentisEBcalomatched;
-    bool segmentisEEcalomatched;
+    short int nFlatHaloSegments_TrkMuUnVeto = 0;
+    bool segments_in_both_endcaps_loose_TrkMuUnVeto = false;
+    bool segments_in_both_endcaps_loose_dtcut_TrkMuUnVeto = false;
+    bool segmentiscalomatched = false;
+    bool segmentisHcalomatched = false;
+    bool segmentisEBcalomatched = false;
+    bool segmentisEEcalomatched = false;
   };
 
 }  // namespace reco
