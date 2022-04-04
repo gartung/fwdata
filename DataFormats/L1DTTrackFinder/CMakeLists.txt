@@ -23,8 +23,14 @@ add_library(DataFormatsL1DTTrackFinder SHARED ${DataFormatsL1DTTrackFinder_EXTRA
   src/L1MuDTChambThDigi.cc
   src/L1MuDTTrackCand.cc
   src/L1MuDTTrackContainer.cc
+  src/L1Phase2MuDTExtPhContainer.cc
+  src/L1Phase2MuDTExtPhDigi.cc
+  src/L1Phase2MuDTExtThContainer.cc
+  src/L1Phase2MuDTExtThDigi.cc
   src/L1Phase2MuDTPhContainer.cc
   src/L1Phase2MuDTPhDigi.cc
+  src/L1Phase2MuDTThContainer.cc
+  src/L1Phase2MuDTThDigi.cc
 )
 
 set_target_properties(DataFormatsL1DTTrackFinder PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)

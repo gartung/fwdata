@@ -11,6 +11,7 @@ ${ROOT_INCLUDE_DIR}
 ${TBB_INCLUDE_DIRS}
 ${TINYXML2_INCLUDE_DIR}
 ${UUID_INCLUDE_DIR}
+${HLS_INCLUDE_DIR}
 /usr/include
 )
 
@@ -38,7 +39,9 @@ add_library(DataFormatsL1Trigger SHARED ${DataFormatsL1Trigger_EXTRA_SOURCES}
   src/L1ParticleMap.cc
   src/L1TriggerError.cc
   src/Muon.cc
+  src/MuonShower.cc
   src/Tau.cc
+  src/VertexWord.cc
 )
 
 set_target_properties(DataFormatsL1Trigger PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
@@ -54,5 +57,6 @@ DataFormatsCommon
 DataFormatsHcalDetId
 DataFormatsL1GlobalCaloTrigger
 DataFormatsL1GlobalMuonTrigger
+FWCoreConcurrency
 )
 

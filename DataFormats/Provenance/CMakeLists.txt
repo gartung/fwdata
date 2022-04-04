@@ -22,6 +22,7 @@ add_library(DataFormatsProvenance SHARED ${DataFormatsProvenance_EXTRA_SOURCES}
   src/BranchIDListHelper.cc
   src/BranchKey.cc
   src/BranchType.cc
+  src/CompactEventAuxiliaryVector.cc
   src/ESRecordAuxiliary.cc
   src/ElementID.cc
   src/EventAux.cc
@@ -51,6 +52,7 @@ add_library(DataFormatsProvenance SHARED ${DataFormatsProvenance_EXTRA_SOURCES}
   src/ProductID.cc
   src/ProductIDToBranchID.cc
   src/ProductProvenance.cc
+  src/ProductProvenanceLookup.cc
   src/ProductProvenanceRetriever.cc
   src/ProductRegistry.cc
   src/ProductResolverIndexHelper.cc
@@ -61,6 +63,7 @@ add_library(DataFormatsProvenance SHARED ${DataFormatsProvenance_EXTRA_SOURCES}
   src/RunLumiEntryInfo.cc
   src/StableProvenance.cc
   src/StoredMergeableRunProductMetadata.cc
+  src/StoredProcessBlockHelper.cc
   src/SubProcessParentageHelper.cc
   src/ThinnedAssociationsHelper.cc
   src/Timestamp.cc

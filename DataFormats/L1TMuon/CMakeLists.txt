@@ -36,6 +36,7 @@ add_library(DataFormatsL1TMuon SHARED ${DataFormatsL1TMuon_EXTRA_SOURCES}
   src/L1MuKBMTCombinedStub.cc
   src/L1MuKBMTrack.cc
   src/RegionalMuonCand.cc
+  src/RegionalMuonShower.cc
 )
 
 set_target_properties(DataFormatsL1TMuon PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)

@@ -34,6 +34,7 @@ add_library(DataFormatsCSCDigi SHARED ${DataFormatsCSCDigi_EXTRA_SOURCES}
   src/CSCDDUStatusDigi.cc
   src/CSCDMBStatusDigi.cc
   src/CSCRPCDigi.cc
+  src/CSCShowerDigi.cc
   src/CSCStripDigi.cc
   src/CSCTMBStatusDigi.cc
   src/CSCWireDigi.cc

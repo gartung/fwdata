@@ -1,7 +1,7 @@
 #ifndef FWCore_Utilities_Digest_h
 #define FWCore_Utilities_Digest_h
 
-#include "md5.h"
+#include "md5-cms.h"
 
 #include <iosfwd>
 #include <string>
