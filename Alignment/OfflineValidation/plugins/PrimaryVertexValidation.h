@@ -34,7 +34,6 @@
 #include "DataFormats/VertexReco/interface/VertexFwd.h"
 #include "FWCore/Framework/interface/ConsumesCollector.h"
 #include "FWCore/Framework/interface/one/EDAnalyzer.h"
-#include "FWCore/Framework/interface/ESHandle.h"
 #include "FWCore/Framework/interface/Event.h"
 #include "FWCore/Framework/interface/EventSetup.h"
 #include "FWCore/Framework/interface/Frameworkfwd.h"
@@ -71,19 +70,24 @@
 // class decleration
 //
 
-class PrimaryVertexValidation : public edm::one::EDAnalyzer<edm::one::SharedResources> {
+class PrimaryVertexValidation : public edm::one::EDAnalyzer<edm::one::WatchRuns, edm::one::SharedResources> {
 public:
   explicit PrimaryVertexValidation(const edm::ParameterSet&);
   ~PrimaryVertexValidation() override;
   static void fillDescriptions(edm::ConfigurationDescriptions& descriptions);
 
 private:
+  // framework provided methods
   void beginJob() override;
+  void beginRun(edm::Run const& iRun, edm::EventSetup const& iSetup) override;
   void analyze(const edm::Event&, const edm::EventSetup&) override;
+  void endRun(edm::Run const&, edm::EventSetup const&) override{};
   void endJob() override;
+
+  // user defined methods
   bool isBFieldConsistentWithMode(const edm::EventSetup& iSetup) const;
   std::pair<long long, long long> getRunTime(const edm::EventSetup& iSetup) const;
-  bool isHit2D(const TrackingRecHit& hit) const;
+  bool isHit2D(const TrackingRecHit& hit, const PVValHelper::detectorPhase& thePhase) const;
   bool hasFirstLayerPixelHits(const reco::TransientTrack& track);
   std::pair<bool, bool> pixelHitsCheck(const reco::TransientTrack& track);
   Measurement1D getMedian(TH1F* histo);
@@ -149,10 +153,11 @@ private:
   // tokens form the EventSetup
   const edm::ESGetToken<MagneticField, IdealMagneticFieldRecord> magFieldToken_;
   const edm::ESGetToken<GlobalTrackingGeometry, GlobalTrackingGeometryRecord> trackingGeomToken_;
-  const edm::ESGetToken<TrackerGeometry, TrackerDigiGeometryRecord> geomToken_;
   const edm::ESGetToken<TransientTrackBuilder, TransientTrackRecord> ttkToken_;
   const edm::ESGetToken<TrackerTopology, TrackerTopologyRcd> topoToken_;
-  const edm::ESGetToken<RunInfo, RunInfoRcd> runInfoToken_;
+  const edm::ESGetToken<TrackerTopology, TrackerTopologyRcd> topoTokenBR_;
+  const edm::ESGetToken<TrackerGeometry, TrackerDigiGeometryRecord> geomTokenBR_;
+  const edm::ESGetToken<RunInfo, RunInfoRcd> runInfoTokenBR_;
 
   const int compressionSettings_;  // determines the ROOT compression settings in TFileService
   bool storeNtuple_;
@@ -176,7 +181,7 @@ private:
   double pOfProbe_;
   double etaOfProbe_;
   double nHitsOfProbe_;
-  bool isPhase1_;
+  PVValHelper::detectorPhase phase_;
 
   // actual number of histograms
   int nBins_;
@@ -193,9 +198,9 @@ private:
   // force to use beamspot in the vertex fit
   bool forceBeamSpotContraint_;
 
-  edm::EDGetTokenT<reco::TrackCollection> theTrackCollectionToken;
-  edm::EDGetTokenT<reco::VertexCollection> theVertexCollectionToken;
-  edm::EDGetTokenT<reco::BeamSpot> theBeamspotToken;
+  edm::EDGetTokenT<reco::TrackCollection> theTrackCollectionToken_;
+  edm::EDGetTokenT<reco::VertexCollection> theVertexCollectionToken_;
+  edm::EDGetTokenT<reco::BeamSpot> theBeamspotToken_;
 
   TTree* rootTree_;
 
@@ -203,12 +208,13 @@ private:
   //=======================
   void SetVarToZero();
 
-  static const int nMaxtracks_ = 1000;
+  static const int nMaxtracks_ = 10000;
   static const int cmToum = 10000;
   static const int nPtBins_ = 48;
 
+  // use the maximum of each of the three phases
   unsigned int nLadders_ = 20;
-  unsigned int nModZ_ = 8;
+  unsigned int nModZ_ = 9;
 
   // pT binning as in paragraph 3.2 of CMS-PAS-TRK-10-005 (https://cds.cern.ch/record/1279383/files/TRK-10-005-pas.pdf)
 
@@ -308,6 +314,7 @@ private:
   TH1F* h_etaMax;
   TH1F* h_nbins;
   TH1F* h_nLadders;
+  TH1F* h_nModZ;
   TH1F* h_pTinfo;
 
   std::map<unsigned int, std::pair<long long, long long> > runNumbersTimesLog_;

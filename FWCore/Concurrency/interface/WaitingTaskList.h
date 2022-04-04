@@ -11,7 +11,7 @@
 
  Usage:
     This class can be used to have tasks wait to be spawned until a resource is available.
- Tasks that want to use the resource are added to the list by calling add(tbb::task*).
+ Tasks that want to use the resource are added to the list by calling add(oneapi::tbb::task*).
  When the resource becomes available one calls doneWaiting() and then any waiting tasks will
  be spawned. If a call to add() is made after doneWaiting() the newly added task will
  immediately be spawned.
@@ -27,7 +27,7 @@
     CalcTask(edm::WaitingTaskList* iWL, Value* v):
     m_waitList(iWL), m_output(v) {}
  
-    tbb::task* execute() {
+    oneapi::tbb::task* execute() {
      std::exception_ptr ptr;
      try {
        *m_output = doCalculation();
@@ -51,15 +51,15 @@
 
  In another part we can start the calculation
  \code
- tbb::task* calc = new(tbb::task::allocate_root()) CalcTask(&waitList,&v);
- tbb::task::spawn(calc);
+ oneapi::tbb::task* calc = new(oneapi::tbb::task::allocate_root()) CalcTask(&waitList,&v);
+ oneapi::tbb::task::spawn(calc);
  \endcode
  
  Finally in some unrelated part of the code we can create tasks that need the calculation
  \code
- tbb::task* t1 = makeTask1(v);
+ oneapi::tbb::task* t1 = makeTask1(v);
  waitList.add(t1);
- tbb::task* t2 = makeTask2(v);
+ oneapi::tbb::task* t2 = makeTask2(v);
  waitList.add(t2);
  \endcode
 
@@ -75,29 +75,12 @@
 
 // user include files
 #include "FWCore/Concurrency/interface/WaitingTask.h"
+#include "FWCore/Concurrency/interface/WaitingTaskHolder.h"
 #include "FWCore/Utilities/interface/thread_safety_macros.h"
 
 // forward declarations
 
 namespace edm {
-  class EmptyWaitingTask : public WaitingTask {
-  public:
-    EmptyWaitingTask() = default;
-
-    tbb::task* execute() override { return nullptr; }
-  };
-
-  namespace waitingtask {
-    struct TaskDestroyer {
-      void operator()(tbb::task* iTask) const { tbb::task::destroy(*iTask); }
-    };
-  }  // namespace waitingtask
-  ///Create an EmptyWaitingTask which will properly be destroyed
-  inline std::unique_ptr<edm::EmptyWaitingTask, waitingtask::TaskDestroyer> make_empty_waiting_task() {
-    return std::unique_ptr<edm::EmptyWaitingTask, waitingtask::TaskDestroyer>(new (tbb::task::allocate_root())
-                                                                                  edm::EmptyWaitingTask{});
-  }
-
   class WaitingTaskList {
   public:
     ///Constructor
@@ -120,12 +103,17 @@ namespace edm {
     void presetTaskAsFailed(std::exception_ptr iExcept);
 
     ///Adds task to the waiting list
-    /**If doneWaiting() has already been called then the added task will immediately be spawned.
+    /**If doneWaiting() has already been called then the added task will immediately be run.
        * If that is not the case then the task will be held until doneWaiting() is called and will
-       * then be spawned.
+       * then be run.
        * Calls to add() and doneWaiting() can safely be done concurrently.
        */
-    void add(WaitingTask*);
+    void add(oneapi::tbb::task_group*, WaitingTask*);
+
+    ///Adds task to the waiting list
+    /**Calls to add() and doneWaiting() can safely be done concurrently.
+      */
+    void add(WaitingTaskHolder);
 
     ///Signals that the resource is now available and tasks should be spawned
     /**The owner of the resource calls this function to allow the waiting tasks to
@@ -145,13 +133,14 @@ namespace edm {
     void reset();
 
   private:
-    /**Handles spawning the tasks,
+    /**Handles running the tasks,
        * safe to call from multiple threads
        */
     void announce();
 
     struct WaitNode {
       WaitingTask* m_task;
+      oneapi::tbb::task_group* m_group;
       std::atomic<WaitNode*> m_next;
       bool m_fromCache;
 
@@ -160,7 +149,7 @@ namespace edm {
       WaitNode* nextNode() const { return m_next; }
     };
 
-    WaitNode* createNode(WaitingTask* iTask);
+    WaitNode* createNode(oneapi::tbb::task_group* iGroup, WaitingTask* iTask);
 
     // ---------- member data --------------------------------
     std::atomic<WaitNode*> m_head;

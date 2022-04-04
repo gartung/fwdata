@@ -21,13 +21,13 @@
 
 #include "CondFormats/L1TObjects/interface/L1TGlobalParameters.h"
 #include "L1Trigger/L1TGlobal/interface/GlobalParamsHelper.h"
-#include "L1Trigger/L1TGlobal/interface/PrescalesVetosHelper.h"
+#include "L1Trigger/L1TGlobal/interface/PrescalesVetosFractHelper.h"
 #include "CondFormats/L1TObjects/interface/L1TUtmTriggerMenu.h"
 #include "CondFormats/DataRecord/interface/L1TUtmTriggerMenuRcd.h"
 #include "CondFormats/L1TObjects/interface/L1TGlobalParameters.h"
 #include "CondFormats/DataRecord/interface/L1TGlobalParametersRcd.h"
-#include "CondFormats/L1TObjects/interface/L1TGlobalPrescalesVetos.h"
-#include "CondFormats/DataRecord/interface/L1TGlobalPrescalesVetosRcd.h"
+#include "CondFormats/L1TObjects/interface/L1TGlobalPrescalesVetosFract.h"
+#include "CondFormats/DataRecord/interface/L1TGlobalPrescalesVetosFractRcd.h"
 
 class L1TGlobalParameters;
 class L1GtParameters;
@@ -68,6 +68,7 @@ private:
 
   // number of objects of each type
   int m_nrL1Mu;
+  int m_nrL1MuShower;
   int m_nrL1EG;
   int m_nrL1Tau;
 
@@ -91,14 +92,11 @@ private:
   unsigned long long m_l1GtBMCacheID;
 
   /// prescale factors
-  const l1t::PrescalesVetosHelper* m_l1GtPrescalesVetoes;
+  const l1t::PrescalesVetosFractHelper* m_l1GtPrescalesVetosFract;
   unsigned long long m_l1GtPfAlgoCacheID;
 
-  const std::vector<std::vector<int>>* m_prescaleFactorsAlgoTrig;
-  std::vector<std::vector<int>> m_initialPrescaleFactorsAlgoTrig;
-
-  /// CSV file for prescales
-  std::string m_prescalesFile;
+  const std::vector<std::vector<double>>* m_prescaleFactorsAlgoTrig;
+  std::vector<std::vector<double>> m_initialPrescaleFactorsAlgoTrig;
 
   uint m_currentLumi;
 
@@ -119,7 +117,9 @@ private:
 
   /// input tag for muon collection from GMT
   edm::InputTag m_muInputTag;
+  edm::InputTag m_muShowerInputTag;
   edm::EDGetTokenT<BXVector<l1t::Muon>> m_muInputToken;
+  edm::EDGetTokenT<BXVector<l1t::MuonShower>> m_muShowerInputToken;
 
   /// input tag for calorimeter collections from GCT
   edm::InputTag m_egInputTag;
@@ -184,7 +184,10 @@ private:
 
   edm::ESGetToken<L1TGlobalParameters, L1TGlobalParametersRcd> m_l1GtStableParToken;
   edm::ESGetToken<L1TUtmTriggerMenu, L1TUtmTriggerMenuRcd> m_l1GtMenuToken;
-  edm::ESGetToken<L1TGlobalPrescalesVetos, L1TGlobalPrescalesVetosRcd> m_l1GtPrescaleVetosToken;
+  edm::ESGetToken<L1TGlobalPrescalesVetosFract, L1TGlobalPrescalesVetosFractRcd> m_l1GtPrescaleVetosToken;
+
+  // switch to load muon showers in the global board
+  bool m_useMuonShowers;
 };
 
 #endif /*L1TGlobalProducer_h*/

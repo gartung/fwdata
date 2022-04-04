@@ -16,7 +16,6 @@
  */
 
 #include "FWCore/Framework/interface/one/EDAnalyzer.h"
-#include "FWCore/Framework/interface/ESHandle.h"
 #include "FWCore/ParameterSet/interface/ParameterSet.h"
 #include "Alignment/TrackerAlignment/interface/AlignableTracker.h"
 #include "CondFormats/Alignment/interface/SurveyErrors.h"
@@ -86,10 +85,11 @@ private:
   bool passIdCut(uint32_t);
 
   const edm::ESGetToken<DDCompactView, IdealGeometryRecord> cpvTokenDDD_;
-  const edm::ESGetToken<cms::DDCompactView, IdealGeometryRecord> cpvTokenDD4Hep_;
+  const edm::ESGetToken<cms::DDCompactView, IdealGeometryRecord> cpvTokenDD4hep_;
   const edm::ESGetToken<TrackerTopology, TrackerTopologyRcd> topoToken_;
   const edm::ESGetToken<GeometricDet, IdealGeometryRecord> geomDetToken_;
   const edm::ESGetToken<PTrackerParameters, PTrackerParametersRcd> ptpToken_;
+  const edm::ESGetToken<PTrackerAdditionalParametersPerDet, PTrackerAdditionalParametersPerDetRcd> ptitpToken_;
   const edm::ESGetToken<SiPixelQuality, SiPixelQualityRcd> pixQualityToken_;
   const edm::ESGetToken<SiStripQuality, SiStripQualityRcd> stripQualityToken_;
 

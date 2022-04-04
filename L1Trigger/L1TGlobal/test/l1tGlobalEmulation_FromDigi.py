@@ -68,9 +68,9 @@ process.TFileService.fileName = cms.string('l1tCalo_2016_histos.root')
 
 
 # enable debug message logging for our modules
-#process.MessageLogger.categories.append('L1TCaloEvents')
-#process.MessageLogger.categories.append('L1TGlobalEvents')
-#process.MessageLogger.categories.append('l1t|Global')
+#
+#
+#
 process.MessageLogger.debugModules = cms.untracked.vstring('simGlobalStage2Digis')
 process.MessageLogger.cerr.threshold = cms.untracked.string('DEBUG')
 
@@ -105,7 +105,6 @@ process.es_prefer_l1GtParameters = cms.ESPrefer('l1t::TriggerMenuXmlProducer','T
 process.load('L1Trigger.L1TGlobal.simGlobalStage2Digis_cff')
 process.simGlobalStage2Digis.caloInputTag = cms.InputTag("gtStage2Digis","GT")
 process.simGlobalStage2Digis.GmtInputTag = cms.InputTag("gtStage2Digis","GT")
-process.simGlobalStage2Digis.PrescaleCSVFile = cms.string('prescale_L1TGlobal.csv')
 process.simGlobalStage2Digis.PrescaleSet = cms.uint32(1)
 process.simGlobalStage2Digis.Verbosity = cms.untracked.int32(0)
 

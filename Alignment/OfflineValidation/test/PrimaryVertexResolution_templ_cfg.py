@@ -65,7 +65,7 @@ print("external conditions:", options.external)
 print("outputFile        : ", options.outputRootFile)
 
 process.load("FWCore.MessageService.MessageLogger_cfi")
-process.MessageLogger.cerr = cms.untracked.PSet(placeholder = cms.untracked.bool(True))
+process.MessageLogger.cerr = cms.untracked.PSet(enable = cms.untracked.bool(False))
 process.MessageLogger.cout = cms.untracked.PSet(INFO = cms.untracked.PSet(
         reportEvery = cms.untracked.int32(1000) # every 100th only
         #    limit = cms.untracked.int32(10)       # or limit to 10 printouts...
@@ -148,7 +148,11 @@ process.PrimaryVertexResolution = cms.EDAnalyzer('SplitVertexResolution',
                                                  minVertexNdf        = cms.untracked.double(10.),
                                                  minVertexMeanWeight = cms.untracked.double(0.5),
                                                  runControl = cms.untracked.bool(True),
-                                                 runControlNumber = cms.untracked.vuint32(int(XXX_RUN_XXX))
+                                                 runControlNumber = cms.untracked.vuint32(int(XXX_RUN_XXX)),
+                                                 sumpTStartScale = cms.untracked.double(1.),
+                                                 sumpTEndScale = cms.untracked.double(1000.),
+                                                 nTrackBins = cms.untracked.double(60.),
+                                                 nVtxBins = cms.untracked.double(40.)
                                                  )
 
 process.TFileService = cms.Service("TFileService",

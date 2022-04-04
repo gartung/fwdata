@@ -1,6 +1,7 @@
 // L1TGlobalProducer.cc
 //author:   Brian Winer - Ohio State
 //          Vladimir Rekovic - extend for overlap removal
+//          Elisa Fontanesi - extended for three-body correlation conditions
 
 #include "L1Trigger/L1TGlobal/plugins/L1TGlobalProducer.h"
 
@@ -38,6 +39,8 @@ void L1TGlobalProducer::fillDescriptions(edm::ConfigurationDescriptions& descrip
   // These parameters are part of the L1T/HLT interface, avoid changing if possible::
   desc.add<edm::InputTag>("MuonInputTag", edm::InputTag(""))
       ->setComment("InputTag for Global Muon Trigger (required parameter:  default value is invalid)");
+  desc.add<edm::InputTag>("MuonShowerInputTag", edm::InputTag(""))
+      ->setComment("InputTag for Global Muon Shower Trigger (required parameter:  default value is invalid)");
   desc.add<edm::InputTag>("EGammaInputTag", edm::InputTag(""))
       ->setComment("InputTag for Calo Trigger EGamma (required parameter:  default value is invalid)");
   desc.add<edm::InputTag>("TauInputTag", edm::InputTag(""))
@@ -62,6 +65,10 @@ void L1TGlobalProducer::fillDescriptions(edm::ConfigurationDescriptions& descrip
           "true when used by the HLT to produce the object map");
   desc.add<bool>("AlgorithmTriggersUnmasked", false)
       ->setComment("not required, but recommend to specify explicitly in config");
+
+  // switch for muon showers in Run-3
+  desc.add<bool>("useMuonShowers", false);
+
   // These parameters have well defined  default values and are not currently
   // part of the L1T/HLT interface.  They can be cleaned up or updated at will:
   desc.add<bool>("ProduceL1GtDaqRecord", true);
@@ -74,7 +81,6 @@ void L1TGlobalProducer::fillDescriptions(edm::ConfigurationDescriptions& descrip
   desc.addUntracked<int>("Verbosity", 0);
   desc.addUntracked<bool>("PrintL1Menu", false);
   desc.add<std::string>("TriggerMenuLuminosity", "startup");
-  desc.add<std::string>("PrescaleCSVFile", "prescale_L1TGlobal.csv");
   descriptions.add("L1TGlobalProducer", desc);
 }
 
@@ -82,6 +88,7 @@ void L1TGlobalProducer::fillDescriptions(edm::ConfigurationDescriptions& descrip
 
 L1TGlobalProducer::L1TGlobalProducer(const edm::ParameterSet& parSet)
     : m_muInputTag(parSet.getParameter<edm::InputTag>("MuonInputTag")),
+      m_muShowerInputTag(parSet.getParameter<edm::InputTag>("MuonShowerInputTag")),
       m_egInputTag(parSet.getParameter<edm::InputTag>("EGammaInputTag")),
       m_tauInputTag(parSet.getParameter<edm::InputTag>("TauInputTag")),
       m_jetInputTag(parSet.getParameter<edm::InputTag>("JetInputTag")),
@@ -107,17 +114,20 @@ L1TGlobalProducer::L1TGlobalProducer(const edm::ParameterSet& parSet)
       m_isDebugEnabled(edm::isDebugEnabled()),
       m_getPrescaleColumnFromData(parSet.getParameter<bool>("GetPrescaleColumnFromData")),
       m_requireMenuToMatchAlgoBlkInput(parSet.getParameter<bool>("RequireMenuToMatchAlgoBlkInput")),
-      m_algoblkInputTag(parSet.getParameter<edm::InputTag>("AlgoBlkInputTag")) {
+      m_algoblkInputTag(parSet.getParameter<edm::InputTag>("AlgoBlkInputTag")),
+      m_useMuonShowers(parSet.getParameter<bool>("useMuonShowers")) {
   m_egInputToken = consumes<BXVector<EGamma>>(m_egInputTag);
   m_tauInputToken = consumes<BXVector<Tau>>(m_tauInputTag);
   m_jetInputToken = consumes<BXVector<Jet>>(m_jetInputTag);
   m_sumInputToken = consumes<BXVector<EtSum>>(m_sumInputTag);
   m_muInputToken = consumes<BXVector<Muon>>(m_muInputTag);
+  if (m_useMuonShowers)
+    m_muShowerInputToken = consumes<BXVector<MuonShower>>(m_muShowerInputTag);
   m_extInputToken = consumes<BXVector<GlobalExtBlk>>(m_extInputTag);
   m_l1GtStableParToken = esConsumes<L1TGlobalParameters, L1TGlobalParametersRcd>();
   m_l1GtMenuToken = esConsumes<L1TUtmTriggerMenu, L1TUtmTriggerMenuRcd>();
   if (!(m_algorithmTriggersUnprescaled && m_algorithmTriggersUnmasked)) {
-    m_l1GtPrescaleVetosToken = esConsumes<L1TGlobalPrescalesVetos, L1TGlobalPrescalesVetosRcd>();
+    m_l1GtPrescaleVetosToken = esConsumes<L1TGlobalPrescalesVetosFract, L1TGlobalPrescalesVetosFractRcd>();
   }
   if (m_getPrescaleColumnFromData || m_requireMenuToMatchAlgoBlkInput) {
     m_algoblkInputToken = consumes<BXVector<GlobalAlgBlk>>(m_algoblkInputTag);
@@ -196,6 +206,7 @@ L1TGlobalProducer::L1TGlobalProducer(const edm::ParameterSet& parSet)
   m_numberDaqPartitions = 0;
 
   m_nrL1Mu = 0;
+  m_nrL1MuShower = 0;
   m_nrL1EG = 0;
   m_nrL1Tau = 0;
 
@@ -225,9 +236,9 @@ L1TGlobalProducer::L1TGlobalProducer(const edm::ParameterSet& parSet)
   m_currentLumi = 0;
 
   // Set default, initial, dummy prescale factor table
-  std::vector<std::vector<int>> temp_prescaleTable;
+  std::vector<std::vector<double>> temp_prescaleTable;
 
-  temp_prescaleTable.push_back(std::vector<int>());
+  temp_prescaleTable.push_back(std::vector<double>());
   m_initialPrescaleFactorsAlgoTrig = temp_prescaleTable;
 }
 
@@ -258,6 +269,12 @@ void L1TGlobalProducer::produce(edm::Event& iEvent, const edm::EventSetup& evSet
     // number of objects of each type
     m_nrL1Mu = data->numberL1Mu();
 
+    // There should be at most 1 muon shower object per BX
+    // This object contains information for the in-time
+    // showers and out-of-time showers
+    if (m_useMuonShowers)
+      m_nrL1MuShower = 1;
+
     // EG
     m_nrL1EG = data->numberL1EG();
 
@@ -273,8 +290,14 @@ void L1TGlobalProducer::produce(edm::Event& iEvent, const edm::EventSetup& evSet
     int maxL1DataBxInEvent = (m_L1DataBxInEvent + 1) / 2 - 1;
 
     // Initialize Board
-    m_uGtBrd->init(
-        m_numberPhysTriggers, m_nrL1Mu, m_nrL1EG, m_nrL1Tau, m_nrL1Jet, minL1DataBxInEvent, maxL1DataBxInEvent);
+    m_uGtBrd->init(m_numberPhysTriggers,
+                   m_nrL1Mu,
+                   m_nrL1MuShower,
+                   m_nrL1EG,
+                   m_nrL1Tau,
+                   m_nrL1Jet,
+                   minL1DataBxInEvent,
+                   maxL1DataBxInEvent);
 
     //
     m_l1GtParCacheID = l1GtParCacheID;
@@ -329,10 +352,12 @@ void L1TGlobalProducer::produce(edm::Event& iEvent, const edm::EventSetup& evSet
     m_l1GtMenu = std::make_unique<TriggerMenu>(gtParser.gtTriggerMenuName(),
                                                data->numberChips(),
                                                gtParser.vecMuonTemplate(),
+                                               gtParser.vecMuonShowerTemplate(),
                                                gtParser.vecCaloTemplate(),
                                                gtParser.vecEnergySumTemplate(),
                                                gtParser.vecExternalTemplate(),
                                                gtParser.vecCorrelationTemplate(),
+                                               gtParser.vecCorrelationThreeBodyTemplate(),
                                                gtParser.vecCorrelationWithOverlapRemovalTemplate(),
                                                gtParser.corMuonTemplate(),
                                                gtParser.corCaloTemplate(),
@@ -385,15 +410,16 @@ void L1TGlobalProducer::produce(edm::Event& iEvent, const edm::EventSetup& evSet
 
   // Only get event record if not unprescaled and not unmasked
   if (!(m_algorithmTriggersUnprescaled && m_algorithmTriggersUnmasked)) {
-    unsigned long long l1GtPfAlgoCacheID = evSetup.get<L1TGlobalPrescalesVetosRcd>().cacheIdentifier();
+    unsigned long long l1GtPfAlgoCacheID = evSetup.get<L1TGlobalPrescalesVetosFractRcd>().cacheIdentifier();
 
     if (m_l1GtPfAlgoCacheID != l1GtPfAlgoCacheID) {
-      edm::ESHandle<L1TGlobalPrescalesVetos> l1GtPrescalesVetoes = evSetup.getHandle(m_l1GtPrescaleVetosToken);
-      const L1TGlobalPrescalesVetos* es = l1GtPrescalesVetoes.product();
-      m_l1GtPrescalesVetoes = PrescalesVetosHelper::readFromEventSetup(es);
+      edm::ESHandle<L1TGlobalPrescalesVetosFract> l1GtPrescalesFractVetoes =
+          evSetup.getHandle(m_l1GtPrescaleVetosToken);
+      const L1TGlobalPrescalesVetosFract* es = l1GtPrescalesFractVetoes.product();
+      m_l1GtPrescalesVetosFract = PrescalesVetosFractHelper::readFromEventSetup(es);
 
-      m_prescaleFactorsAlgoTrig = &(m_l1GtPrescalesVetoes->prescaleTable());
-      m_triggerMaskVetoAlgoTrig = &(m_l1GtPrescalesVetoes->triggerMaskVeto());
+      m_prescaleFactorsAlgoTrig = &(m_l1GtPrescalesVetosFract->prescaleTable());
+      m_triggerMaskVetoAlgoTrig = &(m_l1GtPrescalesVetosFract->triggerMaskVeto());
 
       m_l1GtPfAlgoCacheID = l1GtPfAlgoCacheID;
     }
@@ -468,6 +494,7 @@ void L1TGlobalProducer::produce(edm::Event& iEvent, const edm::EventSetup& evSet
 
   //
   bool receiveMu = true;
+  bool receiveMuShower = true;
   bool receiveEG = true;
   bool receiveTau = true;
   bool receiveJet = true;
@@ -539,7 +566,7 @@ void L1TGlobalProducer::produce(edm::Event& iEvent, const edm::EventSetup& evSet
     pfAlgoSetIndex = max;
   }
 
-  const std::vector<int>& prescaleFactorsAlgoTrig = (*m_prescaleFactorsAlgoTrig).at(pfAlgoSetIndex);
+  const std::vector<double>& prescaleFactorsAlgoTrig = (*m_prescaleFactorsAlgoTrig).at(pfAlgoSetIndex);
 
   // For now, set masks according to prescale value of 0
   m_initialTriggerMaskAlgoTrig.clear();
@@ -571,6 +598,9 @@ void L1TGlobalProducer::produce(edm::Event& iEvent, const edm::EventSetup& evSet
 
   m_uGtBrd->receiveMuonObjectData(iEvent, m_muInputToken, receiveMu, m_nrL1Mu);
 
+  if (m_useMuonShowers)
+    m_uGtBrd->receiveMuonShowerObjectData(iEvent, m_muShowerInputToken, receiveMuShower, m_nrL1MuShower);
+
   m_uGtBrd->receiveExternalData(iEvent, m_extInputToken, receiveExt);
 
   // loop over BxInEvent
@@ -587,6 +617,7 @@ void L1TGlobalProducer::produce(edm::Event& iEvent, const edm::EventSetup& evSet
                      gtObjectMapRecord,
                      m_numberPhysTriggers,
                      m_nrL1Mu,
+                     m_nrL1MuShower,
                      m_nrL1EG,
                      m_nrL1Tau,
                      m_nrL1Jet);

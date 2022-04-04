@@ -47,7 +47,7 @@ using reco::TrackCollection;
 class __class__ : public edm::one::EDAnalyzer<edm::one::SharedResources> {
 public:
   explicit __class__(const edm::ParameterSet&);
-  ~__class__();
+  ~__class__() override;
 
   static void fillDescriptions(edm::ConfigurationDescriptions& descriptions);
 
@@ -137,7 +137,7 @@ void __class__::fillDescriptions(edm::ConfigurationDescriptions& descriptions) {
   //To use, remove the default given above and uncomment below
   //ParameterSetDescription desc;
   //desc.addUntracked<edm::InputTag>("tracks","ctfWithMaterialTracks");
-  //descriptions.addDefault(desc);
+  //descriptions.addWithDefaultLabel(desc);
 }
 
 //define this as a plug-in

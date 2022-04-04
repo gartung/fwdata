@@ -1,26 +1,68 @@
-#include "Calibration/HcalCalibAlgos/plugins/HitReCalibrator.h"
-#include "FWCore/MessageLogger/interface/MessageLogger.h"
-#include "DataFormats/GeometryVector/interface/GlobalPoint.h"
+// system include files
+#include <memory>
+#include <string>
+
+// user include files
+#include "DataFormats/Common/interface/Ref.h"
+#include "DataFormats/CaloTowers/interface/CaloTowerCollection.h"
 #include "DataFormats/CaloTowers/interface/CaloTowerDetId.h"
 #include "DataFormats/EcalRecHit/interface/EcalRecHitCollections.h"
+#include "DataFormats/HcalRecHit/interface/HcalRecHitCollections.h"
+#include "DataFormats/DetId/interface/DetId.h"
+#include "DataFormats/GeometryVector/interface/GlobalPoint.h"
+
+#include "CondFormats/HcalObjects/interface/HcalRespCorrs.h"
+#include "CondFormats/DataRecord/interface/HcalRespCorrsRcd.h"
+
+#include "FWCore/Framework/interface/Frameworkfwd.h"
+#include "FWCore/Framework/interface/one/EDProducer.h"
+#include "FWCore/Framework/interface/Event.h"
+#include "FWCore/Framework/interface/MakerMacros.h"
+#include "FWCore/ParameterSet/interface/ParameterSet.h"
+#include "FWCore/Framework/interface/EventSetup.h"
+#include "FWCore/MessageLogger/interface/MessageLogger.h"
 #include "RecoTracker/TrackProducer/interface/TrackProducerBase.h"
 #include "TrackingTools/TransientTrack/interface/TransientTrack.h"
 #include "DataFormats/JetReco/interface/CaloJetCollection.h"
-#include "CondFormats/HcalObjects/interface/HcalRespCorrs.h"
-#include "CondFormats/DataRecord/interface/HcalRespCorrsRcd.h"
 #include "FWCore/Utilities/interface/Exception.h"
 
-using namespace edm;
-using namespace std;
-using namespace reco;
+//
+// class declaration
+//
 
 namespace cms {
 
-  HitReCalibrator::HitReCalibrator(const edm::ParameterSet& iConfig) {
-    tok_hbhe_ = consumes<HBHERecHitCollection>(iConfig.getParameter<edm::InputTag>("hbheInput"));
-    tok_ho_ = consumes<HORecHitCollection>(iConfig.getParameter<edm::InputTag>("hoInput"));
-    tok_hf_ = consumes<HFRecHitCollection>(iConfig.getParameter<edm::InputTag>("hfInput"));
+  class HitReCalibrator : public edm::one::EDProducer<> {
+  public:
+    explicit HitReCalibrator(const edm::ParameterSet&);
+    ~HitReCalibrator() override;
+
+    void beginJob() override;
+
+    void produce(edm::Event&, const edm::EventSetup&) override;
+
+  private:
+    // ----------member data ---------------------------
+
+    bool allowMissingInputs_;
+
+    const edm::EDGetTokenT<HBHERecHitCollection> tok_hbhe_;
+    const edm::EDGetTokenT<HORecHitCollection> tok_ho_;
+    const edm::EDGetTokenT<HFRecHitCollection> tok_hf_;
+
+    const edm::ESGetToken<HcalRespCorrs, HcalRespCorrsRcd> tok_resp_;
+  };
+}  // end namespace cms
+
+namespace cms {
+
+  HitReCalibrator::HitReCalibrator(const edm::ParameterSet& iConfig)
+      : tok_hbhe_(consumes<HBHERecHitCollection>(iConfig.getParameter<edm::InputTag>("hbheInput"))),
+        tok_ho_(consumes<HORecHitCollection>(iConfig.getParameter<edm::InputTag>("hoInput"))),
+        tok_hf_(consumes<HFRecHitCollection>(iConfig.getParameter<edm::InputTag>("hfInput"))),
+        tok_resp_(esConsumes<HcalRespCorrs, HcalRespCorrsRcd>()) {
     allowMissingInputs_ = true;
+
     //register your products
 
     produces<HBHERecHitCollection>("DiJetsHBHEReRecHitCollection");
@@ -37,13 +79,10 @@ namespace cms {
     auto miniDiJetsHORecHitCollection = std::make_unique<HORecHitCollection>();
     auto miniDiJetsHFRecHitCollection = std::make_unique<HFRecHitCollection>();
 
-    edm::ESHandle<HcalRespCorrs> recalibCorrs;
-    iSetup.get<HcalRespCorrsRcd>().get("recalibrate", recalibCorrs);
-    const HcalRespCorrs* jetRecalib = recalibCorrs.product();
+    const HcalRespCorrs* jetRecalib = &iSetup.getData(tok_resp_);
 
     try {
-      edm::Handle<HBHERecHitCollection> hbhe;
-      iEvent.getByToken(tok_hbhe_, hbhe);
+      const edm::Handle<HBHERecHitCollection>& hbhe = iEvent.getHandle(tok_hbhe_);
       const HBHERecHitCollection Hithbhe = *(hbhe.product());
       for (HBHERecHitCollection::const_iterator hbheItr = Hithbhe.begin(); hbheItr != Hithbhe.end(); hbheItr++) {
         DetId id = hbheItr->detid();
@@ -59,14 +98,13 @@ namespace cms {
       }
     } catch (cms::Exception& e) {  // can't find it!
       if (!allowMissingInputs_) {
-        cout << "No HBHE collection " << endl;
+        edm::LogError("HitCalib") << "No HBHE collection ";
         throw e;
       }
     }
 
     try {
-      edm::Handle<HORecHitCollection> ho;
-      iEvent.getByToken(tok_ho_, ho);
+      const edm::Handle<HORecHitCollection>& ho = iEvent.getHandle(tok_ho_);
       const HORecHitCollection Hitho = *(ho.product());
       for (HORecHitCollection::const_iterator hoItr = Hitho.begin(); hoItr != Hitho.end(); hoItr++) {
         DetId id = hoItr->detid();
@@ -82,14 +120,13 @@ namespace cms {
       }
     } catch (cms::Exception& e) {  // can't find it!
       if (!allowMissingInputs_) {
-        cout << " No HO collection " << endl;
+        edm::LogError("HitCalib") << " No HO collection ";
         throw e;
       }
     }
 
     try {
-      edm::Handle<HFRecHitCollection> hf;
-      iEvent.getByToken(tok_hf_, hf);
+      const edm::Handle<HFRecHitCollection>& hf = iEvent.getHandle(tok_hf_);
       const HFRecHitCollection Hithf = *(hf.product());
       for (HFRecHitCollection::const_iterator hfItr = Hithf.begin(); hfItr != Hithf.end(); hfItr++) {
         DetId id = hfItr->detid();

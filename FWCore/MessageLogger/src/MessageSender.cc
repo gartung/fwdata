@@ -11,7 +11,7 @@
 #include <atomic>
 
 #include <functional>
-#include "tbb/concurrent_unordered_map.h"
+#include "oneapi/tbb/concurrent_unordered_map.h"
 
 #define TRACE_DROP
 #ifdef TRACE_DROP
@@ -28,6 +28,7 @@
 //
 
 using namespace edm;
+using namespace edm::messagelogger;
 
 namespace {
   //Helper class used as 'key' to the thread safe map storing the
@@ -79,7 +80,7 @@ namespace {
 CMS_THREAD_SAFE static std::atomic<bool> errorSummaryIsBeingKept{false};
 //Each item in the vector is reserved for a different Stream
 CMS_THREAD_SAFE static std::vector<
-    tbb::concurrent_unordered_map<ErrorSummaryMapKey, AtomicUnsignedInt, ErrorSummaryMapKey::key_hash>>
+    oneapi::tbb::concurrent_unordered_map<ErrorSummaryMapKey, AtomicUnsignedInt, ErrorSummaryMapKey::key_hash>>
     errorSummaryMaps;
 
 MessageSender::MessageSender(ELseverityLevel const& sev, std::string_view id, bool verbatim, bool suppressed)
@@ -145,6 +146,7 @@ MessageSender::~MessageSender() {}
 // statics can be file scoped rather than class scoped and therefore
 // better encapsulated.
 namespace edm {
+  using namespace messagelogger;
 
   bool EnableLoggedErrorsSummary() {
     bool ret = errorSummaryIsBeingKept.exchange(true, std::memory_order_acq_rel);

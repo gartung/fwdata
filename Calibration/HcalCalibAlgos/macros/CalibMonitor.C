@@ -65,7 +65,9 @@
 //                               method; 2 for overall response corrections;
 //                               1 for depth dependence corrections;
 //                               0 for raddam corrections);
-//                               t=1/0 for applying cut or not on L1 closeness;
+//                               t = bit information (lower bit set will
+//                               apply a cut on L1 closeness; and higher bit
+//                               set read correction file with Marina format);
 //                               h = 0/1/2 for not creating / creating in
 //                               recreate mode / creating in append mode
 //                               the output text file;
@@ -78,8 +80,10 @@
 //                               energy distributions;  l=2/1/0 for type of
 //                               correction (2 for overall response corrections;
 //                               1 for depth dependence corrections; 0 for
-//                               raddam corrections); t=1/0 for applying cut or
-//                               not on L1 closeness; h=1/0 for making or not
+//                               raddam corrections); t=bit information (lower
+//                               bit set will apply a cut on L1 closeness; and
+//                               higher bit set read correction file with
+//                               Marina format); h=1/0 for making or not
 //                               plots of momentum and total energies in the
 //                               two calorimeters ECAL/HCAL; d=1/0 for making
 //                               plots of momentum and eta distributions;
@@ -320,7 +324,7 @@ private:
   std::vector<Long64_t> entries_;
   std::vector<std::pair<int, int> > events_;
   std::vector<double> etas_, ps_, dl1_;
-  std::vector<int> nvx_, ietas_;
+  std::vector<int> nvx_, ietasL_, ietasH_;
   std::vector<TH1D *> h_rbx, h_etaF[npbin], h_etaB[npbin];
   std::vector<TProfile *> h_etaX[npbin];
   std::vector<TH1D *> h_etaR[npbin], h_nvxR[npbin], h_dL1R[npbin];
@@ -387,7 +391,9 @@ CalibMonitor::CalibMonitor(const char *fname,
   if (plotType_ < 0 || plotType_ > 3)
     plotType_ = 3;
   flexibleSelect_ = (((flag_ / 1) % 10));
-  cutL1T_ = ((flag_ / 1000) % 10);
+  int oneplace = ((flag_ / 1000) % 10);
+  cutL1T_ = (oneplace % 2);
+  bool marina = ((oneplace / 2) % 2);
   ifDepth_ = ((flag_ / 10000) % 10);
   selRBX_ = (((flag_ / 100000) % 10) > 0);
   coarseBin_ = ((flag_ / 1000000) % 10);
@@ -405,12 +411,12 @@ CalibMonitor::CalibMonitor(const char *fname,
             << " run range " << runlo_ << ":" << runhi_ << " (inclusion flag " << includeRun_ << ")\n Selection of RBX "
             << selRBX_ << " Vertex Range " << nvxlo_ << ":" << nvxhi_ << "\n corrFileName: " << corrFileName
             << " useScale " << useScale << ":" << scale << ":" << etam << "\n rcorFileName: " << rcorFileName
-            << " flag " << ifDepth_ << std::endl;
+            << " flag " << ifDepth_ << ":" << cutL1T_ << ":" << marina << std::endl;
   if (!fillChain(chain, fname)) {
     std::cout << "*****No valid tree chain can be obtained*****" << std::endl;
   } else {
     std::cout << "Proceed with a tree chain with " << chain->GetEntries() << " entries" << std::endl;
-    corrFactor_ = new CalibCorrFactor(corrFileName, useScale, scale, etam, false);
+    corrFactor_ = new CalibCorrFactor(corrFileName, useScale, scale, etam, marina, false);
     Init(chain, dupFileName, comFileName, outFName);
     if (std::string(rcorFileName) != "") {
       cFactor_ = new CalibCorr(rcorFileName, ifDepth_, false);
@@ -614,16 +620,19 @@ void CalibMonitor::Init(TChain *tree, const char *dupFileName, const char *comFi
   for (int i = 0; i < 6; ++i)
     nvx_.push_back(npvtx[i]);
   double dl1s[9] = {0, 0.10, 0.20, 0.50, 1.0, 2.0, 2.5, 3.0, 10.0};
-  int ietas[4] = {0, 13, 18, 23};
-  for (int i = 0; i < 4; ++i)
-    ietas_.push_back(ietas[i]);
+  int ietasL[4] = {0, 13, 17, 0};
+  int ietasH[4] = {14, 18, 25, 25};
+  for (int i = 0; i < 4; ++i) {
+    ietasL_.push_back(ietasL[i]);
+    ietasH_.push_back(ietasH[i]);
+  }
   int nxbin(100);
-  double xlow(0.25), xhigh(5.25);
+  double xlow(0.0), xhigh(5.0);
   if (coarseBin_ == 1) {
+    xlow = 0.25;
+    xhigh = 5.25;
     nxbin = 50;
   } else if (coarseBin_ > 1) {
-    xlow = 0.0;
-    xhigh = 5.0;
     if (coarseBin_ == 2)
       nxbin = 500;
     else
@@ -637,26 +646,18 @@ void CalibMonitor::Init(TChain *tree, const char *dupFileName, const char *comFi
     dl1_.push_back(dl1s[i]);
   unsigned int kp = (ps_.size() - 1);
   for (unsigned int k = 0; k < kp; ++k) {
-    for (unsigned int j = 0; j <= ietas_.size(); ++j) {
+    for (unsigned int j = 0; j <= ietasL_.size(); ++j) {
       sprintf(name, "%spp%d%d", prefix_.c_str(), k, j);
       if (j == 0)
         sprintf(title, "E/p for %s (p = %d:%d GeV All)", titl[4].c_str(), ipbin[k], ipbin[k + 1]);
-      else if (j == ietas_.size())
-        sprintf(title,
-                "E/p for %s (p = %d:%d GeV |#eta| %d:%d)",
-                titl[4].c_str(),
-                ipbin[k],
-                ipbin[k + 1],
-                ietas_[0],
-                ietas_[j - 1]);
       else
         sprintf(title,
                 "E/p for %s (p = %d:%d GeV |#eta| %d:%d)",
                 titl[4].c_str(),
                 ipbin[k],
                 ipbin[k + 1],
-                ietas_[j - 1],
-                ietas_[j]);
+                (ietasL_[j - 1] + 1),
+                ietasH_[j - 1]);
       h_pp[k].push_back(new TH1D(name, title, 100, 10.0, 110.0));
       int kk = h_pp[k].size() - 1;
       h_pp[k][kk]->Sumw2();
@@ -713,24 +714,15 @@ void CalibMonitor::Init(TChain *tree, const char *dupFileName, const char *comFi
         kk = h_etaR[k].size() - 1;
         h_etaR[k][kk]->Sumw2();
       }
-      for (unsigned int j = 1; j <= ietas_.size(); ++j) {
+      for (unsigned int j = 1; j <= ietasL_.size(); ++j) {
         sprintf(name, "%setaB%d%d", prefix_.c_str(), k, j);
-        if (j == ietas_.size())
-          sprintf(title,
-                  "E/p for %s (p = %d:%d GeV |#eta| %d:%d)",
-                  titl[4].c_str(),
-                  ipbin[k],
-                  ipbin[k + 1],
-                  ietas_[0],
-                  ietas_[j - 1]);
-        else
-          sprintf(title,
-                  "E/p for %s (p = %d:%d GeV |#eta| %d:%d)",
-                  titl[4].c_str(),
-                  ipbin[k],
-                  ipbin[k + 1],
-                  ietas_[j - 1],
-                  ietas_[j]);
+        sprintf(title,
+                "E/p for %s (p = %d:%d GeV |#eta| %d:%d)",
+                titl[4].c_str(),
+                ipbin[k],
+                ipbin[k + 1],
+                (ietasL_[j - 1] + 1),
+                ietasH_[j - 1]);
         h_etaB[k].push_back(new TH1D(name, title, nxbin, xlow, xhigh));
         unsigned int kk = h_etaB[k].size() - 1;
         h_etaB[k][kk]->Sumw2();
@@ -788,12 +780,9 @@ void CalibMonitor::Init(TChain *tree, const char *dupFileName, const char *comFi
       kk = h_etaR[npbin - 1].size() - 1;
       h_etaR[npbin - 1][kk]->Sumw2();
     }
-    for (unsigned int j = 1; j <= ietas_.size(); ++j) {
+    for (unsigned int j = 1; j <= ietasL_.size(); ++j) {
       sprintf(name, "%setaB%d%d", prefix_.c_str(), kp, j);
-      if (j == ietas_.size())
-        sprintf(title, "E/p for %s (All momentum |#eta| %d:%d)", titl[4].c_str(), ietas_[0], ietas_[j - 1]);
-      else
-        sprintf(title, "E/p for %s (All momentum |#eta| %d:%d)", titl[4].c_str(), ietas_[j - 1], ietas_[j]);
+      sprintf(title, "E/p for %s (All momentum |#eta| %d:%d)", titl[4].c_str(), (ietasL_[j - 1] + 1), ietasH_[j - 1]);
       h_etaB[npbin - 1].push_back(new TH1D(name, title, nxbin, xlow, xhigh));
       unsigned int kk = h_etaB[npbin - 1].size() - 1;
       h_etaB[npbin - 1][kk]->Sumw2();
@@ -830,24 +819,15 @@ void CalibMonitor::Init(TChain *tree, const char *dupFileName, const char *comFi
         unsigned int kk = h_etaF[k].size() - 1;
         h_etaF[k][kk]->Sumw2();
       }
-      for (unsigned int j = 1; j <= ietas_.size(); ++j) {
+      for (unsigned int j = 1; j <= ietasL_.size(); ++j) {
         sprintf(name, "%setaB%d%d", prefix_.c_str(), k, j);
-        if (j == ietas_.size())
-          sprintf(title,
-                  "E/p for %s (p = %d:%d GeV |#eta| %d:%d)",
-                  titl[4].c_str(),
-                  ipbin[k],
-                  ipbin[k + 1],
-                  ietas_[0],
-                  ietas_[j - 1]);
-        else
-          sprintf(title,
-                  "E/p for %s (p = %d:%d GeV |#eta| %d:%d)",
-                  titl[4].c_str(),
-                  ipbin[k],
-                  ipbin[k + 1],
-                  ietas_[j - 1],
-                  ietas_[j]);
+        sprintf(title,
+                "E/p for %s (p = %d:%d GeV |#eta| %d:%d)",
+                titl[4].c_str(),
+                ipbin[k],
+                ipbin[k + 1],
+                (ietasL_[j - 1] + 1),
+                ietasH_[j - 1]);
         h_etaB[k].push_back(new TH1D(name, title, nxbin, xlow, xhigh));
         unsigned int kk = h_etaB[k].size() - 1;
         h_etaB[k][kk]->Sumw2();
@@ -935,7 +915,7 @@ void CalibMonitor::Loop() {
       break;
     nb = fChain->GetEntry(jentry);
     nbytes += nb;
-    if (jentry % 100000 == 0)
+    if (jentry % 1000000 == 0)
       std::cout << "Entry " << jentry << " Run " << t_Run << " Event " << t_Event << std::endl;
     double pmom = (useGen_ && (t_gentrackP > 0)) ? t_gentrackP : t_p;
     bool p4060 = ((pmom >= 40.0) && (pmom <= 60.0));
@@ -997,7 +977,7 @@ void CalibMonitor::Loop() {
       continue;
 
     // if (Cut(ientry) < 0) continue;
-    int kp(-1), jp(-1), jp1(-1);
+    int kp(-1), jp(-1), jp1(-1), jp2(-1);
     for (unsigned int k = 1; k < ps_.size(); ++k) {
       if (pmom >= ps_[k - 1] && pmom < ps_[k]) {
         kp = k - 1;
@@ -1026,16 +1006,19 @@ void CalibMonitor::Loop() {
         break;
       }
     }
-    for (unsigned int j = 1; j < ietas_.size(); ++j) {
-      if (std::abs(t_ieta) > ietas_[j - 1] && std::abs(t_ieta) <= ietas_[j]) {
-        jp1 = j - 1;
-        break;
+    for (unsigned int j = 0; j < (ietasL_.size() - 1); ++j) {
+      if (std::abs(t_ieta) > ietasL_[j] && std::abs(t_ieta) <= ietasH_[j]) {
+        if (jp1 >= 0)
+          jp2 = j;
+        if (jp1 < 0)
+          jp1 = j;
       }
     }
-    int jp2 = (jp1 >= 0) ? (int)(ietas_.size() - 1) : jp1;
+    int jp3 = (jp1 >= 0) ? (int)(ietasL_.size() - 1) : jp1;
     if (debug)
       std::cout << "Bin " << kp << ":" << kp1 << ":" << kv << ":" << kv1 << ":" << kd << ":" << kd1 << ":" << jp << ":"
-                << jp1 << ":" << jp2 << std::endl;
+                << jp1 << ":" << jp2 << ":" << jp3 << " pmom:ieta:pv:mindR " << pmom << ":" << std::abs(t_ieta) << ":"
+                << t_goodPV << ":" << t_mindR1 << std::endl;
     double cut = (pmom > 20) ? ((flexibleSelect_ == 0) ? 2.0 : 10.0) : 0.0;
     //  double rcut= (pmom > 20) ? 0.25: 0.1;
     double rcut(-1000.0);
@@ -1147,8 +1130,10 @@ void CalibMonitor::Loop() {
         h_pp[kp][0]->Fill(pmom, t_EventWeight);
         if (jp1 >= 0) {
           h_pp[kp][jp1 + 1]->Fill(pmom, t_EventWeight);
-          h_pp[kp][jp2 + 1]->Fill(pmom, t_EventWeight);
+          h_pp[kp][jp3 + 1]->Fill(pmom, t_EventWeight);
         }
+        if (jp2 >= 0)
+          h_pp[kp][jp2 + 1]->Fill(pmom, t_EventWeight);
         if (kp == (int)(kp50)) {
           std::map<int, counter>::const_iterator itr = runSum.find(t_Run);
           if (itr == runSum.end()) {
@@ -1182,8 +1167,10 @@ void CalibMonitor::Loop() {
             h_etaF[kp][0]->Fill(rat, t_EventWeight);
             if (jp1 >= 0) {
               h_etaB[kp][jp1]->Fill(rat, t_EventWeight);
-              h_etaB[kp][jp2]->Fill(rat, t_EventWeight);
+              h_etaB[kp][jp3]->Fill(rat, t_EventWeight);
             }
+            if (jp2 >= 0)
+              h_etaB[kp][jp2]->Fill(rat, t_EventWeight);
           }
           if (selRBX_ && (kp == (int)(kp50)) && ((t_ieta * zside_) > 0)) {
             int rbx = (t_iphi > 70) ? 0 : (t_iphi + 1) / 4;
@@ -1203,8 +1190,10 @@ void CalibMonitor::Loop() {
             h_etaR[kp1][0]->Fill(rat, t_EventWeight);
             if (jp1 >= 0) {
               h_etaB[kp][jp1]->Fill(rat, t_EventWeight);
-              h_etaB[kp][jp2]->Fill(rat, t_EventWeight);
+              h_etaB[kp][jp3]->Fill(rat, t_EventWeight);
             }
+            if (jp2 >= 0)
+              h_etaB[kp][jp2]->Fill(rat, t_EventWeight);
           }
           if (p4060)
             ++kount50[17];
@@ -1242,7 +1231,7 @@ void CalibMonitor::Loop() {
     fileout_.close();
     std::cout << "Writes " << good << " events in the file " << outFileName_ << std::endl;
   }
-  std::cout << "Finds " << duplicate << " Duplicate events out of " << kount << " evnts in this file with p>20 Gev"
+  std::cout << "Finds " << duplicate << " Duplicate events out of " << kount << " events in this file with p>10 Gev"
             << std::endl;
   std::cout << "Number of selected events:" << std::endl;
   for (unsigned int k = 1; k < ps_.size(); ++k)
@@ -1387,7 +1376,7 @@ void CalibMonitor::savePlot(const std::string &theName, bool append, bool all) {
 
   theFile->cd();
   for (unsigned int k = 0; k < ps_.size(); ++k) {
-    for (unsigned int j = 0; j <= ietas_.size(); ++j) {
+    for (unsigned int j = 0; j <= ietasL_.size(); ++j) {
       if ((all || k == kp50) && h_pp[k].size() > j && h_pp[k][j] != 0) {
         TH1D *hist = (TH1D *)h_pp[k][j]->Clone();
         hist->Write();
@@ -1423,7 +1412,7 @@ void CalibMonitor::savePlot(const std::string &theName, bool append, bool all) {
         }
       }
     }
-    for (unsigned int j = 0; j < ietas_.size(); ++j) {
+    for (unsigned int j = 0; j < ietasL_.size(); ++j) {
       if (h_etaB[k].size() > j && h_etaB[k][j] != 0 && (all || (k == kp50))) {
         TH1D *hist = (TH1D *)h_etaB[k][j]->Clone();
         hist->Write();
@@ -1628,19 +1617,21 @@ void GetEntries::Init(TTree *tree, const char *dupFileName) {
   fChain->SetBranchAddress("t_trackType", &t_trackType, &b_t_trackType);
   Notify();
 
-  ifstream infile(dupFileName);
-  if (!infile.is_open()) {
-    std::cout << "Cannot open " << dupFileName << std::endl;
-  } else {
-    while (1) {
-      Long64_t jentry;
-      infile >> jentry;
-      if (!infile.good())
-        break;
-      entries_.push_back(jentry);
+  if (std::string(dupFileName) != "") {
+    ifstream infile(dupFileName);
+    if (!infile.is_open()) {
+      std::cout << "Cannot open " << dupFileName << std::endl;
+    } else {
+      while (1) {
+        Long64_t jentry;
+        infile >> jentry;
+        if (!infile.good())
+          break;
+        entries_.push_back(jentry);
+      }
+      infile.close();
+      std::cout << "Reads a list of " << entries_.size() << " events from " << dupFileName << std::endl;
     }
-    infile.close();
-    std::cout << "Reads a list of " << entries_.size() << " events from " << dupFileName << std::endl;
   }
 
   h_tk[0] = new TH1I("Track0", "# of tracks produced", 2000, 0, 2000);
@@ -2234,7 +2225,9 @@ CalibPlotProperties::CalibPlotProperties(const char *fname,
   flexibleSelect_ = ((flag_ / 1) % 10);
   plotBasic_ = (((flag_ / 10) % 10) > 0);
   plotEnergy_ = (((flag_ / 10) % 10) > 0);
-  cutL1T_ = ((flag_ / 1000) % 10);
+  int oneplace = ((flag_ / 1000) % 10);
+  cutL1T_ = (oneplace % 2);
+  bool marina = ((oneplace / 2) % 2);
   ifDepth_ = ((flag_ / 10000) % 10);
   plotHists_ = (((flag_ / 100000) % 10) > 0);
   log2by18_ = std::log(2.5) / 18.0;
@@ -2258,7 +2251,7 @@ CalibPlotProperties::CalibPlotProperties(const char *fname,
   } else {
     std::cout << "Proceed with a tree chain with " << chain->GetEntries() << " entries" << std::endl;
     Init(chain, dupFileName);
-    corrFactor_ = new CalibCorrFactor(corrFileName, useScale, scl, etam, false);
+    corrFactor_ = new CalibCorrFactor(corrFileName, useScale, scl, etam, marina, false);
     if (std::string(rcorFileName) != "") {
       cFactor_ = new CalibCorr(rcorFileName, ifDepth_, false);
     } else {
@@ -2623,7 +2616,7 @@ void CalibPlotProperties::Loop() {
       break;
     nb = fChain->GetEntry(jentry);
     nbytes += nb;
-    if (jentry % 100000 == 0)
+    if (jentry % 1000000 == 0)
       std::cout << "Entry " << jentry << " Run " << t_Run << " Event " << t_Event << std::endl;
     bool select = (std::find(entries_.begin(), entries_.end(), jentry) == entries_.end());
     if (!select) {

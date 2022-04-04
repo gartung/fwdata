@@ -7,10 +7,8 @@
 /// \author: D. Puigh OSU
 ///
 
-// system include files
-
-// user include files
-
+// System include files
+// User include files
 #include "FWCore/Framework/interface/EventSetup.h"
 #include "FWCore/Framework/interface/Frameworkfwd.h"
 #include "FWCore/Framework/interface/stream/EDProducer.h"
@@ -30,19 +28,18 @@
 #include <FWCore/ParameterSet/interface/ConfigurationDescriptions.h>
 #include <FWCore/ParameterSet/interface/ParameterSetDescription.h>
 
-//#include <vector>
 #include "DataFormats/L1Trigger/interface/BXVector.h"
-
 #include "DataFormats/L1TGlobal/interface/GlobalExtBlk.h"
-
 #include "DataFormats/TCDS/interface/TCDSRecord.h"
+
+#include <vector>
 
 using namespace std;
 using namespace edm;
 using namespace l1t;
 
 //
-// class declaration
+// Class declaration
 //
 
 class L1TExtCondProducer : public stream::EDProducer<> {
@@ -55,7 +52,7 @@ public:
 private:
   void produce(edm::Event&, const edm::EventSetup&) override;
 
-  // ----------member data ---------------------------
+  // ---------- Member data ---------------------------
   // unsigned long long m_paramsCacheId; // Cache-ID from current parameters, to check if needs to be updated.
   //std::shared_ptr<const CaloParams> m_dbpars; // Database parameters for the trigger, to be updated as needed.
   //std::shared_ptr<const FirmwareVersion> m_fwv;
@@ -82,7 +79,7 @@ private:
 };
 
 //
-// constructors and destructor
+// Constructors and destructor
 //
 L1TExtCondProducer::L1TExtCondProducer(const ParameterSet& iConfig)
     : bxFirst_(iConfig.getParameter<int>("bxFirst")),
@@ -95,19 +92,15 @@ L1TExtCondProducer::L1TExtCondProducer(const ParameterSet& iConfig)
       l1GtMenuToken_(esConsumes<L1TUtmTriggerMenu, L1TUtmTriggerMenuRcd>()) {
   makeTriggerRulePrefireVetoBit_ = false;
 
-  m_triggerRulePrefireVetoBit = 255;
-  if (m_triggerRulePrefireVetoBit > GlobalExtBlk::maxExternalConditions - 1) {
-    m_triggerRulePrefireVetoBit = GlobalExtBlk::maxExternalConditions - 1;
-    edm::LogWarning("L1TExtCondProducer")
-        << "Default trigger rule prefire veto bit number too large. Resetting to " << m_triggerRulePrefireVetoBit;
-  }
+  m_triggerRulePrefireVetoBit = GlobalExtBlk::maxExternalConditions - 1;
 
+  // Note that the tcdsRecord input tag should be used as InputTag("unpackTcds","tcdsRecord") only for data
   if (!(tcdsInputTag_ == edm::InputTag(""))) {
     tcdsRecordToken_ = consumes<TCDSRecord>(tcdsInputTag_);
     makeTriggerRulePrefireVetoBit_ = true;
   }
 
-  // register what you produce
+  // Register what you produce
   produces<GlobalExtBlkBxCollection>();
 
   // Initialize parameters
@@ -117,14 +110,14 @@ L1TExtCondProducer::L1TExtCondProducer(const ParameterSet& iConfig)
 L1TExtCondProducer::~L1TExtCondProducer() {}
 
 //
-// member functions
+// Member functions
 //
 
 // ------------ method called to produce the data ------------
 void L1TExtCondProducer::produce(Event& iEvent, const EventSetup& iSetup) {
   LogDebug("L1TExtCondProducer") << "L1TExtCondProducer::produce function called...\n";
 
-  // get / update the trigger menu from the EventSetup
+  // Get / update the trigger menu from the EventSetup
   // local cache & check on cacheIdentifier
   unsigned long long l1GtMenuCacheID = iSetup.get<L1TUtmTriggerMenuRcd>().cacheIdentifier();
 
@@ -142,9 +135,9 @@ void L1TExtCondProducer::produce(Event& iEvent, const EventSetup& iSetup) {
   }
 
   bool TriggerRulePrefireVetoBit(false);
-  if (makeTriggerRulePrefireVetoBit_) {
-    // code taken from Nick Smith's EventFilter/L1TRawToDigi/plugins/TriggerRulePrefireVetoFilter.cc
-
+  // The following list of checks on the tcdsRecord is relevant only for data;
+  // code taken from Nick Smith's EventFilter/L1TRawToDigi/plugins/TriggerRulePrefireVetoFilter.cc
+  if (iEvent.isRealData() && makeTriggerRulePrefireVetoBit_) {
     edm::Handle<TCDSRecord> tcdsRecordH;
     iEvent.getByToken(tcdsRecordToken_, tcdsRecordH);
     const auto& tcdsRecord = *tcdsRecordH.product();
@@ -156,9 +149,10 @@ void L1TExtCondProducer::produce(Event& iEvent, const EventSetup& iSetup) {
       eventHistory.push_back(thisEvent - ((l1a.getBXID() - 1) + l1a.getOrbitNr() * 3564ull));
     }
 
-    // should be 16 according to TCDSRecord.h, we only care about the last 4
+    // It should be 16 according to TCDSRecord.h, we only care about the last 4
     if (eventHistory.size() < 4) {
-      edm::LogError("L1TExtCondProducer") << "Unexpectedly small L1A history from TCDSRecord";
+      throw cms::Exception("L1TExtCondProducer")
+          << "Unexpectedly small L1A history from TCDSRecord: (size = " << eventHistory.size() << " < 4)";
     }
 
     // No more than 1 L1A in 3 BX
@@ -196,7 +190,7 @@ void L1TExtCondProducer::produce(Event& iEvent, const EventSetup& iSetup) {
   // Setup vectors
   GlobalExtBlk extCond_bx;
 
-  //outputs
+  // Outputs
   std::unique_ptr<GlobalExtBlkBxCollection> extCond(new GlobalExtBlkBxCollection(0, bxFirst_, bxLast_));
 
   bool foundBptxAND = (m_extBitMap.find("BPTX_plus_AND_minus.v0") != m_extBitMap.end());
@@ -214,7 +208,7 @@ void L1TExtCondProducer::produce(Event& iEvent, const EventSetup& iSetup) {
   if (setBptxOR_ && foundBptxOR)
     extCond_bx.setExternalDecision(m_extBitMap["BPTX_plus_OR_minus.v0"], true);
 
-  //check for updated Bptx names as well
+  // Check for updated Bptx names as well
   foundBptxAND = (m_extBitMap.find("ZeroBias_BPTX_AND_VME") != m_extBitMap.end());
   foundBptxPlus = (m_extBitMap.find("BPTX_B1_VME") != m_extBitMap.end());
   foundBptxMinus = (m_extBitMap.find("BPTX_B2_VME") != m_extBitMap.end());
@@ -230,7 +224,7 @@ void L1TExtCondProducer::produce(Event& iEvent, const EventSetup& iSetup) {
   if (setBptxOR_ && foundBptxOR)
     extCond_bx.setExternalDecision(m_extBitMap["BPTX_OR_VME"], true);
 
-  // set the bit for the TriggerRulePrefireVeto if true
+  // Set the bit for the TriggerRulePrefireVeto if true
   if (TriggerRulePrefireVetoBit)
     extCond_bx.setExternalDecision(m_triggerRulePrefireVetoBit, true);
 
@@ -242,7 +236,7 @@ void L1TExtCondProducer::produce(Event& iEvent, const EventSetup& iSetup) {
   iEvent.put(std::move(extCond));
 }
 
-// ------------ method fills 'descriptions' with the allowed parameters for the module ------------
+// ------------ Method fills 'descriptions' with the allowed parameters for the module ------------
 void L1TExtCondProducer::fillDescriptions(ConfigurationDescriptions& descriptions) {
   // simGtExtFakeProd
   edm::ParameterSetDescription desc;
@@ -256,5 +250,5 @@ void L1TExtCondProducer::fillDescriptions(ConfigurationDescriptions& description
   descriptions.add("simGtExtFakeProd", desc);
 }
 
-//define this as a plug-in
+// Define this as a plug-in
 DEFINE_FWK_MODULE(L1TExtCondProducer);

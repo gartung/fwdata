@@ -10,7 +10,7 @@ from Configuration.AlCa.autoCond import autoCond
 process.GlobalTag.globaltag=autoCond['run1_mc']
 
 process.load('FWCore.MessageService.MessageLogger_cfi')
-process.MessageLogger.categories+=cms.untracked.vstring('GammaJetAnalysis')
+process.MessageLogger.GammaJetAnalysis = dict()
 process.MessageLogger.cerr.FwkReport.reportEvery=cms.untracked.int32(1000)
 
 #load the gammaJet analyzer
@@ -22,6 +22,8 @@ process.load('JetMETCorrections.Configuration.JetCorrectionProducers_cff')
 process.GammaJetAnalysis.rootHistFilename = cms.string('PhoJet_tree_CHS.root')
 process.GammaJetAnalysis.doPFJets = cms.bool(True)
 process.GammaJetAnalysis.doGenJets = cms.bool(False)
+process.TFileService = cms.Service("TFileService",
+                                   fileName = cms.string('PhoJet_tree_CHS.root'))
 
 # trigger names should not end with '_'
 process.GammaJetAnalysis.photonTriggers = cms.vstring(
