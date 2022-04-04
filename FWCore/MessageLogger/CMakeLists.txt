@@ -18,6 +18,7 @@ add_rootdict_rules(FWCoreMessageLogger)
 
 add_library(FWCoreMessageLogger SHARED ${FWCoreMessageLogger_EXTRA_SOURCES}
   src/AbstractMLscribe.cc
+  src/edm_MessageLogger.cc
   src/ELextendedID.cc
   src/ELmap.cc
   src/ELseverityLevel.cc
