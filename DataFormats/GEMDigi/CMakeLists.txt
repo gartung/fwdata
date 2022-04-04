@@ -23,10 +23,13 @@ add_rootdict_rules(DataFormatsGEMDigi)
 add_library(DataFormatsGEMDigi SHARED ${DataFormatsGEMDigi_EXTRA_SOURCES}
   src/AMC13Event.cc
   src/AMCdata.cc
+  src/GEMAMC.cc
+  src/GEMAMC13.cc
   src/GEMCoPadDigi.cc
   src/GEMDigi.cc
   src/GEMPadDigi.cc
   src/GEMPadDigiCluster.cc
+  src/GEMVFAT.cc
   src/GEMVfatStatusDigi.cc
   src/ME0Digi.cc
   src/ME0DigiPreReco.cc
