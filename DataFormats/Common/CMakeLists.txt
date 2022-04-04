@@ -22,6 +22,7 @@ add_library(DataFormatsCommon SHARED ${DataFormatsCommon_EXTRA_SOURCES}
   src/DataFrameContainer.cc
   src/DetSetVectorNew.cc
   src/EDProductGetter.cc
+  src/ELseverityLevel.cc
   src/HandleBase.cc
   src/HandleExceptionFactory.cc
   src/MergeableCounter.cc
