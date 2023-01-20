@@ -107,31 +107,10 @@ macro(cms_rootdict name)
 endmacro()
 
 macro(add_rootdict_rules name)
-  set(flags "")
   get_directory_property(defs COMPILE_DEFINITIONS)
-  if(defs)
-    foreach(d ${defs})
-      set(flags ${flags} -D${d})
-    endforeach()
-  endif()
+  LIST(APPEND defs $<TARGET_PROPERTY:${name},COMPILE_DEFINITIONS>)
   get_target_property(dirs ${name} INCLUDE_DIRECTORIES)
-  get_target_property(linklibs ${name} INTERFACE_LINK_LIBRARIES)
-  foreach(lib ${linklibs})
-     if(TARGET ${lib})
-       get_target_property(incdirs ${lib} INTERFACE_INCLUDE_DIRECTORIES)
-       if(NOT incdirs STREQUAL "incdirs-NOTFOUND")
-         foreach(inc ${incdirs})
-           list(APPEND dirs ${inc})
-         endforeach()
-       endif()
-     endif()
-  endforeach()
-  list(REMOVE_DUPLICATES dirs)
-  if(dirs)
-    foreach(inc ${dirs})
-      set(flags ${flags} -I${inc})
-    endforeach()
-  endif()
+  list(APPEND dirs $<TARGET_PROPERTY:${name},INCLUDE_DIRECTORIES>)
   foreach(dict ${${name}_ROOTDICTS})
     list(GET ROOTDICT_${dict} 0 classes_h)
     list(GET ROOTDICT_${dict} 1 classes_xml)
@@ -146,8 +125,9 @@ macro(add_rootdict_rules name)
 		    --rootmap-lib=${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}/lib${name}.so
 		    --library ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}/lib${name}.so --multiDict
                     -DCMS_DICT_IMPL -D_REENTRANT -DGNUSOURCE -D__STRICT_ANSI__ ${FLAGS} -DCMSSW_REFLEX_DICT 
-                    -I${CMAKE_SOURCE_DIR} ${flags}
+                    -I${CMAKE_SOURCE_DIR} "$<$<BOOL:$<JOIN:${defs},>>:-D$<JOIN:${defs},;-D>>" "-I$<JOIN:${dirs},;-I>"
                     DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/${classes_h} ${CMAKE_CURRENT_SOURCE_DIR}/${classes_xml}
+                    COMMAND_EXPAND_LISTS
                     )
     list(APPEND rootmapfiles ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}/${dict}.rootmap)
     list(APPEND pcmfiles ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}/lib${dict}_${dict}_x_rdict.pcm)
@@ -155,7 +135,6 @@ macro(add_rootdict_rules name)
   unset(clases_h)
   unset(classes_xml)
   unset(classname)
-  unset(FLAGS)
 endmacro()
 
 #add_custom_command(TARGET ALL_LIBS POST_BUILD
