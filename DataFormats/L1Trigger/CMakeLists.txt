@@ -8,7 +8,6 @@ ${GSL_INCLUDE_DIR}
 ${CMSMD5_INCLUDE_DIR}
 ${Python_INCLUDE_DIR}
 ${ROOT_INCLUDE_DIR}
-${TBB_INCLUDE_DIRS}
 ${TINYXML2_INCLUDE_DIR}
 ${UUID_INCLUDE_DIR}
 ${HLS_INCLUDE_DIR}
@@ -55,6 +54,7 @@ DataFormatsCommon
 DataFormatsHcalDetId
 DataFormatsL1GlobalCaloTrigger
 DataFormatsL1GlobalMuonTrigger
+DataFormatsL1TrackTrigger
 FWCoreConcurrency
 )
 

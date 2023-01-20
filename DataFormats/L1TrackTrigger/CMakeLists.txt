@@ -32,6 +32,7 @@ install( TARGETS DataFormatsL1TrackTrigger DESTINATION ${CMAKE_INSTALL_PREFIX}/$
 
 target_link_libraries(DataFormatsL1TrackTrigger PUBLIC
 ROOT::Core
+CLHEP::CLHEP
 DataFormatsCommon
 DataFormatsHcalDetId
 FWCoreConcurrency

@@ -28,6 +28,7 @@ install( TARGETS SimDataFormatsCrossingFrame DESTINATION ${CMAKE_INSTALL_PREFIX}
 
 target_link_libraries(SimDataFormatsCrossingFrame PUBLIC
 DataFormatsCommon
+SimDataFormatsGeneratorProducts
 SimDataFormatsEncodedEventId
 )
 
