@@ -12,11 +12,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsRPCDigi src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsRPCDigi)
 
-add_library(DataFormatsRPCDigi SHARED ${DataFormatsRPCDigi_EXTRA_SOURCES}
+add_library(DataFormatsRPCDigi SHARED 
   src/DataRecord.cc
   src/ErrorRCDM.cc
   src/ErrorRDDM.cc
@@ -43,3 +41,5 @@ DataFormatsCommon
 DataFormatsMuonDetId
 )
 
+cms_rootdict(DataFormatsRPCDigi src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsRPCDigi)

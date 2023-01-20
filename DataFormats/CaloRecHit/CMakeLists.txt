@@ -14,11 +14,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsCaloRecHit src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsCaloRecHit)
 
-add_library(DataFormatsCaloRecHit SHARED ${DataFormatsCaloRecHit_EXTRA_SOURCES}
+add_library(DataFormatsCaloRecHit SHARED 
   src/CaloCluster.cc
   src/CaloID.cc
   src/CaloRecHit.cc
@@ -45,3 +43,5 @@ ROOT::Thread
 ROOT::Tree
 )
 
+cms_rootdict(DataFormatsCaloRecHit src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsCaloRecHit)

@@ -14,11 +14,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsCastorReco src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsCastorReco)
 
-add_library(DataFormatsCastorReco SHARED ${DataFormatsCastorReco_EXTRA_SOURCES}
+add_library(DataFormatsCastorReco SHARED 
   src/CastorCell.cc
   src/CastorCluster.cc
   src/CastorEgamma.cc
@@ -39,3 +37,5 @@ DataFormatsCommon
 DataFormatsHcalRecHit
 )
 
+cms_rootdict(DataFormatsCastorReco src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsCastorReco)

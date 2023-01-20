@@ -12,11 +12,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsEcalDetId src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsEcalDetId)
 
-add_library(DataFormatsEcalDetId SHARED ${DataFormatsEcalDetId_EXTRA_SOURCES}
+add_library(DataFormatsEcalDetId SHARED 
   src/EBDetId.cc
   src/EEDetId.cc
   src/ESDetId.cc
@@ -40,3 +38,5 @@ DataFormatsDetId
 FWCoreUtilities
 )
 
+cms_rootdict(DataFormatsEcalDetId src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsEcalDetId)

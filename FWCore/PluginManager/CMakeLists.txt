@@ -11,7 +11,7 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-add_library(FWCorePluginManager SHARED ${FWCorePluginManager_EXTRA_SOURCES}
+add_library(FWCorePluginManager SHARED 
   src/CacheParser.cc
   src/PluginCapabilities.cc
   src/PluginFactoryBase.cc
@@ -30,7 +30,7 @@ add_dependencies( ALL_LIBS FWCorePluginManager)
 install( TARGETS FWCorePluginManager DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR} EXPORT stitched::)
 
 target_link_libraries(FWCorePluginManager PUBLIC
-${TBB_LIBRARIES}
+TBB::tbb
 FWCoreUtilities
 ROOT::Core
 ROOT::MathCore

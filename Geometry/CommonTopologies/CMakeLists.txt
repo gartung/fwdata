@@ -16,7 +16,7 @@ ${VDT_INCLUDE_DIR}
 /usr/include
 )
 
-add_library(GeometryCommonTopologies SHARED ${GeometryCommonTopologies_EXTRA_SOURCES}
+add_library(GeometryCommonTopologies SHARED 
   src/BowedSurfaceDeformation.cc
   src/CSCRadialStripTopology.cc
   src/ES_TrackingGeometry.cc

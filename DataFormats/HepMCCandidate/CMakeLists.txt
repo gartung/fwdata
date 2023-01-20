@@ -14,11 +14,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsHepMCCandidate src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsHepMCCandidate)
 
-add_library(DataFormatsHepMCCandidate SHARED ${DataFormatsHepMCCandidate_EXTRA_SOURCES}
+add_library(DataFormatsHepMCCandidate SHARED 
   src/FlavorHistory.cc
   src/FlavorHistoryEvent.cc
   src/GenParticle.cc
@@ -46,3 +44,5 @@ ROOT::Thread
 ROOT::Tree
 )
 
+cms_rootdict(DataFormatsHepMCCandidate src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsHepMCCandidate)

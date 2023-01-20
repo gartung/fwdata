@@ -14,11 +14,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsLuminosity src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsLuminosity)
 
-add_library(DataFormatsLuminosity SHARED ${DataFormatsLuminosity_EXTRA_SOURCES}
+add_library(DataFormatsLuminosity SHARED 
   src/BeamCurrentInfo.cc
   src/LumiDetails.cc
   src/LumiInfo.cc
@@ -40,3 +38,5 @@ DataFormatsMath
 FWCoreUtilities
 )
 
+cms_rootdict(DataFormatsLuminosity src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsLuminosity)

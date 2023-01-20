@@ -15,11 +15,9 @@ ${HLS_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsL1Trigger src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsL1Trigger)
 
-add_library(DataFormatsL1Trigger SHARED ${DataFormatsL1Trigger_EXTRA_SOURCES}
+add_library(DataFormatsL1Trigger SHARED 
   src/CaloSpare.cc
   src/EGamma.cc
   src/EtSum.cc
@@ -60,3 +58,5 @@ DataFormatsL1GlobalMuonTrigger
 FWCoreConcurrency
 )
 
+cms_rootdict(DataFormatsL1Trigger src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsL1Trigger)

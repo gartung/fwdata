@@ -5,12 +5,11 @@ ${Boost_INCLUDE_DIR}/python
 ${FMT_INCLUDE_DIR}
 ${CMSMD5_INCLUDE_DIR}
 ${Python_INCLUDE_DIR}
-${TBB_INCLUDE_DIRS}
 ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-add_library(FWCoreUtilities SHARED ${FWCoreUtilities_EXTRA_SOURCES}
+add_library(FWCoreUtilities SHARED 
   src/Adler32Calculator.cc
   src/ChildrenCPUTimer.cc
   src/ConvertException.cc
@@ -61,12 +60,11 @@ install( TARGETS FWCoreUtilities DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMAKE_INS
 
 target_link_libraries(FWCoreUtilities PUBLIC
 ${CMSMD5_LIBRARY}
-${TBB_LIBRARIES}
+TBB::tbb
 ${UUID_LIBRARIES}
 ${Boost_REGEX_LIBRARY_RELEASE}
 ${CRYPT}
 ${DL}
-${NSL}
 ${RT}
 fmt::fmt
 stdc++fs

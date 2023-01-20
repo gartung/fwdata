@@ -16,11 +16,9 @@ ${VDT_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsVertexReco src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsVertexReco)
 
-add_library(DataFormatsVertexReco SHARED ${DataFormatsVertexReco_EXTRA_SOURCES}
+add_library(DataFormatsVertexReco SHARED 
   src/Vertex.cc
 )
 
@@ -36,3 +34,5 @@ DataFormatsCommon
 DataFormatsTrackReco
 )
 
+cms_rootdict(DataFormatsVertexReco src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsVertexReco)

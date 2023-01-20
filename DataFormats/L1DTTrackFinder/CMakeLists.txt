@@ -12,11 +12,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsL1DTTrackFinder src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsL1DTTrackFinder)
 
-add_library(DataFormatsL1DTTrackFinder SHARED ${DataFormatsL1DTTrackFinder_EXTRA_SOURCES}
+add_library(DataFormatsL1DTTrackFinder SHARED 
   src/L1MuDTChambPhContainer.cc
   src/L1MuDTChambPhDigi.cc
   src/L1MuDTChambThContainer.cc
@@ -45,3 +43,5 @@ DataFormatsCommon
 DataFormatsL1GlobalMuonTrigger
 )
 
+cms_rootdict(DataFormatsL1DTTrackFinder src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsL1DTTrackFinder)

@@ -12,11 +12,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(SimDataFormatsTrackerDigiSimLink src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(SimDataFormatsTrackerDigiSimLink)
 
-add_library(SimDataFormatsTrackerDigiSimLink SHARED ${SimDataFormatsTrackerDigiSimLink_EXTRA_SOURCES}
+add_library(SimDataFormatsTrackerDigiSimLink SHARED 
   src/PixelDigiSimLink.cc
   src/StripCompactDigiSimLinks.cc
   src/StripDigiSimLink.cc
@@ -38,3 +36,5 @@ ${NSL}
 ${RT}
 )
 
+cms_rootdict(SimDataFormatsTrackerDigiSimLink src/classes.h src/classes_def.xml)
+add_rootdict_rules(SimDataFormatsTrackerDigiSimLink)

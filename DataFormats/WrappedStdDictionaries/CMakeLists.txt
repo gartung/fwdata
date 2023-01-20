@@ -12,11 +12,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsWrappedStdDictionaries src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsWrappedStdDictionaries)
 
-add_library(DataFormatsWrappedStdDictionaries SHARED ${DataFormatsWrappedStdDictionaries_EXTRA_SOURCES})
+add_library(DataFormatsWrappedStdDictionaries SHARED )
 
 set_target_properties(DataFormatsWrappedStdDictionaries PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
@@ -30,3 +28,5 @@ DataFormatsCommon
 )
 
 
+cms_rootdict(DataFormatsWrappedStdDictionaries src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsWrappedStdDictionaries)

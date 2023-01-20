@@ -18,11 +18,9 @@ ${XZ_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsRecoCandidate src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsRecoCandidate)
 
-add_library(DataFormatsRecoCandidate SHARED ${DataFormatsRecoCandidate_EXTRA_SOURCES}
+add_library(DataFormatsRecoCandidate SHARED 
   src/CaloRecHitCandidate.cc
   src/IsoDeposit.cc
   src/IsoDepositVetos.cc
@@ -54,3 +52,5 @@ DataFormatsTrackReco
 SimDataFormatsTrackingAnalysis
 )
 
+cms_rootdict(DataFormatsRecoCandidate src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsRecoCandidate)

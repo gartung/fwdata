@@ -16,11 +16,9 @@ ${VDT_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsTrackingRecHit src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsTrackingRecHit)
 
-add_library(DataFormatsTrackingRecHit SHARED ${DataFormatsTrackingRecHit_EXTRA_SOURCES}
+add_library(DataFormatsTrackingRecHit SHARED 
   src/InvalidTrackingRecHit.cc
   src/KfComponentsHolder.cc
   src/RecHit1D.cc
@@ -54,3 +52,5 @@ ROOT::Thread
 ROOT::Tree
 )
 
+cms_rootdict(DataFormatsTrackingRecHit src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsTrackingRecHit)

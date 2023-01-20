@@ -12,11 +12,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsSiStripCommon src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsSiStripCommon)
 
-add_library(DataFormatsSiStripCommon SHARED ${DataFormatsSiStripCommon_EXTRA_SOURCES}
+add_library(DataFormatsSiStripCommon SHARED 
   src/SiStripConstants.cc
   src/SiStripDetKey.cc
   src/SiStripEnumsAndStrings.cc
@@ -41,3 +39,5 @@ DataFormatsSiStripDetId
 FWCoreMessageLogger
 )
 
+cms_rootdict(DataFormatsSiStripCommon src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsSiStripCommon)

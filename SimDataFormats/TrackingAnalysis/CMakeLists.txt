@@ -18,11 +18,9 @@ ${XZ_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(SimDataFormatsTrackingAnalysis src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(SimDataFormatsTrackingAnalysis)
 
-add_library(SimDataFormatsTrackingAnalysis SHARED ${SimDataFormatsTrackingAnalysis_EXTRA_SOURCES}
+add_library(SimDataFormatsTrackingAnalysis SHARED 
   src/TrackingParticle.cc
   src/TrackingVertex.cc
 )
@@ -45,3 +43,5 @@ SimDataFormatsTrack
 SimDataFormatsVertex
 )
 
+cms_rootdict(SimDataFormatsTrackingAnalysis src/classes.h src/classes_def.xml)
+add_rootdict_rules(SimDataFormatsTrackingAnalysis)

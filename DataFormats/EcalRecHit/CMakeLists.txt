@@ -14,11 +14,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsEcalRecHit src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsEcalRecHit)
 
-add_library(DataFormatsEcalRecHit SHARED ${DataFormatsEcalRecHit_EXTRA_SOURCES}
+add_library(DataFormatsEcalRecHit SHARED 
   src/EcalRecHit.cc
   src/EcalUncalibratedRecHit.cc
 )
@@ -37,3 +35,5 @@ DataFormatsEcalDetId
 DataFormatsEcalDigi
 )
 
+cms_rootdict(DataFormatsEcalRecHit src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsEcalRecHit)

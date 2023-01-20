@@ -14,11 +14,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(SimDataFormatsCaloHit src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(SimDataFormatsCaloHit)
 
-add_library(SimDataFormatsCaloHit SHARED ${SimDataFormatsCaloHit_EXTRA_SOURCES}
+add_library(SimDataFormatsCaloHit SHARED 
   src/CaloHit.cc
   src/CastorShowerEvent.cc
   src/CastorShowerLibraryInfo.cc
@@ -42,3 +40,5 @@ DataFormatsMath
 SimDataFormatsEncodedEventId
 )
 
+cms_rootdict(SimDataFormatsCaloHit src/classes.h src/classes_def.xml)
+add_rootdict_rules(SimDataFormatsCaloHit)

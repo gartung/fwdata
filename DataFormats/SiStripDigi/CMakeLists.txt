@@ -12,11 +12,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsSiStripDigi src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsSiStripDigi)
 
-add_library(DataFormatsSiStripDigi SHARED ${DataFormatsSiStripDigi_EXTRA_SOURCES}
+add_library(DataFormatsSiStripDigi SHARED 
   src/SiStripDigi.cc
 )
 
@@ -31,3 +29,5 @@ ROOT::Core
 DataFormatsCommon
 )
 
+cms_rootdict(DataFormatsSiStripDigi src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsSiStripDigi)

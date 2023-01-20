@@ -16,11 +16,9 @@ ${VDT_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsFTLRecHit src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsFTLRecHit)
 
-add_library(DataFormatsFTLRecHit SHARED ${DataFormatsFTLRecHit_EXTRA_SOURCES}
+add_library(DataFormatsFTLRecHit SHARED 
   src/FTLCluster.cc
   src/FTLRecHit.cc
   src/FTLTrackingRecHit.cc
@@ -42,3 +40,5 @@ DataFormatsForwardDetId
 DataFormatsTrackingRecHit
 )
 
+cms_rootdict(DataFormatsFTLRecHit src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsFTLRecHit)

@@ -16,11 +16,9 @@ ${VDT_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsGEMRecHit src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsGEMRecHit)
 
-add_library(DataFormatsGEMRecHit SHARED ${DataFormatsGEMRecHit_EXTRA_SOURCES}
+add_library(DataFormatsGEMRecHit SHARED 
   src/GEMCSCSegment.cc
   src/GEMRecHit.cc
   src/GEMSegment.cc
@@ -43,3 +41,5 @@ DataFormatsTrackingRecHit
 ROOT::Core
 )
 
+cms_rootdict(DataFormatsGEMRecHit src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsGEMRecHit)

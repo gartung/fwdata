@@ -15,11 +15,9 @@ ${HLS_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsL1TrackTrigger src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsL1TrackTrigger)
 
-add_library(DataFormatsL1TrackTrigger SHARED ${DataFormatsL1Trigger_EXTRA_SOURCES}
+add_library(DataFormatsL1TrackTrigger SHARED 
    src/TTCluster.cc
    src/TTDTC.cc
    src/TTTrack.cc
@@ -39,3 +37,5 @@ DataFormatsHcalDetId
 FWCoreConcurrency
 )
 
+cms_rootdict(DataFormatsL1TrackTrigger src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsL1TrackTrigger)

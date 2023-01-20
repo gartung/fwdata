@@ -15,11 +15,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(CondFormatsAlignment src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(CondFormatsAlignment)
 
-add_library(CondFormatsAlignment SHARED ${CondFormatsAlignment_EXTRA_SOURCES}
+add_library(CondFormatsAlignment SHARED 
   src/DetectorGlobalPosition.cc
   src/T_EventSetup_Alignment.cc
   src/T_EventSetup_AlignmentError.cc
@@ -62,3 +60,5 @@ ${NSL}
 ${RT}
 )
 
+cms_rootdict(CondFormatsAlignment src/classes.h src/classes_def.xml)
+add_rootdict_rules(CondFormatsAlignment)

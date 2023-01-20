@@ -16,11 +16,9 @@ ${VDT_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsCSCDigi src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsCSCDigi)
 
-add_library(DataFormatsCSCDigi SHARED ${DataFormatsCSCDigi_EXTRA_SOURCES}
+add_library(DataFormatsCSCDigi SHARED 
   src/CSCALCTDigi.cc
   src/CSCALCTPreTriggerDigi.cc
   src/CSCALCTStatusDigi.cc
@@ -53,3 +51,5 @@ DataFormatsGEMDigi
 DataFormatsMuonDetId
 )
 
+cms_rootdict(DataFormatsCSCDigi src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsCSCDigi)

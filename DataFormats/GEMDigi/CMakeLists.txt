@@ -16,11 +16,9 @@ ${VDT_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsGEMDigi src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsGEMDigi)
 
-add_library(DataFormatsGEMDigi SHARED ${DataFormatsGEMDigi_EXTRA_SOURCES}
+add_library(DataFormatsGEMDigi SHARED 
   src/AMC13Event.cc
   src/AMCdata.cc
   src/GEMAMC.cc
@@ -52,3 +50,5 @@ DataFormatsGEMRecHit
 DataFormatsMuonDetId
 )
 
+cms_rootdict(DataFormatsGEMDigi src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsGEMDigi)

@@ -12,11 +12,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsMuonDetId src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsMuonDetId)
 
-add_library(DataFormatsMuonDetId SHARED ${DataFormatsMuonDetId_EXTRA_SOURCES}
+add_library(DataFormatsMuonDetId SHARED 
   src/CSCDetId.cc
   src/CSCIndexer.cc
   src/CSCTriggerNumbering.cc
@@ -43,3 +41,5 @@ DataFormatsDetId
 FWCoreUtilities
 )
 
+cms_rootdict(DataFormatsMuonDetId src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsMuonDetId)

@@ -15,7 +15,7 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-add_library(GeometryCaloGeometry SHARED ${GeometryCaloGeometry_EXTRA_SOURCES}
+add_library(GeometryCaloGeometry SHARED 
   src/CaloCellCrossing.cc
   src/CaloCellGeometry.cc
   src/CaloGenericDetId.cc

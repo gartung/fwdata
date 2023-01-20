@@ -12,11 +12,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(SimDataFormatsDigiSimLinks src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(SimDataFormatsDigiSimLinks)
 
-add_library(SimDataFormatsDigiSimLinks SHARED ${SimDataFormatsDigiSimLinks_EXTRA_SOURCES}
+add_library(SimDataFormatsDigiSimLinks SHARED 
   src/DTDigiSimLink.cc
 )
 
@@ -37,3 +35,5 @@ ${NSL}
 ${RT}
 )
 
+cms_rootdict(SimDataFormatsDigiSimLinks src/classes.h src/classes_def.xml)
+add_rootdict_rules(SimDataFormatsDigiSimLinks)

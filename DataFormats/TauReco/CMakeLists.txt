@@ -18,17 +18,12 @@ ${XZ_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsTauReco src/classes_1.h src/classes_def_1.xml)
 
-cms_rootdict(DataFormatsTauReco src/classes_2.h src/classes_def_2.xml)
 
-cms_rootdict(DataFormatsTauReco src/classes_3.h src/classes_def_3.xml)
 
-cms_rootdict(DataFormatsTauReco src/classes_hlt.h src/classes_def_hlt.xml)
 
-add_rootdict_rules(DataFormatsTauReco)
 
-add_library(DataFormatsTauReco SHARED ${DataFormatsTauReco_EXTRA_SOURCES}
+add_library(DataFormatsTauReco SHARED 
   src/BaseTau.cc
   src/BaseTauTagInfo.cc
   src/PFRecoTauChargedHadron.cc
@@ -57,3 +52,5 @@ DataFormatsRecoCandidate
 DataFormatsTrackReco
 )
 
+cms_rootdict(DataFormatsTauReco src/classes_hlt.h src/classes_def_hlt.xml)
+add_rootdict_rules(DataFormatsTauReco)

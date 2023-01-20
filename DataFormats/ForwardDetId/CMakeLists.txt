@@ -12,11 +12,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsForwardDetId src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsForwardDetId)
 
-add_library(DataFormatsForwardDetId SHARED ${DataFormatsForwardDetId_EXTRA_SOURCES}
+add_library(DataFormatsForwardDetId SHARED 
   src/BTLDetId.cc
   src/ETLDetId.cc
   src/FastTimeDetId.cc
@@ -47,3 +45,5 @@ DataFormatsDetId
 FWCoreUtilities
 )
 
+cms_rootdict(DataFormatsForwardDetId src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsForwardDetId)

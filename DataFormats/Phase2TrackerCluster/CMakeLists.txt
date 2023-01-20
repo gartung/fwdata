@@ -12,11 +12,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsPhase2TrackerCluster src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsPhase2TrackerCluster)
 
-add_library(DataFormatsPhase2TrackerCluster SHARED ${DataFormatsPhase2TrackerCluster_EXTRA_SOURCES})
+add_library(DataFormatsPhase2TrackerCluster SHARED )
 
 set_target_properties(DataFormatsPhase2TrackerCluster PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
@@ -32,3 +30,5 @@ ROOT::Core
 )
 
 
+cms_rootdict(DataFormatsPhase2TrackerCluster src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsPhase2TrackerCluster)

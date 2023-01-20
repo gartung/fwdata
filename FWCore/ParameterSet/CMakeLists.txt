@@ -12,7 +12,7 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-add_library(FWCoreParameterSet SHARED ${FWCoreParameterSet_EXTRA_SOURCES}
+add_library(FWCoreParameterSet SHARED 
   src/ANDGroupDescription.cc
   src/AllowedLabelsDescription.cc
   src/AllowedLabelsDescriptionBase.cc
@@ -55,7 +55,7 @@ add_dependencies( ALL_LIBS FWCoreParameterSet)
 install( TARGETS FWCoreParameterSet DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR} EXPORT stitched::)
 
 target_link_libraries(FWCoreParameterSet PUBLIC
-${TBB_LIBRARIES}
+TBB::tbb
 ${Boost_FILESYSTEM_LIBRARY_RELEASE}
 ${Boost_SYSTEM_LIBRARY_RELEASE}
 DataFormatsProvenance

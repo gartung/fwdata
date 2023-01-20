@@ -14,11 +14,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsHGCRecHit src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsHGCRecHit)
 
-add_library(DataFormatsHGCRecHit SHARED ${DataFormatsHGCRecHit_EXTRA_SOURCES}
+add_library(DataFormatsHGCRecHit SHARED 
   src/HGCRecHit.cc
   src/HGCUncalibratedRecHit.cc
 )
@@ -37,3 +35,5 @@ DataFormatsForwardDetId
 DataFormatsHcalDetId
 )
 
+cms_rootdict(DataFormatsHGCRecHit src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsHGCRecHit)

@@ -18,11 +18,9 @@ ${XZ_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsMuonReco src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsMuonReco)
 
-add_library(DataFormatsMuonReco SHARED ${DataFormatsMuonReco_EXTRA_SOURCES}
+add_library(DataFormatsMuonReco SHARED 
   src/CaloMuon.cc
   src/DYTInfo.cc
   src/Muon.cc
@@ -58,3 +56,5 @@ ROOT::Thread
 ROOT::Tree
 )
 
+cms_rootdict(DataFormatsMuonReco src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsMuonReco)

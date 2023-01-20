@@ -12,11 +12,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsHcalDetId src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsHcalDetId)
 
-add_library(DataFormatsHcalDetId SHARED ${DataFormatsHcalDetId_EXTRA_SOURCES}
+add_library(DataFormatsHcalDetId SHARED 
   src/CastorElectronicsId.cc
   src/HcalCalibDetId.cc
   src/HcalCastorDetId.cc
@@ -43,3 +41,5 @@ DataFormatsDetId
 FWCoreUtilities
 )
 
+cms_rootdict(DataFormatsHcalDetId src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsHcalDetId)

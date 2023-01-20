@@ -16,11 +16,9 @@ ${VDT_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsTrackCandidate src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsTrackCandidate)
 
-add_library(DataFormatsTrackCandidate SHARED ${DataFormatsTrackCandidate_EXTRA_SOURCES}
+add_library(DataFormatsTrackCandidate SHARED 
   src/TrajectoryStopReasons.cc
 )
 
@@ -51,3 +49,5 @@ ROOT::Thread
 ROOT::Tree
 )
 
+cms_rootdict(DataFormatsTrackCandidate src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsTrackCandidate)

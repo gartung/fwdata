@@ -16,11 +16,9 @@ ${VDT_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsRPCRecHit src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsRPCRecHit)
 
-add_library(DataFormatsRPCRecHit SHARED ${DataFormatsRPCRecHit_EXTRA_SOURCES}
+add_library(DataFormatsRPCRecHit SHARED 
   src/RPCRecHit.cc
 )
 
@@ -37,3 +35,5 @@ DataFormatsMuonDetId
 DataFormatsTrackingRecHit
 )
 
+cms_rootdict(DataFormatsRPCRecHit src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsRPCRecHit)

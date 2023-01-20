@@ -12,11 +12,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsTCDS src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsTCDS)
 
-add_library(DataFormatsTCDS SHARED ${DataFormatsTCDS_EXTRA_SOURCES}
+add_library(DataFormatsTCDS SHARED 
   src/BSTRecord.cc
   src/L1aInfo.cc
   src/TCDSRecord.cc
@@ -34,3 +32,5 @@ DataFormatsCommon
 DataFormatsFEDRawData
 )
 
+cms_rootdict(DataFormatsTCDS src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsTCDS)

@@ -12,11 +12,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsSiPixelCluster src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsSiPixelCluster)
 
-add_library(DataFormatsSiPixelCluster SHARED ${DataFormatsSiPixelCluster_EXTRA_SOURCES}
+add_library(DataFormatsSiPixelCluster SHARED 
   src/SiPixelCluster.cc
   src/SiPixelClusterShapeCache.cc
 )
@@ -32,3 +30,5 @@ ROOT::Core
 DataFormatsCommon
 )
 
+cms_rootdict(DataFormatsSiPixelCluster src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsSiPixelCluster)

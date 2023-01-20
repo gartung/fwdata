@@ -16,11 +16,9 @@ ${VDT_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsEgammaTrackReco src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsEgammaTrackReco)
 
-add_library(DataFormatsEgammaTrackReco SHARED ${DataFormatsEgammaTrackReco_EXTRA_SOURCES}
+add_library(DataFormatsEgammaTrackReco SHARED 
   src/ConversionTrack.cc
 )
 
@@ -40,3 +38,5 @@ DataFormatsTrackReco
 DataFormatsTrackingRecHit
 )
 
+cms_rootdict(DataFormatsEgammaTrackReco src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsEgammaTrackReco)

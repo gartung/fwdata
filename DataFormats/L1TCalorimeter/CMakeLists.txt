@@ -14,11 +14,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsL1TCalorimeter src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsL1TCalorimeter)
 
-add_library(DataFormatsL1TCalorimeter SHARED ${DataFormatsL1TCalorimeter_EXTRA_SOURCES}
+add_library(DataFormatsL1TCalorimeter SHARED 
   src/CaloCluster.cc
   src/CaloEmCand.cc
   src/CaloRegion.cc
@@ -37,3 +35,5 @@ ROOT::Core
 DataFormatsL1Trigger
 )
 
+cms_rootdict(DataFormatsL1TCalorimeter src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsL1TCalorimeter)

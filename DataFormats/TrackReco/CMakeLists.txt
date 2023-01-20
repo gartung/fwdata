@@ -16,11 +16,9 @@ ${VDT_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsTrackReco src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsTrackReco)
 
-add_library(DataFormatsTrackReco SHARED ${DataFormatsTrackReco_EXTRA_SOURCES}
+add_library(DataFormatsTrackReco SHARED 
   src/DeDxData.cc
   src/HitPattern.cc
   src/SeedStopReason.cc
@@ -70,3 +68,5 @@ ROOT::Thread
 ROOT::Tree
 )
 
+cms_rootdict(DataFormatsTrackReco src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsTrackReco)

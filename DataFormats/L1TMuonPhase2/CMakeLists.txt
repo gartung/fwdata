@@ -16,11 +16,9 @@ ${VDT_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsL1TMuonPhase2 src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsL1TMuonPhse2)
 
-add_library(DataFormatsL1TMuon SHARED ${DataFormatsL1TMuonPhase2_EXTRA_SOURCES}
+add_library(DataFormatsL1TMuon SHARED 
 )
 
 set_target_properties(DataFormatsL1TMuonPhase2 PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
@@ -39,3 +37,5 @@ DataFormatsMuonDetId
 ROOT::Core
 )
 
+cms_rootdict(DataFormatsL1TMuonPhase2 src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsL1TMuonPhse2)

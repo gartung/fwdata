@@ -12,11 +12,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsDetId src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsDetId)
 
-add_library(DataFormatsDetId SHARED ${DataFormatsDetId_EXTRA_SOURCES}
+add_library(DataFormatsDetId SHARED 
   src/DetId.cc
 )
 
@@ -31,3 +29,5 @@ ROOT::Core
 DataFormatsCommon
 )
 
+cms_rootdict(DataFormatsDetId src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsDetId)

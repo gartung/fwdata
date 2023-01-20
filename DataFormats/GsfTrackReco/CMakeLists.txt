@@ -16,11 +16,9 @@ ${VDT_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsGsfTrackReco src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsGsfTrackReco)
 
-add_library(DataFormatsGsfTrackReco SHARED ${DataFormatsGsfTrackReco_EXTRA_SOURCES}
+add_library(DataFormatsGsfTrackReco SHARED 
   src/GsfComponent5D.cc
   src/GsfTrack.cc
   src/GsfTrackExtra.cc
@@ -38,3 +36,5 @@ DataFormatsCommon
 DataFormatsTrackReco
 )
 
+cms_rootdict(DataFormatsGsfTrackReco src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsGsfTrackReco)

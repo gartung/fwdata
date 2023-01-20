@@ -14,11 +14,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsCTPPSReco src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsCTPPSReco)
 
-add_library(DataFormatsCTPPSReco SHARED ${DataFormatsCTPPSReco_EXTRA_SOURCES}
+add_library(DataFormatsCTPPSReco SHARED 
   src/CTPPSDiamondLocalTrack.cc
   src/CTPPSPixelLocalTrack.cc
   src/CTPPSTimingLocalTrack.cc
@@ -52,3 +50,5 @@ ROOT::Thread
 ROOT::Tree
 )
 
+cms_rootdict(DataFormatsCTPPSReco src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsCTPPSReco)

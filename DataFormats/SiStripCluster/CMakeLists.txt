@@ -14,11 +14,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsSiStripCluster src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsSiStripCluster)
 
-add_library(DataFormatsSiStripCluster SHARED ${DataFormatsSiStripCluster_EXTRA_SOURCES}
+add_library(DataFormatsSiStripCluster SHARED 
   src/SiStripCluster.cc
 )
 
@@ -42,3 +40,5 @@ ROOT::Thread
 ROOT::Tree
 )
 
+cms_rootdict(DataFormatsSiStripCluster src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsSiStripCluster)

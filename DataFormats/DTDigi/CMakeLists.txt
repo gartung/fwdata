@@ -12,11 +12,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsDTDigi src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsDTDigi)
 
-add_library(DataFormatsDTDigi SHARED ${DataFormatsDTDigi_EXTRA_SOURCES}
+add_library(DataFormatsDTDigi SHARED 
   src/DTDigi.cc
   src/DTLocalTrigger.cc
 )
@@ -34,3 +32,5 @@ DataFormatsFEDRawData
 DataFormatsMuonDetId
 )
 
+cms_rootdict(DataFormatsDTDigi src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsDTDigi)

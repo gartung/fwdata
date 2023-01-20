@@ -14,11 +14,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsGeometrySurface src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsGeometrySurface)
 
-add_library(DataFormatsGeometrySurface SHARED ${DataFormatsGeometrySurface_EXTRA_SOURCES}
+add_library(DataFormatsGeometrySurface SHARED 
   src/BoundCylinder.cc
   src/BoundDisk.cc
   src/BoundPlane.cc
@@ -54,3 +52,5 @@ ${NSL}
 ${RT}
 )
 
+cms_rootdict(DataFormatsGeometrySurface src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsGeometrySurface)

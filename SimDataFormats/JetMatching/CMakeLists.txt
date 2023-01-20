@@ -18,11 +18,9 @@ ${XZ_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(SimDataFormatsJetMatching src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(SimDataFormatsJetMatching)
 
-add_library(SimDataFormatsJetMatching SHARED ${SimDataFormatsJetMatching_EXTRA_SOURCES})
+add_library(SimDataFormatsJetMatching SHARED )
 
 set_target_properties(SimDataFormatsJetMatching PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
@@ -38,3 +36,5 @@ DataFormatsJetReco
 )
 
 
+cms_rootdict(SimDataFormatsJetMatching src/classes.h src/classes_def.xml)
+add_rootdict_rules(SimDataFormatsJetMatching)

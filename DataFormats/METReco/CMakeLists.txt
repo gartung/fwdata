@@ -18,11 +18,9 @@ ${XZ_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsMETReco src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsMETReco)
 
-add_library(DataFormatsMETReco SHARED ${DataFormatsMETReco_EXTRA_SOURCES}
+add_library(DataFormatsMETReco SHARED 
   src/BeamHaloSummary.cc
   src/CSCHaloData.cc
   src/CaloMET.cc
@@ -68,3 +66,5 @@ ROOT::Thread
 ROOT::Tree
 )
 
+cms_rootdict(DataFormatsMETReco src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsMETReco)

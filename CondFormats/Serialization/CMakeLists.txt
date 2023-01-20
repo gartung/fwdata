@@ -3,7 +3,7 @@ include_directories(${CMAKE_SOURCE_DIR}
 ${Boost_INCLUDE_DIR}
 )
 
-add_library(CondFormatsSerialization SHARED ${CondFormatsSerialization_EXTRA_SOURCES}
+add_library(CondFormatsSerialization SHARED 
   src/templateInstantiations.cc
 )
 

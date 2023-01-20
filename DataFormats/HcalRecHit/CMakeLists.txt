@@ -14,11 +14,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsHcalRecHit src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsHcalRecHit)
 
-add_library(DataFormatsHcalRecHit SHARED ${DataFormatsHcalRecHit_EXTRA_SOURCES}
+add_library(DataFormatsHcalRecHit SHARED 
   src/CastorRecHit.cc
   src/HBHEChannelInfo.cc
   src/HBHERecHit.cc
@@ -45,3 +43,5 @@ DataFormatsHcalDetId
 DataFormatsHcalDigi
 )
 
+cms_rootdict(DataFormatsHcalRecHit src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsHcalRecHit)

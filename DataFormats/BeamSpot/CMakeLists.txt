@@ -15,11 +15,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsBeamSpot src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsBeamSpot)
 
-add_library(DataFormatsBeamSpot SHARED ${DataFormatsBeamSpot_EXTRA_SOURCES}
+add_library(DataFormatsBeamSpot SHARED 
   src/BeamSpot.cc
 )
 
@@ -46,3 +44,5 @@ ROOT::Thread
 ROOT::Tree
 )
 
+cms_rootdict(DataFormatsBeamSpot src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsBeamSpot)

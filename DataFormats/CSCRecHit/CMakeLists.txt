@@ -16,11 +16,9 @@ ${VDT_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsCSCRecHit src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsCSCRecHit)
 
-add_library(DataFormatsCSCRecHit SHARED ${DataFormatsCSCRecHit_EXTRA_SOURCES}
+add_library(DataFormatsCSCRecHit SHARED 
   src/CSCRangeMapAccessor.cc
   src/CSCRecHit2D.cc
   src/CSCSegment.cc
@@ -39,3 +37,5 @@ DataFormatsMuonDetId
 DataFormatsTrackingRecHit
 )
 
+cms_rootdict(DataFormatsCSCRecHit src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsCSCRecHit)

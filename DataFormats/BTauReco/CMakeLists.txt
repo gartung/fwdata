@@ -18,11 +18,9 @@ ${XZ_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsBTauReco src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsBTauReco)
 
-add_library(DataFormatsBTauReco SHARED ${DataFormatsBTauReco_EXTRA_SOURCES}
+add_library(DataFormatsBTauReco SHARED 
   src/IsolatedTauTagInfo.cc
   src/TaggingVariable.cc
   src/TauImpactParameterInfo.cc
@@ -61,3 +59,5 @@ ${NSL}
 ${RT}
 )
 
+cms_rootdict(DataFormatsBTauReco src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsBTauReco)

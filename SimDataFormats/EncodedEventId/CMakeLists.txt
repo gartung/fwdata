@@ -7,11 +7,9 @@ ${ROOT_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(SimDataFormatsEncodedEventId src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(SimDataFormatsEncodedEventId)
 
-add_library(SimDataFormatsEncodedEventId SHARED ${SimDataFormatsEncodedEventId_EXTRA_SOURCES}
+add_library(SimDataFormatsEncodedEventId SHARED 
   src/EncodedEventId.cc
 )
 
@@ -35,3 +33,5 @@ ${NSL}
 ${RT}
 )
 
+cms_rootdict(SimDataFormatsEncodedEventId src/classes.h src/classes_def.xml)
+add_rootdict_rules(SimDataFormatsEncodedEventId)

@@ -15,11 +15,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsCLHEP src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsCLHEP)
 
-add_library(DataFormatsCLHEP SHARED ${DataFormatsCLHEP_EXTRA_SOURCES})
+add_library(DataFormatsCLHEP SHARED )
 
 set_target_properties(DataFormatsCLHEP PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
@@ -42,3 +40,5 @@ ROOT::Tree
 )
 
 
+cms_rootdict(DataFormatsCLHEP src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsCLHEP)

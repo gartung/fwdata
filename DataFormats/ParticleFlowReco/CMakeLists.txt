@@ -18,13 +18,10 @@ ${XZ_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsParticleFlowReco src/classes_1.h src/classes_def_1.xml)
 
-cms_rootdict(DataFormatsParticleFlowReco src/classes_2.h src/classes_def_2.xml)
 
-add_rootdict_rules(DataFormatsParticleFlowReco)
 
-add_library(DataFormatsParticleFlowReco SHARED ${DataFormatsParticleFlowReco_EXTRA_SOURCES}
+add_library(DataFormatsParticleFlowReco SHARED 
   src/GsfPFRecTrack.cc
   src/HGCalMultiCluster.cc
   src/PFBlock.cc
@@ -89,3 +86,5 @@ ROOT::Thread
 ROOT::Tree
 )
 
+cms_rootdict(DataFormatsParticleFlowReco src/classes_2.h src/classes_def_2.xml)
+add_rootdict_rules(DataFormatsParticleFlowReco)

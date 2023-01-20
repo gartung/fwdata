@@ -12,7 +12,7 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-add_library(FWCoreMessageLogger SHARED ${FWCoreMessageLogger_EXTRA_SOURCES}
+add_library(FWCoreMessageLogger SHARED 
   src/AbstractMLscribe.cc
   src/edm_MessageLogger.cc
   src/ELextendedID.cc
@@ -35,7 +35,7 @@ install( TARGETS FWCoreMessageLogger DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMAKE
 
 target_link_libraries(FWCoreMessageLogger PUBLIC
 ROOT::Core
-${TBB_LIBRARIES}
+TBB::tbb
 ${TINYXML2_LIBRARY}
 DataFormatsProvenance
 FWCoreUtilities

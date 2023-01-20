@@ -14,11 +14,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(SimDataFormatsCrossingFrame src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(SimDataFormatsCrossingFrame)
 
-add_library(SimDataFormatsCrossingFrame SHARED ${SimDataFormatsCrossingFrame_EXTRA_SOURCES}
+add_library(SimDataFormatsCrossingFrame SHARED 
   src/CrossingFramePlaybackInfoNew.cc
   )
 
@@ -33,3 +31,5 @@ DataFormatsCommon
 SimDataFormatsEncodedEventId
 )
 
+cms_rootdict(SimDataFormatsCrossingFrame src/classes.h src/classes_def.xml)
+add_rootdict_rules(SimDataFormatsCrossingFrame)

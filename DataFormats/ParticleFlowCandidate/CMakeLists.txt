@@ -18,11 +18,9 @@ ${XZ_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsParticleFlowCandidate src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsParticleFlowCandidate)
 
-add_library(DataFormatsParticleFlowCandidate SHARED ${DataFormatsParticleFlowCandidate_EXTRA_SOURCES}
+add_library(DataFormatsParticleFlowCandidate SHARED 
   src/IsolatedPFCandidate.cc
   src/PFCandidate.cc
   src/PFCandidateEGammaExtra.cc
@@ -58,3 +56,5 @@ ROOT::Thread
 ROOT::Tree
 )
 
+cms_rootdict(DataFormatsParticleFlowCandidate src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsParticleFlowCandidate)

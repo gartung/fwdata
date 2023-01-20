@@ -16,11 +16,9 @@ ${VDT_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsL1CSCTrackFinder src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsL1CSCTrackFinder)
 
-add_library(DataFormatsL1CSCTrackFinder SHARED ${DataFormatsL1CSCTrackFinder_EXTRA_SOURCES}
+add_library(DataFormatsL1CSCTrackFinder SHARED 
   src/CSCTFConstants.cc
   src/L1Track.cc
   src/L1TrackId.cc
@@ -42,3 +40,5 @@ DataFormatsL1GlobalMuonTrigger
 DataFormatsMuonDetId
 )
 
+cms_rootdict(DataFormatsL1CSCTrackFinder src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsL1CSCTrackFinder)

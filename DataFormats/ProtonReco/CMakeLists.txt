@@ -14,11 +14,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsProtonReco src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsProtonReco)
 
-add_library(DataFormatsProtonReco SHARED ${DataFormatsProtonReco_EXTRA_SOURCES}
+add_library(DataFormatsProtonReco SHARED 
   src/ForwardProton.cc
 )
 
@@ -34,3 +32,5 @@ DataFormatsCTPPSReco
 DataFormatsCommon
 )
 
+cms_rootdict(DataFormatsProtonReco src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsProtonReco)

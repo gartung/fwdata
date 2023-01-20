@@ -15,11 +15,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(SimDataFormatsPileupSummaryInfo src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(SimDataFormatsPileupSummaryInfo)
 
-add_library(SimDataFormatsPileupSummaryInfo SHARED ${SimDataFormatsPileupSummaryInfo_EXTRA_SOURCES}
+add_library(SimDataFormatsPileupSummaryInfo SHARED 
   src/PileupSummaryInfo.cc
 )
 
@@ -37,3 +35,5 @@ DataFormatsMath
 DataFormatsProvenance
 )
 
+cms_rootdict(SimDataFormatsPileupSummaryInfo src/classes.h src/classes_def.xml)
+add_rootdict_rules(SimDataFormatsPileupSummaryInfo)

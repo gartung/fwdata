@@ -16,11 +16,9 @@ ${VDT_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsTrackerRecHit2D src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsTrackerRecHit2D)
 
-add_library(DataFormatsTrackerRecHit2D SHARED ${DataFormatsTrackerRecHit2D_EXTRA_SOURCES}
+add_library(DataFormatsTrackerRecHit2D SHARED 
   src/BaseTrackerRecHit.cc
   src/ClusterRemovalInfo.cc
   src/FastMatchedTrackerRecHit.cc
@@ -72,3 +70,5 @@ ROOT::Thread
 ROOT::Tree
 )
 
+cms_rootdict(DataFormatsTrackerRecHit2D src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsTrackerRecHit2D)

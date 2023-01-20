@@ -18,17 +18,12 @@ ${XZ_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsPatCandidates src/classes_objects.h src/classes_def_objects.xml)
 
-cms_rootdict(DataFormatsPatCandidates src/classes_other.h src/classes_def_other.xml)
 
-cms_rootdict(DataFormatsPatCandidates src/classes_trigger.h src/classes_def_trigger.xml)
 
-cms_rootdict(DataFormatsPatCandidates src/classes_user.h src/classes_def_user.xml)
 
-add_rootdict_rules(DataFormatsPatCandidates)
 
-add_library(DataFormatsPatCandidates SHARED ${DataFormatsPatCandidates_EXTRA_SOURCES}
+add_library(DataFormatsPatCandidates SHARED 
   src/CandKinResolution.cc
   src/CompositeCandidate.cc
   src/Conversion.cc
@@ -125,3 +120,5 @@ ${NSL}
 ${RT}
 )
 
+cms_rootdict(DataFormatsPatCandidates src/classes_user.h src/classes_def_user.xml)
+add_rootdict_rules(DataFormatsPatCandidates)

@@ -19,11 +19,9 @@ ${XZ_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsHLTReco src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsHLTReco)
 
-add_library(DataFormatsHLTReco SHARED ${DataFormatsHLTReco_EXTRA_SOURCES}
+add_library(DataFormatsHLTReco SHARED 
   src/HLTPerformanceInfo.cc
 )
 
@@ -47,3 +45,5 @@ DataFormatsTauReco
 FWCoreUtilities
 )
 
+cms_rootdict(DataFormatsHLTReco src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsHLTReco)

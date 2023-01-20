@@ -14,11 +14,9 @@ ${XZ_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(SimDataFormatsGeneratorProducts src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(SimDataFormatsGeneratorProducts)
 
-add_library(SimDataFormatsGeneratorProducts SHARED ${SimDataFormatsGeneratorProducts_EXTRA_SOURCES}
+add_library(SimDataFormatsGeneratorProducts SHARED 
   src/GenEventInfoProduct.cc
   src/GenFilterInfo.cc
   src/GenLumiInfoHeader.cc
@@ -54,3 +52,5 @@ ROOT::Tree
 lzma
 )
 
+cms_rootdict(SimDataFormatsGeneratorProducts src/classes.h src/classes_def.xml)
+add_rootdict_rules(SimDataFormatsGeneratorProducts)

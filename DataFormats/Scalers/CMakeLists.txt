@@ -12,11 +12,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsScalers src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsScalers)
 
-add_library(DataFormatsScalers SHARED ${DataFormatsScalers_EXTRA_SOURCES}
+add_library(DataFormatsScalers SHARED 
   src/BeamSpotOnline.cc
   src/DcsStatus.cc
   src/L1AcceptBunchCrossing.cc
@@ -39,3 +37,5 @@ ROOT::Core
 DataFormatsCommon
 )
 
+cms_rootdict(DataFormatsScalers src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsScalers)

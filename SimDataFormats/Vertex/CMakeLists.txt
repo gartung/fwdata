@@ -14,11 +14,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(SimDataFormatsVertex src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(SimDataFormatsVertex)
 
-add_library(SimDataFormatsVertex SHARED ${SimDataFormatsVertex_EXTRA_SOURCES}
+add_library(SimDataFormatsVertex SHARED 
   src/CoreSimVertex.cc
   src/SimVertex.cc
 )
@@ -36,3 +34,5 @@ DataFormatsMath
 SimDataFormatsEncodedEventId
 )
 
+cms_rootdict(SimDataFormatsVertex src/classes.h src/classes_def.xml)
+add_rootdict_rules(SimDataFormatsVertex)

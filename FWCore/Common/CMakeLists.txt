@@ -12,11 +12,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(FWCoreCommon src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(FWCoreCommon)
 
-add_library(FWCoreCommon SHARED ${FWCoreCommon_EXTRA_SOURCES}
+add_library(FWCoreCommon SHARED 
   src/EventBase.cc
   src/LuminosityBlockBase.cc
   src/OutputProcessBlockHelper.cc
@@ -43,3 +41,5 @@ FWCoreParameterSet
 FWCoreUtilities
 )
 
+cms_rootdict(FWCoreCommon src/classes.h src/classes_def.xml)
+add_rootdict_rules(FWCoreCommon)

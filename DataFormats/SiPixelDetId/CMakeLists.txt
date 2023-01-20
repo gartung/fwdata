@@ -12,11 +12,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsSiPixelDetId src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsSiPixelDetId)
 
-add_library(DataFormatsSiPixelDetId SHARED ${DataFormatsSiPixelDetId_EXTRA_SOURCES}
+add_library(DataFormatsSiPixelDetId SHARED 
   src/ES_PixelFEDChannelCollectionMap.cc
   src/PXBDetId.cc
   src/PXFDetId.cc
@@ -38,3 +36,5 @@ FWCoreMessageLogger
 FWCoreUtilities
 )
 
+cms_rootdict(DataFormatsSiPixelDetId src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsSiPixelDetId)

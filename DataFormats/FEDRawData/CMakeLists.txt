@@ -12,11 +12,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsFEDRawData src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsFEDRawData)
 
-add_library(DataFormatsFEDRawData SHARED ${DataFormatsFEDRawData_EXTRA_SOURCES}
+add_library(DataFormatsFEDRawData SHARED 
   src/FEDHeader.cc
   src/FEDNumbering.cc
   src/FEDRawData.cc
@@ -36,3 +34,5 @@ DataFormatsCommon
 FWCoreUtilities
 )
 
+cms_rootdict(DataFormatsFEDRawData src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsFEDRawData)

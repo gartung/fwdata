@@ -12,11 +12,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsEcalDigi src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsEcalDigi)
 
-add_library(DataFormatsEcalDigi SHARED ${DataFormatsEcalDigi_EXTRA_SOURCES}
+add_library(DataFormatsEcalDigi SHARED 
   src/EBDataFrame.cc
   src/EBSrFlag.cc
   src/EEDataFrame.cc
@@ -52,3 +50,5 @@ DataFormatsCommon
 DataFormatsEcalDetId
 )
 
+cms_rootdict(DataFormatsEcalDigi src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsEcalDigi)

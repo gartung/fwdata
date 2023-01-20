@@ -14,11 +14,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsMath src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsMath)
 
-add_library(DataFormatsMath SHARED ${DataFormatsMath_EXTRA_SOURCES}
+add_library(DataFormatsMath SHARED 
   src/ExtVec.cc
   src/FastMath.cc
   src/SSEVec.cc
@@ -44,3 +42,5 @@ ROOT::Thread
 ROOT::Tree
 )
 
+cms_rootdict(DataFormatsMath src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsMath)

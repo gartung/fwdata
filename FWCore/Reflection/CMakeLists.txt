@@ -11,7 +11,7 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-add_library(FWCoreReflection SHARED ${FWCoreReflection_EXTRA_SOURCES}
+add_library(FWCoreReflection SHARED 
   src/BaseWithDict.cc
   src/DictionaryTools.cc
   src/FunctionWithDict.cc

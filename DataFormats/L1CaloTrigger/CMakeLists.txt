@@ -12,11 +12,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsL1CaloTrigger src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsL1CaloTrigger)
 
-add_library(DataFormatsL1CaloTrigger SHARED ${DataFormatsL1CaloTrigger_EXTRA_SOURCES}
+add_library(DataFormatsL1CaloTrigger SHARED 
   src/L1CaloEmCand.cc
   src/L1CaloMipQuietRegion.cc
   src/L1CaloRegion.cc
@@ -35,3 +33,5 @@ DataFormatsCommon
 DataFormatsDetId
 )
 
+cms_rootdict(DataFormatsL1CaloTrigger src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsL1CaloTrigger)

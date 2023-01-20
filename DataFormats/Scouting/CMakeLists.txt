@@ -18,11 +18,9 @@ ${XZ_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsScouting src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsScouting)
 
-add_library(DataFormatsScouting SHARED ${DataFormatsScouting_EXTRA_SOURCES})
+add_library(DataFormatsScouting SHARED )
 
 set_target_properties(DataFormatsScouting PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
@@ -34,3 +32,5 @@ target_link_libraries(DataFormatsScouting PUBLIC
 DataFormatsCommon
 )
 
+cms_rootdict(DataFormatsScouting src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsScouting)

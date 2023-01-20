@@ -14,11 +14,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(SimDataFormatsTrack src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(SimDataFormatsTrack)
 
-add_library(SimDataFormatsTrack SHARED ${SimDataFormatsTrack_EXTRA_SOURCES}
+add_library(SimDataFormatsTrack SHARED 
   src/CoreSimTrack.cc
   src/SimTrack.cc
 )
@@ -36,3 +34,5 @@ DataFormatsMath
 SimDataFormatsEncodedEventId
 )
 
+cms_rootdict(SimDataFormatsTrack src/classes.h src/classes_def.xml)
+add_rootdict_rules(SimDataFormatsTrack)

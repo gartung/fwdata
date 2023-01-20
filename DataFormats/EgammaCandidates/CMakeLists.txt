@@ -18,11 +18,9 @@ ${XZ_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsEgammaCandidates src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsEgammaCandidates)
 
-add_library(DataFormatsEgammaCandidates SHARED ${DataFormatsEgammaCandidates_EXTRA_SOURCES}
+add_library(DataFormatsEgammaCandidates SHARED 
   src/Conversion.cc
   src/Electron.cc
   src/GsfElectron.cc
@@ -65,3 +63,5 @@ ROOT::Thread
 ROOT::Tree
 )
 
+cms_rootdict(DataFormatsEgammaCandidates src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsEgammaCandidates)

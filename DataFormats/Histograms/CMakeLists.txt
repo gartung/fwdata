@@ -18,11 +18,9 @@ ${XZ_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsHistorgrams src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsHistorgrams)
 
-add_library(DataFormatsHistorgrams SHARED ${DataFormatsHistorgrams_EXTRA_SOURCES})
+add_library(DataFormatsHistorgrams SHARED )
 
 set_target_properties(DataFormatsHistorgrams PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
@@ -36,3 +34,5 @@ ROOT::Matrix
 DataFormatsCommon
 )
 
+cms_rootdict(DataFormatsHistorgrams src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsHistorgrams)

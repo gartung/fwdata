@@ -16,11 +16,9 @@ ${VDT_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsEgammaReco src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsEgammaReco)
 
-add_library(DataFormatsEgammaReco SHARED ${DataFormatsEgammaReco_EXTRA_SOURCES}
+add_library(DataFormatsEgammaReco SHARED 
   src/BasicCluster.cc
   src/ClusterShape.cc
   src/EgammaTrigger.cc
@@ -61,3 +59,5 @@ ROOT::Thread
 ROOT::Tree
 )
 
+cms_rootdict(DataFormatsEgammaReco src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsEgammaReco)

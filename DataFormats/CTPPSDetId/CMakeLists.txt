@@ -12,11 +12,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsCTPPSDetId src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsCTPPSDetId)
 
-add_library(DataFormatsCTPPSDetId SHARED ${DataFormatsCTPPSDetId_EXTRA_SOURCES}
+add_library(DataFormatsCTPPSDetId SHARED 
   src/CTPPSDetId.cc
   src/CTPPSDiamondDetId.cc
   src/CTPPSPixelDetId.cc
@@ -35,3 +33,5 @@ ROOT::Core
 DataFormatsDetId
 )
 
+cms_rootdict(DataFormatsCTPPSDetId src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsCTPPSDetId)

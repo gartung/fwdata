@@ -16,11 +16,9 @@ ${VDT_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsDTRecHit src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsDTRecHit)
 
-add_library(DataFormatsDTRecHit SHARED ${DataFormatsDTRecHit_EXTRA_SOURCES}
+add_library(DataFormatsDTRecHit SHARED 
   src/DTChamberRecSegment2D.cc
   src/DTEnums.cc
   src/DTRangeMapAccessor.cc
@@ -49,3 +47,5 @@ DataFormatsTrackingRecHit
 FWCoreUtilities
 )
 
+cms_rootdict(DataFormatsDTRecHit src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsDTRecHit)

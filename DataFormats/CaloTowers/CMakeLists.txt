@@ -14,11 +14,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsCaloTowers src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsCaloTowers)
 
-add_library(DataFormatsCaloTowers SHARED ${DataFormatsCaloTowers_EXTRA_SOURCES}
+add_library(DataFormatsCaloTowers SHARED 
   src/CaloTower.cc
   src/CaloTowerDetId.cc
 )
@@ -40,3 +38,5 @@ DataFormatsMath
 FWCoreUtilities
 )
 
+cms_rootdict(DataFormatsCaloTowers src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsCaloTowers)

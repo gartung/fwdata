@@ -12,11 +12,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsOnlineMetaData src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsOnlineMetaData)
 
-add_library(DataFormatsOnlineMetaData SHARED ${DataFormatsOnlineMetaData_EXTRA_SOURCES}
+add_library(DataFormatsOnlineMetaData SHARED 
   src/CTPPSRecord.cc
   src/DCSRecord.cc
   src/OnlineLuminosityRecord.cc
@@ -33,3 +31,5 @@ ROOT::Core
 DataFormatsCommon
 )
 
+cms_rootdict(DataFormatsOnlineMetaData src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsOnlineMetaData)

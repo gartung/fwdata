@@ -15,11 +15,9 @@ ${UUID_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsGeometryCommonDetAlgo src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsGeometryCommonDetAlgo)
 
-add_library(DataFormatsGeometryCommonDetAlgo SHARED ${DataFormatsGeometryCommonDetAlgo_EXTRA_SOURCES}
+add_library(DataFormatsGeometryCommonDetAlgo SHARED 
   src/AlignmentPositionError.cc
   src/PerpendicularBoundPlaneBuilder.cc
   src/TransverseBoundPlaneFactory.cc
@@ -50,3 +48,5 @@ ROOT::Thread
 ROOT::Tree
 )
 
+cms_rootdict(DataFormatsGeometryCommonDetAlgo src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsGeometryCommonDetAlgo)

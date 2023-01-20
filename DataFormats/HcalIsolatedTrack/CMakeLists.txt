@@ -18,11 +18,9 @@ ${XZ_INCLUDE_DIR}
 /usr/include
 )
 
-cms_rootdict(DataFormatsHcalIsolatedTrack src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsHcalIsolatedTrack)
 
-add_library(DataFormatsHcalIsolatedTrack SHARED ${DataFormatsHcalIsolatedTrack_EXTRA_SOURCES}
+add_library(DataFormatsHcalIsolatedTrack SHARED 
   src/EcalIsolatedParticleCandidate.cc
   src/HcalIsolatedTrackCandidate.cc
   src/IsolatedPixelTrackCandidate.cc
@@ -44,3 +42,5 @@ DataFormatsRecoCandidate
 DataFormatsTrackReco
 )
 
+cms_rootdict(DataFormatsHcalIsolatedTrack src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsHcalIsolatedTrack)
