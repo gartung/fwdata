@@ -35,6 +35,7 @@ set_target_properties(SimDataFormatsGeneratorProducts PROPERTIES LIBRARY_OUTPUT_
 
 install( TARGETS SimDataFormatsGeneratorProducts DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR} EXPORT stitched::)
 
+target_include_directories(SimDataFormatsGeneratorProducts PUBLIC ${HEPMC_INCLUDE_DIR})
 target_link_libraries(SimDataFormatsGeneratorProducts PUBLIC
 ROOT::Core
 ${HEPMC_HepMC_LIBRARY}
@@ -52,5 +53,7 @@ ROOT::Tree
 lzma
 )
 
+#the build rule deals with auto_ptr which is deprecated
+target_compile_options(SimDataFormatsGeneratorProducts PRIVATE "-Wno-deprecated-declarations")
 cms_rootdict(SimDataFormatsGeneratorProducts src/classes.h src/classes_def.xml)
 add_rootdict_rules(SimDataFormatsGeneratorProducts)
