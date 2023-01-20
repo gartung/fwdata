@@ -1,15 +1,5 @@
 #target.symbol FWCoreMessageLogger
 include_directories(${CMAKE_SOURCE_DIR}
-${Boost_INCLUDE_DIR}
-${Boost_INCLUDE_DIR}/python
-${FMT_INCLUDE_DIR}
-${CMSMD5_INCLUDE_DIR}
-${Python_INCLUDE_DIR}
-${ROOT_INCLUDE_DIR}
-${TBB_INCLUDE_DIRS}
-${TINYXML2_INCLUDE_DIR}
-${UUID_INCLUDE_DIR}
-/usr/include
 )
 
 add_library(FWCoreMessageLogger SHARED 
@@ -33,6 +23,7 @@ set_target_properties(FWCoreMessageLogger PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${
 
 install( TARGETS FWCoreMessageLogger DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR} EXPORT stitched::)
 
+target_include_directories(FWCoreMessageLogger PRIVATE ${TINYXML2_INCLUDE_DIR})
 target_link_libraries(FWCoreMessageLogger PUBLIC
 ROOT::Core
 TBB::tbb
@@ -42,7 +33,6 @@ FWCoreUtilities
 fmt::fmt
 ${CRYPT}
 ${DL}
-${NSL}
 ${RT}
 )
 

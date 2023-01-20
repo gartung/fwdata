@@ -1,12 +1,5 @@
 #target.symbol FWCoreUtilities
 include_directories(${CMAKE_SOURCE_DIR}
-${Boost_INCLUDE_DIR}
-${Boost_INCLUDE_DIR}/python
-${FMT_INCLUDE_DIR}
-${CMSMD5_INCLUDE_DIR}
-${Python_INCLUDE_DIR}
-${UUID_INCLUDE_DIR}
-/usr/include
 )
 
 add_library(FWCoreUtilities SHARED 
@@ -52,6 +45,8 @@ add_library(FWCoreUtilities SHARED
   src/WrappedClassName.cc
 )
 
+target_include_directories(FWCoreUtilities PUBLIC ${CMSMD5_INCLUDE_DIR})
+
 set_target_properties(FWCoreUtilities PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
 add_dependencies( ALL_LIBS FWCoreUtilities)
@@ -62,7 +57,7 @@ target_link_libraries(FWCoreUtilities PUBLIC
 ${CMSMD5_LIBRARY}
 TBB::tbb
 ${UUID_LIBRARIES}
-${Boost_REGEX_LIBRARY_RELEASE}
+Boost::regex
 ${CRYPT}
 ${DL}
 ${RT}

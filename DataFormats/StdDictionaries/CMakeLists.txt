@@ -1,6 +1,5 @@
 #target.symbol DataFormatsStdDictionaries
 include_directories(${CMAKE_SOURCE_DIR}
-${ROOT_INCLUDE_DIR}
 )
 
 

@@ -1,17 +1,5 @@
 #target.symbol DataFormatsMath
 include_directories(${CMAKE_SOURCE_DIR}
-${Boost_INCLUDE_DIR}
-${Boost_INCLUDE_DIR}/python
-${EIGEN_INCLUDE_DIR}/eigen3
-${FMT_INCLUDE_DIR}
-${GSL_INCLUDE_DIR}
-${CMSMD5_INCLUDE_DIR}
-${Python_INCLUDE_DIR}
-${ROOT_INCLUDE_DIR}
-${TBB_INCLUDE_DIRS}
-${TINYXML2_INCLUDE_DIR}
-${UUID_INCLUDE_DIR}
-/usr/include
 )
 
 
@@ -29,6 +17,7 @@ set_target_properties(DataFormatsMath PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAK
 
 install( TARGETS DataFormatsMath DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR} EXPORT stitched::)
 
+target_include_directories(DataFormatsMath PUBLIC ${EIGEN_INCLUDE_DIR}/eigen3)
 target_link_libraries(DataFormatsMath PUBLIC
 ROOT::Core
 DataFormatsCommon

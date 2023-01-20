@@ -1,15 +1,5 @@
 #target.symbol FWCoreParameterSet
 include_directories(${CMAKE_SOURCE_DIR}
-${Boost_INCLUDE_DIR}
-${Boost_INCLUDE_DIR}/python
-${FMT_INCLUDE_DIR}
-${CMSMD5_INCLUDE_DIR}
-${Python_INCLUDE_DIR}
-${ROOT_INCLUDE_DIR}
-${TBB_INCLUDE_DIRS}
-${TINYXML2_INCLUDE_DIR}
-${UUID_INCLUDE_DIR}
-/usr/include
 )
 
 add_library(FWCoreParameterSet SHARED 
@@ -56,15 +46,14 @@ install( TARGETS FWCoreParameterSet DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMAKE_
 
 target_link_libraries(FWCoreParameterSet PUBLIC
 TBB::tbb
-${Boost_FILESYSTEM_LIBRARY_RELEASE}
-${Boost_SYSTEM_LIBRARY_RELEASE}
+Boost::filesystem
+Boost::system
 DataFormatsProvenance
 FWCoreMessageLogger
 FWCorePluginManager
 FWCoreUtilities
 ${CRYPT}
 ${DL}
-${NSL}
 ${RT}
 )
 

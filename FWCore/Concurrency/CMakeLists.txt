@@ -1,13 +1,5 @@
 #target.symbol FWCoreConcurrency
 include_directories(${CMAKE_SOURCE_DIR}
-${Boost_INCLUDE_DIR}
-${Boost_INCLUDE_DIR}/python
-${FMT_INCLUDE_DIR}
-${CMSMD5_INCLUDE_DIR}
-${Python_INCLUDE_DIR}
-${TBB_INCLUDE_DIRS}
-${UUID_INCLUDE_DIR}
-/usr/include
 )
 
 add_library(FWCoreConcurrency SHARED 

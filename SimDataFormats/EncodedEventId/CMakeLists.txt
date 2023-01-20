@@ -1,10 +1,5 @@
 #target.symbol SimDataFormatsEncodedEventId
 include_directories(${CMAKE_SOURCE_DIR}
-${Boost_INCLUDE_DIR}
-${Boost_INCLUDE_DIR}/python
-${Python_INCLUDE_DIR}
-${ROOT_INCLUDE_DIR}
-/usr/include
 )
 
 
@@ -29,7 +24,6 @@ ROOT::Thread
 ROOT::Tree
 ${CRYPT}
 ${DL}
-${NSL}
 ${RT}
 )
 
