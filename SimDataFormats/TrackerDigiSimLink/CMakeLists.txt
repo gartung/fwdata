@@ -1,22 +1,10 @@
 #target.symbol SimDataFormatsTrackerDigiSimLink
 include_directories(${CMAKE_SOURCE_DIR}
-${Boost_INCLUDE_DIR}
-${Boost_INCLUDE_DIR}/python
-${FMT_INCLUDE_DIR}
-${CMSMD5_INCLUDE_DIR}
-${Python_INCLUDE_DIR}
-${ROOT_INCLUDE_DIR}
-${TBB_INCLUDE_DIRS}
-${TINYXML2_INCLUDE_DIR}
-${UUID_INCLUDE_DIR}
-/usr/include
 )
 
-cms_rootdict(SimDataFormatsTrackerDigiSimLink src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(SimDataFormatsTrackerDigiSimLink)
 
-add_library(SimDataFormatsTrackerDigiSimLink SHARED ${SimDataFormatsTrackerDigiSimLink_EXTRA_SOURCES}
+add_library(SimDataFormatsTrackerDigiSimLink SHARED 
   src/PixelDigiSimLink.cc
   src/StripCompactDigiSimLinks.cc
   src/StripDigiSimLink.cc
@@ -34,7 +22,8 @@ DataFormatsCommon
 SimDataFormatsEncodedEventId
 ${CRYPT}
 ${DL}
-${NSL}
 ${RT}
 )
 
+cms_rootdict(SimDataFormatsTrackerDigiSimLink src/classes.h src/classes_def.xml)
+add_rootdict_rules(SimDataFormatsTrackerDigiSimLink)

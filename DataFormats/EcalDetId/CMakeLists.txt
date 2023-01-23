@@ -1,22 +1,10 @@
 #target.symbol DataFormatsEcalDetId
 include_directories(${CMAKE_SOURCE_DIR}
-${Boost_INCLUDE_DIR}
-${Boost_INCLUDE_DIR}/python
-${FMT_INCLUDE_DIR}
-${CMSMD5_INCLUDE_DIR}
-${Python_INCLUDE_DIR}
-${ROOT_INCLUDE_DIR}
-${TBB_INCLUDE_DIRS}
-${TINYXML2_INCLUDE_DIR}
-${UUID_INCLUDE_DIR}
-/usr/include
 )
 
-cms_rootdict(DataFormatsEcalDetId src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsEcalDetId)
 
-add_library(DataFormatsEcalDetId SHARED ${DataFormatsEcalDetId_EXTRA_SOURCES}
+add_library(DataFormatsEcalDetId SHARED 
   src/EBDetId.cc
   src/EEDetId.cc
   src/ESDetId.cc
@@ -40,3 +28,5 @@ DataFormatsDetId
 FWCoreUtilities
 )
 
+cms_rootdict(DataFormatsEcalDetId src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsEcalDetId)

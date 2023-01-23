@@ -1,22 +1,10 @@
 #target.symbol DataFormatsSiStripDetId
 include_directories(${CMAKE_SOURCE_DIR}
-${Boost_INCLUDE_DIR}
-${Boost_INCLUDE_DIR}/python
-${FMT_INCLUDE_DIR}
-${CMSMD5_INCLUDE_DIR}
-${Python_INCLUDE_DIR}
-${ROOT_INCLUDE_DIR}
-${TBB_INCLUDE_DIRS}
-${TINYXML2_INCLUDE_DIR}
-${UUID_INCLUDE_DIR}
-/usr/include
 )
 
-cms_rootdict(DataFormatsSiStripDetId src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsSiStripDetId)
 
-add_library(DataFormatsSiStripDetId SHARED ${DataFormatsSiStripDetId_EXTRA_SOURCES}
+add_library(DataFormatsSiStripDetId SHARED 
   src/SiStripDetId.cc
 )
 
@@ -31,3 +19,5 @@ ROOT::Core
 DataFormatsDetId
 )
 
+cms_rootdict(DataFormatsSiStripDetId src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsSiStripDetId)

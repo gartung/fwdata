@@ -1,21 +1,10 @@
 #target.symbol DataFormatsProvenance
 include_directories(${CMAKE_SOURCE_DIR}
-${Boost_INCLUDE_DIR}
-${Boost_INCLUDE_DIR}/python
-${FMT_INCLUDE_DIR}
-${CMSMD5_INCLUDE_DIR}
-${Python_INCLUDE_DIR}
-${ROOT_INCLUDE_DIR}
-${TBB_INCLUDE_DIRS}
-${UUID_INCLUDE_DIR}
-/usr/include
 )
 
-cms_rootdict(DataFormatsProvenance src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsProvenance)
 
-add_library(DataFormatsProvenance SHARED ${DataFormatsProvenance_EXTRA_SOURCES}
+add_library(DataFormatsProvenance SHARED 
   src/BranchChildren.cc
   src/BranchDescription.cc
   src/BranchID.cc
@@ -78,7 +67,7 @@ install( TARGETS DataFormatsProvenance DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMA
 
 target_link_libraries(DataFormatsProvenance PUBLIC
 ROOT::Core
-${TBB_LIBRARIES}
+TBB::tbb
 FWCoreReflection
 FWCoreUtilities
 ROOT::Core
@@ -89,3 +78,5 @@ ROOT::Thread
 ROOT::Tree
 )
 
+cms_rootdict(DataFormatsProvenance src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsProvenance)

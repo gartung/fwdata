@@ -1,26 +1,10 @@
 #target.symbol DataFormatsTrackerRecHit2D
 include_directories(${CMAKE_SOURCE_DIR}
-${Boost_INCLUDE_DIR}
-${Boost_INCLUDE_DIR}/python
-${CLHEP_INCLUDE_DIR}
-${EIGEN_INCLUDE_DIR}/eigen3
-${FMT_INCLUDE_DIR}
-${GSL_INCLUDE_DIR}
-${CMSMD5_INCLUDE_DIR}
-${Python_INCLUDE_DIR}
-${ROOT_INCLUDE_DIR}
-${TBB_INCLUDE_DIRS}
-${TINYXML2_INCLUDE_DIR}
-${UUID_INCLUDE_DIR}
-${VDT_INCLUDE_DIR}
-/usr/include
 )
 
-cms_rootdict(DataFormatsTrackerRecHit2D src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsTrackerRecHit2D)
 
-add_library(DataFormatsTrackerRecHit2D SHARED ${DataFormatsTrackerRecHit2D_EXTRA_SOURCES}
+add_library(DataFormatsTrackerRecHit2D SHARED 
   src/BaseTrackerRecHit.cc
   src/ClusterRemovalInfo.cc
   src/FastMatchedTrackerRecHit.cc
@@ -72,3 +56,5 @@ ROOT::Thread
 ROOT::Tree
 )
 
+cms_rootdict(DataFormatsTrackerRecHit2D src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsTrackerRecHit2D)

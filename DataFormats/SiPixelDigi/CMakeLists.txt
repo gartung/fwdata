@@ -1,22 +1,10 @@
 #target.symbol DataFormatsSiPixelDigi
 include_directories(${CMAKE_SOURCE_DIR}
-${Boost_INCLUDE_DIR}
-${Boost_INCLUDE_DIR}/python
-${FMT_INCLUDE_DIR}
-${CMSMD5_INCLUDE_DIR}
-${Python_INCLUDE_DIR}
-${ROOT_INCLUDE_DIR}
-${TBB_INCLUDE_DIRS}
-${TINYXML2_INCLUDE_DIR}
-${UUID_INCLUDE_DIR}
-/usr/include
 )
 
-cms_rootdict(DataFormatsSiPixelDigi src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsSiPixelDigi)
 
-add_library(DataFormatsSiPixelDigi SHARED ${DataFormatsSiPixelDigi_EXTRA_SOURCES}
+add_library(DataFormatsSiPixelDigi SHARED 
   src/PixelDigiCollection.cc
   src/SiPixelCalibDigi.cc
   src/SiPixelCalibDigiError.cc
@@ -34,3 +22,5 @@ DataFormatsCommon
 DataFormatsSiPixelDetId
 )
 
+cms_rootdict(DataFormatsSiPixelDigi src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsSiPixelDigi)

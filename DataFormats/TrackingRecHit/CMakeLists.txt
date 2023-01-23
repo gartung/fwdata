@@ -1,26 +1,10 @@
 #target.symbol DataFormatsTrackingRecHit
 include_directories(${CMAKE_SOURCE_DIR}
-${Boost_INCLUDE_DIR}
-${Boost_INCLUDE_DIR}/python
-${CLHEP_INCLUDE_DIR}
-${EIGEN_INCLUDE_DIR}/eigen3
-${FMT_INCLUDE_DIR}
-${GSL_INCLUDE_DIR}
-${CMSMD5_INCLUDE_DIR}
-${Python_INCLUDE_DIR}
-${ROOT_INCLUDE_DIR}
-${TBB_INCLUDE_DIRS}
-${TINYXML2_INCLUDE_DIR}
-${UUID_INCLUDE_DIR}
-${VDT_INCLUDE_DIR}
-/usr/include
 )
 
-cms_rootdict(DataFormatsTrackingRecHit src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsTrackingRecHit)
 
-add_library(DataFormatsTrackingRecHit SHARED ${DataFormatsTrackingRecHit_EXTRA_SOURCES}
+add_library(DataFormatsTrackingRecHit SHARED 
   src/InvalidTrackingRecHit.cc
   src/KfComponentsHolder.cc
   src/RecHit1D.cc
@@ -54,3 +38,5 @@ ROOT::Thread
 ROOT::Tree
 )
 
+cms_rootdict(DataFormatsTrackingRecHit src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsTrackingRecHit)

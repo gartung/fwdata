@@ -1,16 +1,8 @@
 #target.symbol FWCoreConcurrency
 include_directories(${CMAKE_SOURCE_DIR}
-${Boost_INCLUDE_DIR}
-${Boost_INCLUDE_DIR}/python
-${FMT_INCLUDE_DIR}
-${CMSMD5_INCLUDE_DIR}
-${Python_INCLUDE_DIR}
-${TBB_INCLUDE_DIRS}
-${UUID_INCLUDE_DIR}
-/usr/include
 )
 
-add_library(FWCoreConcurrency SHARED ${FWCoreConcurrency_EXTRA_SOURCES}
+add_library(FWCoreConcurrency SHARED 
   src/SerialTaskQueue.cc
   src/SharedResourceNames.cc
   src/ThreadSafeOutputFileStream.cc
@@ -27,7 +19,7 @@ add_dependencies( ALL_LIBS FWCoreConcurrency)
 install( TARGETS FWCoreConcurrency DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR} EXPORT stitched::)
 
 target_link_libraries(FWCoreConcurrency PUBLIC
-${TBB_LIBRARIES}
+TBB::tbb
 FWCoreUtilities
 )
 

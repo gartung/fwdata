@@ -1,22 +1,10 @@
 #target.symbol DataFormatsL1DTTrackFinder
 include_directories(${CMAKE_SOURCE_DIR}
-${Boost_INCLUDE_DIR}
-${Boost_INCLUDE_DIR}/python
-${FMT_INCLUDE_DIR}
-${CMSMD5_INCLUDE_DIR}
-${Python_INCLUDE_DIR}
-${ROOT_INCLUDE_DIR}
-${TBB_INCLUDE_DIRS}
-${TINYXML2_INCLUDE_DIR}
-${UUID_INCLUDE_DIR}
-/usr/include
 )
 
-cms_rootdict(DataFormatsL1DTTrackFinder src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsL1DTTrackFinder)
 
-add_library(DataFormatsL1DTTrackFinder SHARED ${DataFormatsL1DTTrackFinder_EXTRA_SOURCES}
+add_library(DataFormatsL1DTTrackFinder SHARED 
   src/L1MuDTChambPhContainer.cc
   src/L1MuDTChambPhDigi.cc
   src/L1MuDTChambThContainer.cc
@@ -45,3 +33,5 @@ DataFormatsCommon
 DataFormatsL1GlobalMuonTrigger
 )
 
+cms_rootdict(DataFormatsL1DTTrackFinder src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsL1DTTrackFinder)

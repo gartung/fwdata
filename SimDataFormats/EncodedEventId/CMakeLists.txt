@@ -1,17 +1,10 @@
 #target.symbol SimDataFormatsEncodedEventId
 include_directories(${CMAKE_SOURCE_DIR}
-${Boost_INCLUDE_DIR}
-${Boost_INCLUDE_DIR}/python
-${Python_INCLUDE_DIR}
-${ROOT_INCLUDE_DIR}
-/usr/include
 )
 
-cms_rootdict(SimDataFormatsEncodedEventId src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(SimDataFormatsEncodedEventId)
 
-add_library(SimDataFormatsEncodedEventId SHARED ${SimDataFormatsEncodedEventId_EXTRA_SOURCES}
+add_library(SimDataFormatsEncodedEventId SHARED 
   src/EncodedEventId.cc
 )
 
@@ -31,7 +24,8 @@ ROOT::Thread
 ROOT::Tree
 ${CRYPT}
 ${DL}
-${NSL}
 ${RT}
 )
 
+cms_rootdict(SimDataFormatsEncodedEventId src/classes.h src/classes_def.xml)
+add_rootdict_rules(SimDataFormatsEncodedEventId)

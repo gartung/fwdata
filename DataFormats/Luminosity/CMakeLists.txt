@@ -1,24 +1,10 @@
 #target.symbol DataFormatsLuminosity
 include_directories(${CMAKE_SOURCE_DIR}
-${Boost_INCLUDE_DIR}
-${Boost_INCLUDE_DIR}/python
-${EIGEN_INCLUDE_DIR}/eigen3
-${FMT_INCLUDE_DIR}
-${GSL_INCLUDE_DIR}
-${CMSMD5_INCLUDE_DIR}
-${Python_INCLUDE_DIR}
-${ROOT_INCLUDE_DIR}
-${TBB_INCLUDE_DIRS}
-${TINYXML2_INCLUDE_DIR}
-${UUID_INCLUDE_DIR}
-/usr/include
 )
 
-cms_rootdict(DataFormatsLuminosity src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsLuminosity)
 
-add_library(DataFormatsLuminosity SHARED ${DataFormatsLuminosity_EXTRA_SOURCES}
+add_library(DataFormatsLuminosity SHARED 
   src/BeamCurrentInfo.cc
   src/LumiDetails.cc
   src/LumiInfo.cc
@@ -40,3 +26,5 @@ DataFormatsMath
 FWCoreUtilities
 )
 
+cms_rootdict(DataFormatsLuminosity src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsLuminosity)

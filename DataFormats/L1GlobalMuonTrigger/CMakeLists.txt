@@ -1,22 +1,10 @@
 #target.symbol DataFormatsL1GlobalMuonTrigger
 include_directories(${CMAKE_SOURCE_DIR}
-${Boost_INCLUDE_DIR}
-${Boost_INCLUDE_DIR}/python
-${FMT_INCLUDE_DIR}
-${CMSMD5_INCLUDE_DIR}
-${Python_INCLUDE_DIR}
-${ROOT_INCLUDE_DIR}
-${TBB_INCLUDE_DIRS}
-${TINYXML2_INCLUDE_DIR}
-${UUID_INCLUDE_DIR}
-/usr/include
 )
 
-cms_rootdict(DataFormatsL1GlobalMuonTrigger src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsL1GlobalMuonTrigger)
 
-add_library(DataFormatsL1GlobalMuonTrigger SHARED ${DataFormatsL1GlobalMuonTrigger_EXTRA_SOURCES}
+add_library(DataFormatsL1GlobalMuonTrigger SHARED 
   src/L1MuGMTCand.cc
   src/L1MuGMTExtendedCand.cc
   src/L1MuGMTReadoutCollection.cc
@@ -36,3 +24,5 @@ DataFormatsCommon
 FWCoreMessageLogger
 )
 
+cms_rootdict(DataFormatsL1GlobalMuonTrigger src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsL1GlobalMuonTrigger)

@@ -1,34 +1,13 @@
 #target.symbol DataFormatsPatCandidates
 include_directories(${CMAKE_SOURCE_DIR}
-${Boost_INCLUDE_DIR}
-${Boost_INCLUDE_DIR}/python
-${CLHEP_INCLUDE_DIR}
-${EIGEN_INCLUDE_DIR}/eigen3
-${FMT_INCLUDE_DIR}
-${GSL_INCLUDE_DIR}
-${HEPMC_INCLUDE_DIR}
-${CMSMD5_INCLUDE_DIR}
-${Python_INCLUDE_DIR}
-${ROOT_INCLUDE_DIR}
-${TBB_INCLUDE_DIRS}
-${TINYXML2_INCLUDE_DIR}
-${UUID_INCLUDE_DIR}
-${VDT_INCLUDE_DIR}
-${XZ_INCLUDE_DIR}
-/usr/include
 )
 
-cms_rootdict(DataFormatsPatCandidates src/classes_objects.h src/classes_def_objects.xml)
 
-cms_rootdict(DataFormatsPatCandidates src/classes_other.h src/classes_def_other.xml)
 
-cms_rootdict(DataFormatsPatCandidates src/classes_trigger.h src/classes_def_trigger.xml)
 
-cms_rootdict(DataFormatsPatCandidates src/classes_user.h src/classes_def_user.xml)
 
-add_rootdict_rules(DataFormatsPatCandidates)
 
-add_library(DataFormatsPatCandidates SHARED ${DataFormatsPatCandidates_EXTRA_SOURCES}
+add_library(DataFormatsPatCandidates SHARED 
   src/CandKinResolution.cc
   src/CompositeCandidate.cc
   src/Conversion.cc
@@ -121,7 +100,8 @@ ROOT::Tree
 SimDataFormatsJetMatching
 ${CRYPT}
 ${DL}
-${NSL}
 ${RT}
 )
 
+cms_rootdict(DataFormatsPatCandidates src/classes_user.h src/classes_def_user.xml)
+add_rootdict_rules(DataFormatsPatCandidates)

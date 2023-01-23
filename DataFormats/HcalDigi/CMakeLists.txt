@@ -1,22 +1,10 @@
 #target.symbol DataFormatsHcalDigi
 include_directories(${CMAKE_SOURCE_DIR}
-${Boost_INCLUDE_DIR}
-${Boost_INCLUDE_DIR}/python
-${FMT_INCLUDE_DIR}
-${CMSMD5_INCLUDE_DIR}
-${Python_INCLUDE_DIR}
-${ROOT_INCLUDE_DIR}
-${TBB_INCLUDE_DIRS}
-${TINYXML2_INCLUDE_DIR}
-${UUID_INCLUDE_DIR}
-/usr/include
 )
 
-cms_rootdict(DataFormatsHcalDigi src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsHcalDigi)
 
-add_library(DataFormatsHcalDigi SHARED ${DataFormatsHcalDigi_EXTRA_SOURCES}
+add_library(DataFormatsHcalDigi SHARED 
   src/CastorDataFrame.cc
   src/CastorTriggerPrimitiveDigi.cc
   src/HBHEDataFrame.cc
@@ -49,3 +37,5 @@ DataFormatsCommon
 DataFormatsHcalDetId
 )
 
+cms_rootdict(DataFormatsHcalDigi src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsHcalDigi)

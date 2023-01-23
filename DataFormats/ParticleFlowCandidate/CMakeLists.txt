@@ -1,28 +1,10 @@
 #target.symbol DataFormatsParticleFlowCandidate
 include_directories(${CMAKE_SOURCE_DIR}
-${Boost_INCLUDE_DIR}
-${Boost_INCLUDE_DIR}/python
-${CLHEP_INCLUDE_DIR}
-${EIGEN_INCLUDE_DIR}/eigen3
-${FMT_INCLUDE_DIR}
-${GSL_INCLUDE_DIR}
-${HEPMC_INCLUDE_DIR}
-${CMSMD5_INCLUDE_DIR}
-${Python_INCLUDE_DIR}
-${ROOT_INCLUDE_DIR}
-${TBB_INCLUDE_DIRS}
-${TINYXML2_INCLUDE_DIR}
-${UUID_INCLUDE_DIR}
-${VDT_INCLUDE_DIR}
-${XZ_INCLUDE_DIR}
-/usr/include
 )
 
-cms_rootdict(DataFormatsParticleFlowCandidate src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsParticleFlowCandidate)
 
-add_library(DataFormatsParticleFlowCandidate SHARED ${DataFormatsParticleFlowCandidate_EXTRA_SOURCES}
+add_library(DataFormatsParticleFlowCandidate SHARED 
   src/IsolatedPFCandidate.cc
   src/PFCandidate.cc
   src/PFCandidateEGammaExtra.cc
@@ -58,3 +40,5 @@ ROOT::Thread
 ROOT::Tree
 )
 
+cms_rootdict(DataFormatsParticleFlowCandidate src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsParticleFlowCandidate)

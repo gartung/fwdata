@@ -1,22 +1,10 @@
 #target.symbol DataFormatsL1GlobalCaloTrigger
 include_directories(${CMAKE_SOURCE_DIR}
-${Boost_INCLUDE_DIR}
-${Boost_INCLUDE_DIR}/python
-${FMT_INCLUDE_DIR}
-${CMSMD5_INCLUDE_DIR}
-${Python_INCLUDE_DIR}
-${ROOT_INCLUDE_DIR}
-${TBB_INCLUDE_DIRS}
-${TINYXML2_INCLUDE_DIR}
-${UUID_INCLUDE_DIR}
-/usr/include
 )
 
-cms_rootdict(DataFormatsL1GlobalCaloTrigger src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsL1GlobalCaloTrigger)
 
-add_library(DataFormatsL1GlobalCaloTrigger SHARED ${DataFormatsL1GlobalCaloTrigger_EXTRA_SOURCES}
+add_library(DataFormatsL1GlobalCaloTrigger SHARED 
   src/L1GctCand.cc
   src/L1GctEmCand.cc
   src/L1GctEtHad.cc
@@ -48,7 +36,8 @@ DataFormatsCommon
 DataFormatsL1CaloTrigger
 ${CRYPT}
 ${DL}
-${NSL}
 ${RT}
 )
 
+cms_rootdict(DataFormatsL1GlobalCaloTrigger src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsL1GlobalCaloTrigger)

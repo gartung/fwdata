@@ -1,30 +1,11 @@
 #target.symbol DataFormatsParticleFlowReco
 include_directories(${CMAKE_SOURCE_DIR}
-${Boost_INCLUDE_DIR}
-${Boost_INCLUDE_DIR}/python
-${CLHEP_INCLUDE_DIR}
-${EIGEN_INCLUDE_DIR}/eigen3
-${FMT_INCLUDE_DIR}
-${GSL_INCLUDE_DIR}
-${HEPMC_INCLUDE_DIR}
-${CMSMD5_INCLUDE_DIR}
-${Python_INCLUDE_DIR}
-${ROOT_INCLUDE_DIR}
-${TBB_INCLUDE_DIRS}
-${TINYXML2_INCLUDE_DIR}
-${UUID_INCLUDE_DIR}
-${VDT_INCLUDE_DIR}
-${XZ_INCLUDE_DIR}
-/usr/include
 )
 
-cms_rootdict(DataFormatsParticleFlowReco src/classes_1.h src/classes_def_1.xml)
 
-cms_rootdict(DataFormatsParticleFlowReco src/classes_2.h src/classes_def_2.xml)
 
-add_rootdict_rules(DataFormatsParticleFlowReco)
 
-add_library(DataFormatsParticleFlowReco SHARED ${DataFormatsParticleFlowReco_EXTRA_SOURCES}
+add_library(DataFormatsParticleFlowReco SHARED 
   src/GsfPFRecTrack.cc
   src/HGCalMultiCluster.cc
   src/PFBlock.cc
@@ -89,3 +70,5 @@ ROOT::Thread
 ROOT::Tree
 )
 
+cms_rootdict(DataFormatsParticleFlowReco src/classes_2.h src/classes_def_2.xml)
+add_rootdict_rules(DataFormatsParticleFlowReco)

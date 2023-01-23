@@ -1,24 +1,10 @@
 #target.symbol DataFormatsCaloRecHit
 include_directories(${CMAKE_SOURCE_DIR}
-${Boost_INCLUDE_DIR}
-${Boost_INCLUDE_DIR}/python
-${EIGEN_INCLUDE_DIR}/eigen3
-${FMT_INCLUDE_DIR}
-${GSL_INCLUDE_DIR}
-${CMSMD5_INCLUDE_DIR}
-${Python_INCLUDE_DIR}
-${ROOT_INCLUDE_DIR}
-${TBB_INCLUDE_DIRS}
-${TINYXML2_INCLUDE_DIR}
-${UUID_INCLUDE_DIR}
-/usr/include
 )
 
-cms_rootdict(DataFormatsCaloRecHit src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsCaloRecHit)
 
-add_library(DataFormatsCaloRecHit SHARED ${DataFormatsCaloRecHit_EXTRA_SOURCES}
+add_library(DataFormatsCaloRecHit SHARED 
   src/CaloCluster.cc
   src/CaloID.cc
   src/CaloRecHit.cc
@@ -45,3 +31,5 @@ ROOT::Thread
 ROOT::Tree
 )
 
+cms_rootdict(DataFormatsCaloRecHit src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsCaloRecHit)

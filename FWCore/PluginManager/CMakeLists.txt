@@ -1,17 +1,8 @@
 #target.symbol FWCorePluginManager
 include_directories(${CMAKE_SOURCE_DIR}
-${Boost_INCLUDE_DIR}
-${Boost_INCLUDE_DIR}/python
-${FMT_INCLUDE_DIR}
-${CMSMD5_INCLUDE_DIR}
-${Python_INCLUDE_DIR}
-${ROOT_INCLUDE_DIR}
-${TBB_INCLUDE_DIRS}
-${UUID_INCLUDE_DIR}
-/usr/include
 )
 
-add_library(FWCorePluginManager SHARED ${FWCorePluginManager_EXTRA_SOURCES}
+add_library(FWCorePluginManager SHARED 
   src/CacheParser.cc
   src/PluginCapabilities.cc
   src/PluginFactoryBase.cc
@@ -30,7 +21,7 @@ add_dependencies( ALL_LIBS FWCorePluginManager)
 install( TARGETS FWCorePluginManager DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR} EXPORT stitched::)
 
 target_link_libraries(FWCorePluginManager PUBLIC
-${TBB_LIBRARIES}
+TBB::tbb
 FWCoreUtilities
 ROOT::Core
 ROOT::MathCore
@@ -40,7 +31,6 @@ ROOT::Thread
 ROOT::Tree
 ${CRYPT}
 ${DL}
-${NSL}
 ${RT}
 stdc++fs
 )

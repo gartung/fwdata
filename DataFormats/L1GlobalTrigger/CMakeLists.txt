@@ -1,22 +1,10 @@
 #target.symbol DataFormatsL1GlobalTrigger
 include_directories(${CMAKE_SOURCE_DIR}
-${Boost_INCLUDE_DIR}
-${Boost_INCLUDE_DIR}/python
-${FMT_INCLUDE_DIR}
-${CMSMD5_INCLUDE_DIR}
-${Python_INCLUDE_DIR}
-${ROOT_INCLUDE_DIR}
-${TBB_INCLUDE_DIRS}
-${TINYXML2_INCLUDE_DIR}
-${UUID_INCLUDE_DIR}
-/usr/include
 )
 
-cms_rootdict(DataFormatsL1GlobalTrigger src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsL1GlobalTrigger)
 
-add_library(DataFormatsL1GlobalTrigger SHARED ${DataFormatsL1GlobalTrigger_EXTRA_SOURCES}
+add_library(DataFormatsL1GlobalTrigger SHARED 
   src/L1GlobalTriggerEvmReadoutRecord.cc
   src/L1GlobalTriggerObjectMap.cc
   src/L1GlobalTriggerObjectMapRecord.cc
@@ -51,7 +39,8 @@ FWCoreMessageLogger
 FWCoreUtilities
 ${CRYPT}
 ${DL}
-${NSL}
 ${RT}
 )
 
+cms_rootdict(DataFormatsL1GlobalTrigger src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsL1GlobalTrigger)

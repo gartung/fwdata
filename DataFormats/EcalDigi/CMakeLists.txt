@@ -1,22 +1,10 @@
 #target.symbol DataFormatsEcalDigi
 include_directories(${CMAKE_SOURCE_DIR}
-${Boost_INCLUDE_DIR}
-${Boost_INCLUDE_DIR}/python
-${FMT_INCLUDE_DIR}
-${CMSMD5_INCLUDE_DIR}
-${Python_INCLUDE_DIR}
-${ROOT_INCLUDE_DIR}
-${TBB_INCLUDE_DIRS}
-${TINYXML2_INCLUDE_DIR}
-${UUID_INCLUDE_DIR}
-/usr/include
 )
 
-cms_rootdict(DataFormatsEcalDigi src/classes.h src/classes_def.xml)
 
-add_rootdict_rules(DataFormatsEcalDigi)
 
-add_library(DataFormatsEcalDigi SHARED ${DataFormatsEcalDigi_EXTRA_SOURCES}
+add_library(DataFormatsEcalDigi SHARED 
   src/EBDataFrame.cc
   src/EBSrFlag.cc
   src/EEDataFrame.cc
@@ -52,3 +40,5 @@ DataFormatsCommon
 DataFormatsEcalDetId
 )
 
+cms_rootdict(DataFormatsEcalDigi src/classes.h src/classes_def.xml)
+add_rootdict_rules(DataFormatsEcalDigi)
